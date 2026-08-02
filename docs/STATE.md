@@ -4,13 +4,13 @@
 
 **Última atualização:** 01/08/2026
 **Fase atual:** Fase 1 — PWA multi-tenant (ver [`ROADMAP.md`](ROADMAP.md))
-**Épico atual:** F1-E05 concluído · próximo é F1-E06
+**Épico atual:** F1-E06 concluído · próximo é F1-E07
 
 ---
 
 ## Onde estamos
 
-O ferramental da Fase 1 está pronto, o design system também, `@gym/core` tem os tipos, as fórmulas de domínio e os contratos de repositório, com os adapters de `localStorage` implementados em `apps/web` — e agora populados com os dados de demonstração completos das três academias de [`SEED-DATA.md`](SEED-DATA.md). Falta construir as telas de verdade, começando pelo seletor de perfil e autenticação mockada.
+O ferramental da Fase 1 está pronto, o design system também, `@gym/core` tem os tipos, as fórmulas de domínio e os contratos de repositório, com os adapters de `localStorage` implementados em `apps/web` e populados com os dados de demonstração completos das três academias de [`SEED-DATA.md`](SEED-DATA.md). A primeira tela de verdade já existe: seletor de perfil, login, cadastro de aluno e de professor, modo demo e guard de rota, tudo funcional. Falta a identidade visual configurável (F1-E07) e depois as telas de conteúdo do aluno e do painel.
 
 O protótipo original (`prototype/Academia Whitelabel - Demo.html`) foi desempacotado, analisado por inteiro e traduzido em especificação: telas, fórmulas, modelo de dados e defeitos estão catalogados. O plano das três fases está fechado e as seis decisões de arquitetura estão registradas.
 
@@ -66,21 +66,31 @@ O protótipo original (`prototype/Academia Whitelabel - Demo.html`) foi desempac
   - Camila Reis existe como duas contas de `id` diferente (Gaviões e Iron House), mesmo e-mail — reproduzido como teste real em `seed.test.ts`, não só documentado
   - Dataset final: 3 academias, 13 usuários, 13 planos, 31 atribuições, ~1.800 `SetLog`, ~460 `LoadLog`, ~660 refeições — envelope inteiro em ~780 KB serializado, bem dentro do limite de 5 MB de `DATA-MODEL.md`
   - `npm run lint`, `typecheck`, `test` e `build` passam limpos
+- **F1-E06 · Seletor de perfil e autenticação mockada:**
+  - Duas dependências novas em `@gym/web`, ambas previstas na [ADR-0002](decisions/ADR-0002-stack-fase-1.md): `react-router-dom` (roteamento) e `zustand` (estado da sessão, reativo em cima de `storage/session-store.ts`)
+  - `apps/web/src/features/auth/`: `use-session.ts` (store Zustand — `login`/`logout` leem e gravam `gymapp:session`, estado inicial já vem do que sobreviveu ao reload), `actions.ts` (`login`, `registerStudent`, `registerTrainer` — só orquestram os repositórios de `@gym/core`, nenhuma regra nova), `validators.ts`, `slugify.ts`, `brand-presets.ts`, `apply-gym-theme.ts`, `audiences.ts` (mapeia `aluno`/`professor` para `Role` e as rotas de cada um), `use-session-account.ts` (carrega usuário + academia da sessão e aplica o tema — ver [WHITELABEL.md](WHITELABEL.md))
+  - Telas: `ProfileSelectScreen`, `LoginScreen` (rota `/entrar/:audience`), `StudentSignupScreen`, `TrainerSignupScreen` (entrar em academia existente ou criar uma nova), `DemoModeScreen` (só em `import.meta.env.DEV`, lista todas as contas seedadas por academia)
+  - Componente novo em `ui/`: `TextField` (label + erro acessível — não existia nenhum campo de texto no design system do F1-E02, só os 11 componentes que não precisavam de input livre)
+  - **A tela de login não pede a academia** (não está em [`UI-SPEC.md`](UI-SPEC.md), mas é consequência direta de "e-mail único só dentro da academia, não globalmente" de [`MULTI-TENANCY.md`](MULTI-TENANCY.md)): `login()` busca o e-mail em todas as academias, filtra por papel e senha; se bater em mais de uma (caso Camila Reis), a própria tela de login mostra um passo extra pedindo para escolher a conta — sem isso, Camila nunca conseguiria entrar digitando e-mail/senha, só pelo modo demo
+  - Cadastro do aluno não cria `StudentProfile` — só o `User`. `onboardedAt: null` documentado em `DATA-MODEL.md` é o sinal de "onboarding pendente"; como não existe perfil nenhum ainda logo após o cadastro, `findProfile` retornando `null` já *é* esse sinal, então criar um perfil provisório com valores inventados (sexo, idade, peso…) só para preencher o schema seria pior. Quem cria o `StudentProfile` de verdade é o onboarding (F1-E08)
+  - Cadastro do professor criando academia nova usa 5 presets de cor prontos (`brand-presets.ts`) em vez do cálculo de contraste por luminância — essa função é explicitamente F1-E07, mora em `@gym/core/theme` segundo `WHITELABEL.md`, e antecipá-la aqui duplicaria trabalho
+  - Guard de rota em `app/RequireRole.tsx`: sem sessão volta ao seletor; papel errado redireciona para a própria home (`/aluno` ou `/gym`), nunca para uma tela vazia — exatamente o que `MULTI-TENANCY.md#testes-obrigatórios-de-isolamento` pede
+  - `App.tsx` chama `seedIfEmpty()` uma vez na montagem (só então libera o router) e define as rotas; `/aluno` e `/gym` são as homes placeholder (`StudentHome`, `GymHome`) que só mostram a academia, o nome do usuário, o tema já aplicado e um botão Sair — o conteúdo de verdade é F1-E08 em diante. `Showcase` (F1-E02) continua acessível em `/showcase`, não some do app
+  - Testes novos: `features/auth/actions.test.ts` (login ambíguo do caso Camila Reis, senha errada, papel errado, e-mail duplicado só dentro da mesma academia, slug único quando duas academias novas têm o mesmo nome), `features/auth/use-session.test.ts` (sessão grava/limpa em `localStorage`; um teste usa `vi.resetModules()` para simular reload de verdade — importar o módulo de novo e conferir que ele lê a sessão que já estava salva), `app/RequireRole.test.tsx` (as quatro combinações do guard), `App.test.tsx` reescrito (semeia e abre no seletor de perfil)
+  - `npm run lint`, `typecheck`, `test` e `build` passam limpos. Sem `chromium-cli` disponível no ambiente, mas havia um Chromium do Playwright já instalado (`ms-playwright`) e o pacote em cache do `npx`; montei um driver descartável a partir dele e testei de verdade no navegador: seletor → modo demo → aluno (tema vermelho da Gaviões) → sair → modo demo → professor → reload mantém sessão → guard redireciona `/aluno`↔`/gym` → login manual → Bluefit em tema claro → e-mail ambíguo da Camila mostrando as duas academias → cadastro de aluno → cadastro de professor criando academia. Tudo funcionou, sem erro de console, com capturas de tela conferidas visualmente
 
 ## 🔜 Próxima tarefa
 
-**F1-E06 · Seletor de perfil e autenticação mockada.** Ver detalhes em [`ROADMAP.md`](ROADMAP.md#épicos):
+**F1-E07 · Identidade visual da academia.** Ver detalhes em [`ROADMAP.md`](ROADMAP.md#épicos):
 
-1. Primeira tela: *Sou aluno* · *Sou academia/professor*
-2. Login e cadastro por perfil, sem senha real (só validação de formato — a senha de demonstração de todas as contas seedadas é `demo1234`, ver [`SEED-DATA.md`](SEED-DATA.md)); aluno se cadastra escolhendo a academia (por `slug`, via `gymRepository.findBySlug`), professor se cadastra criando ou escolhendo a academia
-3. Sessão persistida em `gymapp:session` (já implementado em `session-store.ts` no F1-E04) e logout
-4. Modo demo com troca rápida de usuário — listar as contas de `SEED-DATA.md` com papel e academia, entrar com um toque
-5. Guard de rota: aluno não abre `/gym`, professor não abre telas de aluno
-6. Chamar `seedIfEmpty()` na inicialização do app (`App.tsx` ou equivalente) — ainda não está ligado a nenhuma tela
+1. Tela de marca no painel do professor (hoje `/gym` só tem o placeholder do F1-E06): nome, logo (upload convertido para data URL, redimensionado e limitado a ~200 KB), cor principal, cor de contraste, presets prontos, preview ao vivo
+2. Função de cálculo de luminância/contraste em `@gym/core/theme` (`WHITELABEL.md#contraste-é-validado-não-confiado`) — sugere preto ou branco automaticamente ao escolher a cor principal, avisa (não bloqueia) se o par ficar abaixo de 4,5:1
+3. Ao salvar, repintar o app inteiro sem recarregar (mesma técnica de `features/auth/apply-gym-theme.ts` e do `Showcase`) e persistir em `Gym.theme` via `gymRepository.save`
+4. `TrainerSignupScreen` hoje usa 5 presets fixos (`features/auth/brand-presets.ts`) para a academia nascer com uma marca legível sem essa função — depois do F1-E07 vale avaliar se o cadastro deveria reusar a tela de identidade visual em vez dos presets
 
-*Aceite:* a sessão sobrevive a recarregar; guard de rota impede aluno de abrir `/gym` e professor de abrir telas de aluno.
+*Aceite:* mudar a cor repinta o app inteiro sem recarregar; a escolha persiste e vale para todos os usuários daquela academia.
 
-Depois dela, seguir a ordem sugerida em [`ROADMAP.md`](ROADMAP.md#ordem-sugerida): `E07`, e só então `E13 → E14` antes das telas do aluno.
+Depois dela, seguir a ordem sugerida em [`ROADMAP.md`](ROADMAP.md#ordem-sugerida): `E13 → E14` (para haver treino a exibir) antes das telas de conteúdo do aluno (`E08 → E09 → E10 → E11 → E12`).
 
 ## 🚧 Em andamento
 
@@ -176,6 +186,22 @@ Testei o que o épico pede como aceite, não cobertura por cobertura: as três a
 Medi o tamanho final com um teste descartável (não ficou no repo): ~780 KB serializados para as três academias inteiras — bem abaixo do limite de 5 MB de `DATA-MODEL.md`, mesmo com quase 1.800 `SetLog` (Victor sozinho, com 6 semanas de treino 5x/semana, responde por boa parte disso).
 
 `npm run lint`, `typecheck`, `test` e `build` passam limpos na raiz. Nada foi commitado.
+
+### 01/08/2026 — F1-E06: seletor de perfil e autenticação mockada
+
+Executei o épico F1-E06 por completo. Primeira decisão foi de ferramental: `react-router-dom` e `zustand` não existiam ainda no projeto, mas já estavam decididos na ADR-0002 desde o F1-E01 — instalei os dois em `@gym/web` em vez de inventar roteamento/estado na mão.
+
+O ponto mais delicado foi a tela de login. `UI-SPEC.md` lista só e-mail e senha, sem campo de academia — mas `MULTI-TENANCY.md` é explícito que e-mail é único só dentro da academia, não globalmente, e o próprio seed tem a Camila Reis com o mesmo e-mail na Gaviões e na Iron House. As duas informações juntas só fazem sentido se o login souber lidar com ambiguidade: `login()` em `features/auth/actions.ts` busca o e-mail em todas as academias, filtra por papel (o que a tela do seletor de perfil já fixou) e por senha, e se sobrar mais de uma conta a própria tela de login mostra um passo extra pedindo pra escolher qual é a sua. Sem isso, testar o isolamento por e-mail digitando login de verdade (não só via modo demo) seria impossível para esse caso — e é exatamente o cenário que `SEED-DATA.md` pede pra validar.
+
+Outra decisão que vale registrar: cadastro de aluno **não** cria `StudentProfile`, só `User`. `DATA-MODEL.md` documenta `onboardedAt: null` como "onboarding pendente", mas criar um perfil com sexo/idade/peso inventados só para não deixar o campo vazio seria pior do que simplesmente não ter perfil nenhum ainda — `findProfile` retornando `null` já é o sinal que o F1-E08 (onboarding) vai usar pra saber que precisa rodar. Assumi isso conscientemente; se o F1-E08 preferir outro contrato, é decisão de quem implementar aquele épico, não algo que eu devesse antecipar aqui.
+
+Também não implementei o cálculo de contraste por luminância pra cor da academia nova (professor criando academia no cadastro) — isso é literalmente o que `WHITELABEL.md` descreve como escopo do F1-E07, com a função morando em `@gym/core/theme`. Usei 5 presets fixos de cor+contraste (`brand-presets.ts`) só pra a academia nascer legível; fica registrado no `🔜 Próxima tarefa` que o F1-E07 deveria revisitar esse ponto.
+
+Faltava um componente de campo de texto no design system — o F1-E02 não previu formulário nenhum, só os 11 componentes que não precisam de input livre. Criei `ui/TextField.tsx` seguindo o mesmo padrão dos outros (tokens, nunca cor literal; erro em `text-protein`, a mesma cor que o `Toast` já usa pra estado de erro, em vez de inventar uma cor nova).
+
+Depois de `lint`/`typecheck`/`test`/`build` limpos, fiz a verificação visual que as regras deste projeto pedem antes de dar uma mudança de UI por pronta. Não havia `chromium-cli` nem Playwright como dependência do projeto, mas encontrei um Chromium do Playwright já baixado (`ms-playwright`) e o pacote `playwright` em cache do `npx` (de uma execução anterior) — montei um script descartável em cima disso (não ficou no repo) e rodei o fluxo inteiro num navegador de verdade: seletor de perfil → modo demo → Victor (aluno, tema vermelho da Gaviões aplicado) → sair → modo demo → Douglas (professor) → reload mantendo a sessão → tentar abrir `/aluno` logado como professor e ser redirecionado pra `/gym` → login manual da Marina (Bluefit, conferi que o tema vira claro e azul) → senha errada → e-mail ambíguo da Camila mostrando as duas academias pra escolher → cadastro de aluno → cadastro de professor criando academia nova. Tudo funcionou sem erro de console; um susto falso no meio (a cor do `SegmentedControl` pareceu não ter trocado numa captura de tela) se resolveu conferindo `aria-checked` direto no DOM — era o componente certo, só uma leitura errada minha da imagem comprimida.
+
+`npm run lint`, `typecheck`, `test` e `build` passam limpos na raiz — 57 testes em `@gym/web` (15 novos: `actions.test.ts`, `use-session.test.ts`, `RequireRole.test.tsx`, `App.test.tsx` reescrito). Nada foi commitado.
 
 ---
 
