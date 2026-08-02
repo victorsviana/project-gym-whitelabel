@@ -4,13 +4,13 @@
 
 **Última atualização:** 01/08/2026
 **Fase atual:** Fase 1 — PWA multi-tenant (ver [`ROADMAP.md`](ROADMAP.md))
-**Épico atual:** F1-E04 concluído · próximo é F1-E05
+**Épico atual:** F1-E05 concluído · próximo é F1-E06
 
 ---
 
 ## Onde estamos
 
-O ferramental da Fase 1 está pronto, o design system também, `@gym/core` tem os tipos e as fórmulas de domínio, e agora também tem os contratos de repositório — com os adapters de `localStorage` implementados em `apps/web`. Falta popular esses adapters com os dados de demonstração completos (três academias) e então construir as telas de verdade.
+O ferramental da Fase 1 está pronto, o design system também, `@gym/core` tem os tipos, as fórmulas de domínio e os contratos de repositório, com os adapters de `localStorage` implementados em `apps/web` — e agora populados com os dados de demonstração completos das três academias de [`SEED-DATA.md`](SEED-DATA.md). Falta construir as telas de verdade, começando pelo seletor de perfil e autenticação mockada.
 
 O protótipo original (`prototype/Academia Whitelabel - Demo.html`) foi desempacotado, analisado por inteiro e traduzido em especificação: telas, fórmulas, modelo de dados e defeitos estão catalogados. O plano das três fases está fechado e as seis decisões de arquitetura estão registradas.
 
@@ -58,20 +58,29 @@ O protótipo original (`prototype/Academia Whitelabel - Demo.html`) foi desempac
   - `apps/web/src/storage/seed.ts`: `seedIfEmpty()` cria só uma academia e um professor mínimos, idempotente — o seed completo com as três academias de [`SEED-DATA.md`](SEED-DATA.md) é o F1-E05, então evitei antecipar contas/ids que aquele épico vai criar de verdade
   - 33 testes novos em `apps/web/src/storage/` (+ 2 em `@gym/core/ids`): migração pura, versão mais nova que o código, round-trip do envelope, sessão em chave separada, e isolamento por tenant nos casos que `MULTI-TENANCY.md` marca como obrigatórios — e-mail repetido em duas academias (caso Camila Reis), listagem de planos e de usuários nunca vazando entre academias, atribuição/desatribuição de treino sem apagar histórico
   - `npm run lint`, `typecheck`, `test` e `build` (na raiz, cobrindo os dois workspaces) passam limpos; confirmado por `grep` que `localStorage` só aparece dentro de `apps/web/src/storage/`
+- **F1-E05 · Dados de demonstração multi-tenant:**
+  - `apps/web/src/storage/seed/` (pasta nova, ao lado de `seed.ts`): dados e geração separados por responsabilidade — `rng.ts` (PRNG determinístico xmur3+mulberry32, sem dependência), `foods.ts` (as 12 entradas da `foodsDB` do protótipo, base global `gymId: null`), `plan-data.ts` (planos A–F da Gaviões com os exercícios exatos de `prototype/extracted/logic.js`; planos A–C da Bluefit e A–D da Iron House desenhados do zero no mesmo estilo, já que o protótipo só tinha uma academia), `gym-data.ts` (as três academias, professores e os 10 alunos de `SEED-DATA.md`, com perfil, plano atribuído, dias de histórico e pendência), `history.ts` (gera `SetLog`/`LoadLog`/`Meal`/`WaterLog`/`ActivityDay` de um aluno com forma — dias úteis priorizados, carga usando `increaseLoad`/`decreaseLoad` de `@gym/core`, refeições via `computeFoodMacrosForQuantity`), `build.ts` (monta o `StorageData` inteiro, puro, sem tocar `localStorage`)
+  - `seed.ts` ficou fino: `seedIfEmpty()` grava `buildSeedData()` só se não houver nenhuma academia; `restoreDemoData()` (novo, exportado por `storage/index.ts`) grava por cima sem checar nada — `saveData` substitui o envelope inteiro, então "limpar e recriar" é só chamar de novo
+  - Metas calculadas por `computeDailyGoal` (não hardcoded) — Victor, Marina, Rafael e Letícia usam exatamente os perfis dos quatro casos de `DOMAIN-RULES.md §1.8`, e os testes conferem os cinco campos (`kcal`/`protein`/`carbs`/`fat`/`water`) contra a tabela de `SEED-DATA.md#metas-esperadas`
+  - Pendências (`Notice`) semeadas como registros diretos, não derivadas em runtime — `new_student` (Bruno, Ana) e `reassessment` (Diego) *poderiam* ser recalculadas a partir do perfil, mas `plan_change_request` (Rafael) não tem nenhum campo no modelo de dados que a derive, então as três saem seedadas do mesmo jeito por consistência; a derivação de verdade é o F1-E15
+  - Camila Reis existe como duas contas de `id` diferente (Gaviões e Iron House), mesmo e-mail — reproduzido como teste real em `seed.test.ts`, não só documentado
+  - Dataset final: 3 academias, 13 usuários, 13 planos, 31 atribuições, ~1.800 `SetLog`, ~460 `LoadLog`, ~660 refeições — envelope inteiro em ~780 KB serializado, bem dentro do limite de 5 MB de `DATA-MODEL.md`
+  - `npm run lint`, `typecheck`, `test` e `build` passam limpos
 
 ## 🔜 Próxima tarefa
 
-**F1-E05 · Dados de demonstração multi-tenant.** Ver detalhes em [`ROADMAP.md`](ROADMAP.md#épicos) e as contas exatas em [`SEED-DATA.md`](SEED-DATA.md):
+**F1-E06 · Seletor de perfil e autenticação mockada.** Ver detalhes em [`ROADMAP.md`](ROADMAP.md#épicos):
 
-1. Substituir `seedIfEmpty()` (hoje em `apps/web/src/storage/seed.ts`, só uma academia e um professor placeholder) pelo seed completo: três academias (Gaviões Fitness, Bluefit, Iron House) com professor, alunos, planos, atribuições e histórico, usando os repositórios já prontos do F1-E04 — não deve ser necessário mexer em nenhuma interface de `@gym/core`
-2. Reproduzir exatamente os perfis e metas da tabela de [`SEED-DATA.md`](SEED-DATA.md#metas-esperadas) (batem com os casos de `DOMAIN-RULES.md`) para servir de conferência visual do cálculo
-3. Gerar histórico com forma (cargas crescentes, dias ativos concentrados em dias úteis, refeições em torno da meta, água entre 60–100 %) com semente determinística — dois devs rodando o seed veem os mesmos números
-4. Caso especial: Camila Reis com o mesmo e-mail em Gaviões e Iron House, como duas contas independentes (já coberto por teste de isolamento no F1-E04, mas o seed real precisa reproduzir)
-5. Ação de "restaurar dados de demonstração" (limpa e recria tudo)
+1. Primeira tela: *Sou aluno* · *Sou academia/professor*
+2. Login e cadastro por perfil, sem senha real (só validação de formato — a senha de demonstração de todas as contas seedadas é `demo1234`, ver [`SEED-DATA.md`](SEED-DATA.md)); aluno se cadastra escolhendo a academia (por `slug`, via `gymRepository.findBySlug`), professor se cadastra criando ou escolhendo a academia
+3. Sessão persistida em `gymapp:session` (já implementado em `session-store.ts` no F1-E04) e logout
+4. Modo demo com troca rápida de usuário — listar as contas de `SEED-DATA.md` com papel e academia, entrar com um toque
+5. Guard de rota: aluno não abre `/gym`, professor não abre telas de aluno
+6. Chamar `seedIfEmpty()` na inicialização do app (`App.tsx` ou equivalente) — ainda não está ligado a nenhuma tela
 
-*Aceite:* as contas de `SEED-DATA.md` existem e entram no app; os históricos são plausíveis.
+*Aceite:* a sessão sobrevive a recarregar; guard de rota impede aluno de abrir `/gym` e professor de abrir telas de aluno.
 
-Depois dela, seguir a ordem sugerida em [`ROADMAP.md`](ROADMAP.md#ordem-sugerida): `E06 → E07`, e só então `E13 → E14` antes das telas do aluno.
+Depois dela, seguir a ordem sugerida em [`ROADMAP.md`](ROADMAP.md#ordem-sugerida): `E07`, e só então `E13 → E14` antes das telas do aluno.
 
 ## 🚧 Em andamento
 
@@ -149,6 +158,22 @@ Cada repositório é um arquivo que lê o envelope inteiro, filtra/atualiza em m
 O seed ficou deliberadamente mínimo — uma academia e um professor placeholder, só para o app não abrir vazio. O seed completo com as três academias de `SEED-DATA.md` é explicitamente o F1-E05 no roadmap, e antecipar contas/ids aqui só criaria trabalho de desfazer depois.
 
 Os testes cobrem exatamente os dois obrigatórios do épico: migração de schema (pura, incluindo o caso "versão salva mais nova que a do código" avisando e preservando dado em vez de apagar) e isolamento por tenant — reproduzi o caso Camila Reis de `SEED-DATA.md` (mesmo e-mail em duas academias, contas independentes) como teste real em `user-repository.test.ts`, não só como cenário documentado. Conferi com `grep` que `localStorage` só aparece dentro de `apps/web/src/storage/` — nenhum vazamento para fora da camada.
+
+`npm run lint`, `typecheck`, `test` e `build` passam limpos na raiz. Nada foi commitado.
+
+### 01/08/2026 — F1-E05: dados de demonstração multi-tenant
+
+Executei o épico F1-E05 por completo. Reorganizei o seed em uma pasta (`apps/web/src/storage/seed/`) em vez de inchar `seed.ts`: dados puros (`foods.ts`, `plan-data.ts`, `gym-data.ts`) separados da geração (`rng.ts`, `history.ts`, `build.ts`), porque misturar as duas coisas num arquivo só ia ficar ilegível com três academias completas. `seed.ts` na raiz de `storage/` ficou só com `seedIfEmpty()` e a novidade `restoreDemoData()`, ambas finas — toda a complexidade mora em `build.ts`, que é uma função pura `() => StorageData`, testável sem tocar `localStorage`.
+
+Os exercícios dos planos A–E da Gaviões vieram literalmente de `prototype/extracted/logic.js` (`defaultPlans`), copiados à mão para bater exatamente com o protótipo. Bluefit e Iron House não existem no protótipo — o protótipo só tinha uma "academia" com marca trocável — então desenhei os planos A–C (Superiores/Inferiores/Full body) e A–D (Push/Pull/Legs/Condicionamento) do zero, no mesmo estilo (nome do exercício, séries, reps), com regiões sensíveis (`ombro`, `lombar`) atribuídas onde faz sentido biomecânico, para o selo Adaptado ter o que testar além do caso Bruno/Plano D que o documento já citava.
+
+O histórico foi a parte mais delicada. `SEED-DATA.md` pede "forma, não aleatório": cargas crescentes, dias ativos concentrados em dias úteis, refeições em torno da meta, água entre 60–100 %, e determinístico entre execuções. Implementei um PRNG próprio (xmur3 para hash da seed string + mulberry32 para os números) em vez de trazer uma lib — são 30 linhas — semeado por aluno (`${slug}:${email}`), então o histórico de cada aluno é reprodutível independente da ordem de geração. A progressão de carga usa `increaseLoad`/`decreaseLoad` de `@gym/core` de propósito, não uma conta solta em `history.ts` — se a regra de arredondamento de carga mudar no domínio, o seed acompanha sem precisar de patch. Exercícios com reps em tempo (`"40s"`, regex `/^\d+s$/`) não geram `LoadLog` — não faz sentido pedir "kg" de prancha.
+
+Um ponto que decidi conscientemente, não sem hesitar: `onboardedAt` de cada aluno é escolhido para preceder o início do histórico dele (Victor, com 6 semanas de treino, tem `onboardedAt` de 47 dias atrás), mas isso significa que vários alunos além do Diego já passariam dos "30 dias" da regra de reavaliação **se** essa regra fosse aplicada automaticamente hoje. Não é bug: a derivação automática de pendências é o F1-E15, que ainda não existe — por ora as quatro `Notice` (Bruno e Ana `new_student`, Rafael `plan_change_request`, Diego `reassessment`) são registros seedados diretamente, exatamente como `SEED-DATA.md` pede. Quando o F1-E15 chegar, ele provavelmente vai precisar de um campo separado tipo `lastAssessedAt` em vez de reusar `onboardedAt` para essa regra — vale registrar isso quando for implementar.
+
+Testei o que o épico pede como aceite, não cobertura por cobertura: as três academias e seus usuários existem; Camila Reis é duas contas de `id` diferente com o mesmo e-mail (não só documentado — o teste busca por e-mail em cada academia e confere que os perfis divergem); as quatro metas com caso de teste documentado (Victor/Marina/Rafael/Letícia) batem exatamente com a tabela de `SEED-DATA.md`, que por sua vez bate com `DOMAIN-RULES.md §1.8`; Bruno e Ana não têm nenhum plano; as quatro pendências existem; o plano F da Gaviões continua rascunho vazio. `restoreDemoData()` tem teste próprio confirmando que substitui dado existente, não só funciona em `localStorage` vazio.
+
+Medi o tamanho final com um teste descartável (não ficou no repo): ~780 KB serializados para as três academias inteiras — bem abaixo do limite de 5 MB de `DATA-MODEL.md`, mesmo com quase 1.800 `SetLog` (Victor sozinho, com 6 semanas de treino 5x/semana, responde por boa parte disso).
 
 `npm run lint`, `typecheck`, `test` e `build` passam limpos na raiz. Nada foi commitado.
 
