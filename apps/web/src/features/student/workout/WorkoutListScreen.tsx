@@ -3,7 +3,7 @@ import { toIsoDate, todayIsoDate } from '@gym/core';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { studentRepository } from '../../../storage';
-import { Button, Card, EmptyState, ProgressBar } from '../../../ui/index.ts';
+import { Button, Card, EmptyState, LetterBadge, ProgressBar } from '../../../ui/index.ts';
 import { useSessionAccount } from '../../auth/use-session-account';
 import { BottomNav } from '../BottomNav';
 import { formatShortDate } from '../../gym/students/format-date';
@@ -86,9 +86,10 @@ export function WorkoutListScreen() {
                     className="focus-visible:ring-brand/50 flex flex-col gap-3 text-left focus-visible:ring-2 focus-visible:outline-none"
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <p className="font-display text-lg font-bold uppercase">
-                        {row.plan.letter} · {row.plan.name}
-                      </p>
+                      <div className="flex items-center gap-3">
+                        <LetterBadge letter={row.plan.letter} />
+                        <p className="font-display text-lg font-bold uppercase">{row.plan.name}</p>
+                      </div>
                       <div className="flex gap-1">
                         {row.adapted ? (
                           <span className="bg-success/10 text-success rounded-full px-2 py-0.5 text-xs font-semibold">

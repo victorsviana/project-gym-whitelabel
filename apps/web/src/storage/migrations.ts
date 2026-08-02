@@ -5,9 +5,11 @@ export type MigrationStep = (data: StorageData) => StorageData;
 /**
  * Uma migração por versão, indexada pela versão de origem.
  * Ex.: `{ 1: (data) => ({ ...data, foods: data.foods.map(...) }) }` migra de v1 para v2.
- * Vazio até a primeira mudança de schema depois da v1.
  */
-const MIGRATIONS: Record<number, MigrationStep> = {};
+const MIGRATIONS: Record<number, MigrationStep> = {
+  // v1 -> v2: F1-E12 introduziu preferências do aluno (tema e notificações).
+  1: (data) => ({ ...data, preferences: data.preferences ?? [] }),
+};
 
 /**
  * Aplica em ordem as migrações entre `fromVersion` e `toVersion`. Pura e testável —

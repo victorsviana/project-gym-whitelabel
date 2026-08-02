@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost';
+type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'water';
 type ButtonSize = 'md' | 'sm';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -14,6 +14,8 @@ const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary: 'bg-brand text-brand-fg shadow-[0_8px_24px_rgb(var(--brand-rgb)/30%)]',
   secondary: 'bg-surface-2 text-fg border border-border',
   ghost: 'bg-transparent text-muted',
+  /** Hidratação nunca usa a cor da marca — WHITELABEL.md#cores-fixas-do-sistema. */
+  water: 'bg-water text-white',
 };
 
 const SIZE_CLASSES: Record<ButtonSize, string> = {

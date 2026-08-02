@@ -2,7 +2,7 @@ import { createId } from '@gym/core';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { workoutRepository } from '../../../storage';
-import { Button, Card, EmptyState } from '../../../ui/index.ts';
+import { Button, Card, EmptyState, LetterBadge } from '../../../ui/index.ts';
 import { useSessionAccount } from '../../auth/use-session-account';
 import { buildDuplicatePlan } from './exercise-utils';
 import { loadPlanRows } from './load-workouts';
@@ -96,16 +96,19 @@ export function WorkoutsScreen() {
                   onClick={() => navigate(`/gym/treinos/${row.plan.id}`)}
                   className="focus-visible:ring-brand/50 text-left focus-visible:ring-2 focus-visible:outline-none"
                 >
-                  <p className="font-display text-lg font-bold uppercase">
-                    {row.plan.letter} · {row.plan.name}
-                  </p>
-                  <p className="text-subtle text-sm">
-                    {row.plan.focus} · {row.plan.weekday} · {row.plan.duration}
-                  </p>
-                  <p className="text-subtle mt-1 text-xs">
-                    {row.plan.exercises.length} exercício{row.plan.exercises.length === 1 ? '' : 's'} ·{' '}
-                    {row.assignedCount} aluno{row.assignedCount === 1 ? '' : 's'}
-                  </p>
+                  <div className="flex items-center gap-3">
+                    <LetterBadge letter={row.plan.letter} />
+                    <div>
+                      <p className="font-display text-lg font-bold uppercase">{row.plan.name}</p>
+                      <p className="text-subtle text-sm">
+                        {row.plan.focus} · {row.plan.weekday} · {row.plan.duration}
+                      </p>
+                      <p className="text-subtle mt-1 text-xs">
+                        {row.plan.exercises.length} exercício{row.plan.exercises.length === 1 ? '' : 's'} ·{' '}
+                        {row.assignedCount} aluno{row.assignedCount === 1 ? '' : 's'}
+                      </p>
+                    </div>
+                  </div>
                 </button>
                 <div className="flex items-center justify-between gap-2">
                   <span

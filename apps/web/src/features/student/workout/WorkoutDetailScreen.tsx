@@ -3,7 +3,7 @@ import { createId, todayIsoDate } from '@gym/core';
 import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { executionRepository, studentRepository } from '../../../storage';
-import { Button, Card, EmptyState, Toast } from '../../../ui/index.ts';
+import { Button, Card, EmptyState, LetterBadge, Toast } from '../../../ui/index.ts';
 import { useSessionAccount } from '../../auth/use-session-account';
 import { ExerciseCard } from './ExerciseCard';
 import { formatClock } from './format';
@@ -139,14 +139,19 @@ export function WorkoutDetailScreen() {
         />
       ) : (
         <>
-          <div>
-            <h1 className="font-display mt-2 text-2xl font-extrabold tracking-wide uppercase">
-              {detail.plan.letter} · {detail.plan.name}
-            </h1>
-            <p className="text-subtle text-sm">
-              {detail.plan.weekday} · {detail.plan.focus} · {detail.plan.duration}
-            </p>
-            {detail.trainerName ? <p className="text-faint text-xs">Professor: {detail.trainerName}</p> : null}
+          <div className="mt-2 flex items-start gap-3">
+            <LetterBadge letter={detail.plan.letter} />
+            <div>
+              <h1 className="font-display text-2xl font-extrabold tracking-wide uppercase">
+                {detail.plan.name}
+              </h1>
+              <p className="text-subtle text-sm">
+                {detail.plan.weekday} · {detail.plan.focus} · {detail.plan.duration}
+              </p>
+              {detail.trainerName ? (
+                <p className="text-faint text-xs">Professor: {detail.trainerName}</p>
+              ) : null}
+            </div>
           </div>
 
           <Card elevated className="flex items-center justify-between gap-4">

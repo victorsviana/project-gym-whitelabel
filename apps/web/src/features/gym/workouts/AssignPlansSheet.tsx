@@ -1,7 +1,7 @@
 import type { WorkoutPlan } from '@gym/core';
 import { useEffect, useState } from 'react';
 import { workoutRepository } from '../../../storage';
-import { Button, Sheet, Toggle } from '../../../ui/index.ts';
+import { Button, LetterBadge, Sheet, Toggle } from '../../../ui/index.ts';
 import { syncStudentAssignments } from './save-assignment';
 
 interface AssignPlansSheetProps {
@@ -73,9 +73,12 @@ export function AssignPlansSheet({
           <ul className="flex max-h-80 flex-col gap-3 overflow-y-auto">
             {plans.map((plan) => (
               <li key={plan.id} className="flex items-center justify-between gap-3">
-                <span className="truncate text-sm font-semibold">
-                  {plan.letter} · {plan.name}
-                  {!plan.published ? <span className="text-subtle"> (rascunho)</span> : null}
+                <span className="flex min-w-0 items-center gap-2">
+                  <LetterBadge letter={plan.letter} size="sm" />
+                  <span className="truncate text-sm font-semibold">
+                    {plan.name}
+                    {!plan.published ? <span className="text-subtle"> (rascunho)</span> : null}
+                  </span>
                 </span>
                 <Toggle
                   checked={selected.has(plan.id)}

@@ -59,5 +59,9 @@ export function createExecutionRepository(): ExecutionRepository {
       }
       saveData(data);
     },
+
+    async countSetLogs(gymId, studentId) {
+      return loadData().setLogs.filter((log) => log.gymId === gymId && log.studentId === studentId).length;
+    },
   };
 }

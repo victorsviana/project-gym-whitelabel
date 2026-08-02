@@ -91,3 +91,20 @@ export function computeDailyGoal(input: DailyGoalInput): ComputedDailyGoal {
   const water = computeWaterGoal(input.weight, input.daysPerWeek);
   return { bmr, tdee, kcal, protein, carbs, fat, water };
 }
+
+/** Passo e limites do ajuste manual de metas (UI-SPEC.md#metas-sheet). */
+export const GOAL_KCAL_STEP = 50;
+export const GOAL_KCAL_MIN = 1000;
+export const GOAL_KCAL_MAX = 6000;
+
+export const GOAL_PROTEIN_STEP = 5;
+export const GOAL_PROTEIN_MIN = 40;
+export const GOAL_PROTEIN_MAX = 400;
+
+export const GOAL_CARBS_STEP = 10;
+export const GOAL_CARBS_MIN = 0;
+export const GOAL_CARBS_MAX = 700;
+
+export const GOAL_WATER_STEP_ML = 250;
+export const GOAL_WATER_MIN_ML = 500;
+export const GOAL_WATER_MAX_ML = 6000;

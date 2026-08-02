@@ -1,4 +1,4 @@
-import type { DailyGoal, StudentProfile, StudentRepository } from '@gym/core';
+import type { DailyGoal, StudentPreferences, StudentProfile, StudentRepository } from '@gym/core';
 import { loadData, saveData } from './store';
 
 export function createStudentRepository(): StudentRepository {
@@ -44,6 +44,27 @@ export function createStudentRepository(): StudentRepository {
         data.goals.push(goal);
       } else {
         data.goals[index] = goal;
+      }
+      saveData(data);
+    },
+
+    async findPreferences(gymId, studentId) {
+      return (
+        loadData().preferences.find(
+          (preferences) => preferences.gymId === gymId && preferences.studentId === studentId,
+        ) ?? null
+      );
+    },
+
+    async savePreferences(preferences: StudentPreferences) {
+      const data = loadData();
+      const index = data.preferences.findIndex(
+        (existing) => existing.gymId === preferences.gymId && existing.studentId === preferences.studentId,
+      );
+      if (index === -1) {
+        data.preferences.push(preferences);
+      } else {
+        data.preferences[index] = preferences;
       }
       saveData(data);
     },

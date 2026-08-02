@@ -88,18 +88,18 @@ describe('WorkoutsScreen', () => {
     const gym = buildGym();
     await gymRepository.save(gym);
     const published = buildPlan(gym.id, { letter: 'A', name: 'Peito e Tríceps', published: true });
-    const draft = buildPlan(gym.id, { letter: 'F', name: 'Rascunho', published: false });
+    const draft = buildPlan(gym.id, { letter: 'F', name: 'Treino sem publicar', published: false });
     await workoutRepository.savePlan(published);
     await workoutRepository.savePlan(draft);
     await workoutRepository.assign(gym.id, published.id, ['aluno-1'], 'prof-1');
 
     await renderAsTrainerOf(gym);
 
-    const publishedRow = (await screen.findByText('A · Peito e Tríceps')).closest('li') as HTMLElement;
+    const publishedRow = (await screen.findByText('Peito e Tríceps')).closest('li') as HTMLElement;
     expect(within(publishedRow).getByText('Publicado')).toBeInTheDocument();
     expect(within(publishedRow).getByText(/1 aluno/)).toBeInTheDocument();
 
-    const draftRow = screen.getByText('F · Rascunho').closest('li') as HTMLElement;
+    const draftRow = screen.getByText('Treino sem publicar').closest('li') as HTMLElement;
     expect(within(draftRow).getByText('Rascunho')).toBeInTheDocument();
   });
 
@@ -123,7 +123,7 @@ describe('WorkoutsScreen', () => {
     await workoutRepository.savePlan(plan);
 
     await renderAsTrainerOf(gym);
-    await screen.findByText('A · Peito e Tríceps');
+    await screen.findByText('Peito e Tríceps');
 
     fireEvent.click(screen.getByRole('button', { name: 'Duplicar' }));
 
@@ -135,6 +135,6 @@ describe('WorkoutsScreen', () => {
     const copy = plans.find((p) => p.id !== plan.id);
     expect(copy?.name).toBe('Peito e Tríceps (cópia)');
     expect(copy?.published).toBe(false);
-    expect(await screen.findByText('A · Peito e Tríceps (cópia)')).toBeInTheDocument();
+    expect(await screen.findByText('Peito e Tríceps (cópia)')).toBeInTheDocument();
   });
 });

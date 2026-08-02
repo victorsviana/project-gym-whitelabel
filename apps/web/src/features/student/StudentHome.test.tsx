@@ -134,6 +134,7 @@ function renderHome() {
       <Routes>
         <Route path="/aluno" element={<StudentHome />} />
         <Route path="/aluno/treino/:planId" element={<p>Execução do treino</p>} />
+        <Route path="/aluno/ajustes" element={<p>Tela de ajustes</p>} />
         <Route path="/" element={<div>Seletor de perfil</div>} />
       </Routes>
     </MemoryRouter>,
@@ -182,7 +183,7 @@ describe('StudentHome', () => {
     renderHome();
 
     // Card do treino de hoje — único plano atribuído, então é sempre "o de hoje".
-    expect(await screen.findByText('A · Peito e Tríceps')).toBeInTheDocument();
+    expect(await screen.findByText('Peito e Tríceps')).toBeInTheDocument();
     expect(screen.getByText('Peito · 55 min')).toBeInTheDocument();
     expect(screen.getByText('Professor: Douglas Prof')).toBeInTheDocument();
     expect(screen.getByText('Adaptado')).toBeInTheDocument();
@@ -241,5 +242,33 @@ describe('StudentHome', () => {
 
     fireEvent.click(screen.getByRole('button', { name: '− copo' }));
     expect(await screen.findByText('0,0L / 3,0L')).toBeInTheDocument();
+  });
+
+  it('"Ajustes" navega para a tela de ajustes; "Ajustar" abre o sheet de metas e reflete na hora (F1-E12)', async () => {
+    const gym = buildGym();
+    const student = buildStudent(gym.id);
+    await gymRepository.save(gym);
+    await userRepository.save(student);
+    await studentRepository.saveProfile(buildProfile(gym.id, student.id));
+    await studentRepository.saveGoal(buildGoal(gym.id, student.id, { kcal: 2600 }));
+
+    useSessionStore.setState({
+      session: { userId: student.id, gymId: gym.id, role: 'student', startedAt: new Date().toISOString() },
+    });
+
+    renderHome();
+
+    await screen.findByText('Sem treino hoje');
+
+    fireEvent.click(screen.getByRole('button', { name: 'Ajustar' }));
+    const sheet = await screen.findByRole('dialog');
+    fireEvent.click(within(sheet).getAllByRole('button', { name: 'Aumentar' })[0]);
+
+    // "de 2650 kcal" reflete na hora no anel de calorias, sem reload.
+    expect(await screen.findByText('de 2650 kcal')).toBeInTheDocument();
+    fireEvent.click(within(sheet).getByRole('button', { name: 'Fechar' }));
+
+    fireEvent.click(screen.getByRole('button', { name: 'Ajustes' }));
+    expect(await screen.findByText('Tela de ajustes')).toBeInTheDocument();
   });
 });

@@ -1,7 +1,7 @@
 import type { Gym, User } from '@gym/core';
 import { useEffect, useState } from 'react';
-import { gymRepository, userRepository } from '../../storage';
-import { applyGymTheme } from './apply-gym-theme';
+import { gymRepository, studentRepository, userRepository } from '../../storage';
+import { applyThemeVars } from './apply-gym-theme';
 import { useSessionStore } from './use-session';
 
 interface SessionAccount {
@@ -32,7 +32,15 @@ export function useSessionAccount(): SessionAccount {
         gymRepository.findById(activeSession.gymId),
       ]);
       if (cancelled || !user || !gym) return;
-      applyGymTheme(gym);
+
+      // O aluno pode sobrepor o tema padrão da academia em Ajustes (WHITELABEL.md#temas-escuro-e-claro).
+      const themeOverride =
+        user.role === 'student'
+          ? (await studentRepository.findPreferences(gym.id, user.id))?.themeMode
+          : null;
+      if (cancelled) return;
+      applyThemeVars(themeOverride ? { ...gym.theme, mode: themeOverride } : gym.theme);
+
       setAccount({ userId: activeSession.userId, user, gym });
     }
     load();

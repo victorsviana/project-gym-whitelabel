@@ -18,4 +18,7 @@ export interface ExecutionRepository {
   ): Promise<LoadLog[]>;
   /** Upsert pela chave lógica `studentId + planId + exerciseId + date` — registrar de novo no mesmo dia sobrescreve. */
   saveLoadLog(log: LoadLog): Promise<void>;
+
+  /** Total de séries marcadas pelo aluno, de todos os planos e datas — estatística do Perfil. */
+  countSetLogs(gymId: string, studentId: string): Promise<number>;
 }

@@ -2,6 +2,7 @@ export type * from './common';
 export type * from './gym';
 export type * from './user';
 export type * from './student-profile';
+export type * from './student-preferences';
 export type * from './daily-goal';
 export type * from './workout-plan';
 export type * from './assignment';

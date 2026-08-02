@@ -13,6 +13,8 @@ import { PlanEditorScreen } from './features/gym/workouts/PlanEditorScreen.tsx';
 import { WorkoutsScreen } from './features/gym/workouts/WorkoutsScreen.tsx';
 import { DietScreen } from './features/student/diet/DietScreen.tsx';
 import { OnboardingFlow } from './features/student/onboarding/OnboardingFlow.tsx';
+import { ProfileScreen } from './features/student/profile/ProfileScreen.tsx';
+import { SettingsScreen } from './features/student/profile/SettingsScreen.tsx';
 import { StudentHome } from './features/student/StudentHome.tsx';
 import { WorkoutDetailScreen } from './features/student/workout/WorkoutDetailScreen.tsx';
 import { WorkoutListScreen } from './features/student/workout/WorkoutListScreen.tsx';
@@ -74,6 +76,22 @@ function App() {
           element={
             <RequireRole role="student">
               <DietScreen />
+            </RequireRole>
+          }
+        />
+        <Route
+          path="/aluno/perfil"
+          element={
+            <RequireRole role="student">
+              <ProfileScreen />
+            </RequireRole>
+          }
+        />
+        <Route
+          path="/aluno/ajustes"
+          element={
+            <RequireRole role="student">
+              <SettingsScreen />
             </RequireRole>
           }
         />

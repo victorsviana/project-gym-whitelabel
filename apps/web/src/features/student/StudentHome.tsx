@@ -13,7 +13,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { nutritionRepository, studentRepository } from '../../storage';
 import { useSessionAccount } from '../auth/use-session-account';
 import { useSessionStore } from '../auth/use-session';
-import { Button, Card, EmptyState, ProgressBar, Ring } from '../../ui/index.ts';
+import { Button, Card, EmptyState, LetterBadge, ProgressBar, Ring } from '../../ui/index.ts';
 import { BottomNav } from './BottomNav';
 import { ConsistencyCalendar } from './home/ConsistencyCalendar';
 import { DayDetailSheet } from './home/DayDetailSheet';
@@ -21,6 +21,7 @@ import { formatCalendarMonth, formatGreetDate } from './home/format';
 import type { DayDetail, GoalProgress, MonthActivity, TodayWorkout } from './home/load-home';
 import { loadDayDetail, loadGoalProgress, loadMonthActivity, loadTodayWorkout } from './home/load-home';
 import { PlanDetailSheet } from './home/PlanDetailSheet';
+import { GoalsSheet } from './profile/GoalsSheet';
 
 export function StudentHome() {
   const { user, gym, loading } = useSessionAccount();
@@ -36,6 +37,7 @@ export function StudentHome() {
   const [selectedDay, setSelectedDay] = useState<IsoDate | null>(null);
   const [dayDetail, setDayDetail] = useState<DayDetail | null>(null);
   const [savingWater, setSavingWater] = useState(false);
+  const [goalsSheetOpen, setGoalsSheetOpen] = useState(false);
 
   useEffect(() => {
     if (!user || !gym) return;
@@ -108,7 +110,7 @@ export function StudentHome() {
           <p className="text-subtle text-sm">{formatGreetDate(today)}</p>
         </div>
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="sm" disabled title="Ajustes chega no F1-E12">
+          <Button variant="ghost" size="sm" onClick={() => navigate('/aluno/ajustes')}>
             Ajustes
           </Button>
           <Button
@@ -124,8 +126,10 @@ export function StudentHome() {
         </div>
       </header>
 
-      <Card elevated>
-        <p className="font-display mb-3 text-sm font-bold tracking-wide uppercase">Treino de hoje</p>
+      <Card elevated className="border-brand/20">
+        <p className="text-brand font-display mb-3 text-sm font-bold tracking-wide uppercase">
+          Treino de hoje
+        </p>
         {workout === undefined ? (
           <div className="bg-surface-2 h-20 animate-pulse rounded-card" />
         ) : !plan ? (
@@ -136,9 +140,10 @@ export function StudentHome() {
         ) : (
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between gap-2">
-              <p className="font-display text-lg font-bold uppercase">
-                {plan.letter} · {plan.name}
-              </p>
+              <div className="flex items-center gap-3">
+                <LetterBadge letter={plan.letter} />
+                <p className="font-display text-lg font-bold uppercase">{plan.name}</p>
+              </div>
               {workout.isAdapted ? (
                 <span className="bg-success/10 text-success rounded-full px-2 py-0.5 text-xs font-semibold">
                   Adaptado
@@ -164,13 +169,13 @@ export function StudentHome() {
       </Card>
 
       <Card elevated>
-        <div className="mb-3 flex items-center justify-between">
-          <p className="font-display text-sm font-bold tracking-wide uppercase">Constância</p>
-          <span className="text-streak text-xs font-bold">
+        <div className="mb-1 flex items-center justify-between">
+          <p className="text-subtle text-xs font-semibold tracking-widest uppercase">Constância</p>
+          <span className="bg-streak/10 text-streak rounded-full px-3 py-1 text-xs font-bold">
             🔥 {monthActivity?.streak ?? 0} dia{(monthActivity?.streak ?? 0) === 1 ? '' : 's'}
           </span>
         </div>
-        <p className="text-subtle mb-2 text-xs">{formatCalendarMonth(today)}</p>
+        <p className="font-display mb-2 text-lg font-bold uppercase">{formatCalendarMonth(today)}</p>
         {monthActivity === undefined ? (
           <div className="bg-surface-2 h-48 animate-pulse rounded-card" />
         ) : (
@@ -192,7 +197,7 @@ export function StudentHome() {
         <div className="mb-4 flex items-center justify-between">
           <p className="font-display text-sm font-bold tracking-wide uppercase">Metas de hoje</p>
           <div className="flex gap-1">
-            <Button variant="ghost" size="sm" disabled title="Ajuste manual de metas chega no F1-E12">
+            <Button variant="ghost" size="sm" disabled={!goal} onClick={() => setGoalsSheetOpen(true)}>
               Ajustar
             </Button>
             <Button variant="ghost" size="sm" onClick={() => navigate('/aluno/dieta')}>
@@ -207,6 +212,7 @@ export function StudentHome() {
             <div className="flex items-center justify-center">
               <Ring value={goal ? consumed.kcal : 0} max={goal?.kcal || 1}>
                 <div className="text-center">
+                  <p className="text-subtle text-[10px] font-semibold tracking-widest uppercase">Consumido</p>
                   <p className="font-display text-2xl font-extrabold">{consumed.kcal}</p>
                   <p className="text-subtle text-xs">de {goal?.kcal ?? '—'} kcal</p>
                 </div>
@@ -218,7 +224,7 @@ export function StudentHome() {
             <div className="flex flex-col gap-3">
               <div>
                 <div className="mb-1 flex justify-between text-xs">
-                  <span className="text-subtle">Proteína</span>
+                  <span className="text-protein font-semibold tracking-wide uppercase">Proteína</span>
                   <span className="text-faint">
                     {consumed.protein}g / {goal?.protein ?? '—'}g
                   </span>
@@ -231,7 +237,7 @@ export function StudentHome() {
               </div>
               <div>
                 <div className="mb-1 flex justify-between text-xs">
-                  <span className="text-subtle">Carboidrato</span>
+                  <span className="text-carbs font-semibold tracking-wide uppercase">Carboidrato</span>
                   <span className="text-faint">
                     {consumed.carbs}g / {goal?.carbs ?? '—'}g
                   </span>
@@ -244,7 +250,7 @@ export function StudentHome() {
               </div>
               <div>
                 <div className="mb-1 flex justify-between text-xs">
-                  <span className="text-subtle">Gordura</span>
+                  <span className="text-fat font-semibold tracking-wide uppercase">Gordura</span>
                   <span className="text-faint">
                     {consumed.fat}g / {goal?.fat ?? '—'}g
                   </span>
@@ -260,9 +266,11 @@ export function StudentHome() {
         )}
       </Card>
 
-      <Card elevated>
+      <Card elevated className="border-water/25 bg-water/5">
         <div className="mb-3 flex items-center justify-between">
-          <p className="font-display text-sm font-bold tracking-wide uppercase">Hidratação</p>
+          <p className="text-water font-display text-sm font-bold tracking-wide uppercase">
+            💧 Hidratação
+          </p>
           <p className="text-subtle text-sm">
             {(waterAmount / 1000).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}L
             {' / '}
@@ -302,6 +310,7 @@ export function StudentHome() {
                 − copo
               </Button>
               <Button
+                variant="water"
                 size="sm"
                 fullWidth
                 disabled={savingWater}
@@ -320,6 +329,14 @@ export function StudentHome() {
         onClose={() => setPlanSheetOpen(false)}
       />
       <DayDetailSheet date={selectedDay} detail={dayDetail} onClose={() => setSelectedDay(null)} />
+      {goal && goalProgress ? (
+        <GoalsSheet
+          open={goalsSheetOpen}
+          goal={goal}
+          onClose={() => setGoalsSheetOpen(false)}
+          onChange={(nextGoal) => setGoalProgress({ ...goalProgress, goal: nextGoal })}
+        />
+      ) : null}
       <BottomNav />
     </div>
   );

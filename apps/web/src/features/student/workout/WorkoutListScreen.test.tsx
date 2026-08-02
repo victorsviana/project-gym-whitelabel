@@ -152,11 +152,11 @@ describe('WorkoutListScreen', () => {
 
     renderList();
 
-    expect(await screen.findByText('A · Peito e Tríceps')).toBeInTheDocument();
+    expect(await screen.findByText('Peito e Tríceps')).toBeInTheDocument();
     expect(screen.getByText('1/3')).toBeInTheDocument();
     expect(screen.getByText(/Montado por Douglas Prof · Academia Teste/)).toBeInTheDocument();
 
-    fireEvent.click(screen.getByText('A · Peito e Tríceps'));
+    fireEvent.click(screen.getByText('Peito e Tríceps'));
     expect(await screen.findByText('Execução do treino')).toBeInTheDocument();
   });
 });

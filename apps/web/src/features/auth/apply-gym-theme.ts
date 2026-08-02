@@ -1,4 +1,4 @@
-import type { Gym, GymTheme } from '@gym/core';
+import type { GymTheme } from '@gym/core';
 
 function hexToRgbTriplet(hex: string): string {
   const value = hex.replace('#', '');
@@ -15,8 +15,4 @@ export function applyThemeVars(theme: GymTheme): void {
   root.setProperty('--brand', theme.brand);
   root.setProperty('--brand-rgb', hexToRgbTriplet(theme.brand));
   root.setProperty('--brand-fg', theme.brandFg);
-}
-
-export function applyGymTheme(gym: Gym): void {
-  applyThemeVars(gym.theme);
 }

@@ -31,7 +31,7 @@ export function ExerciseCard({
   return (
     <Card elevated className="flex flex-col gap-4">
       <div className="flex items-center justify-between gap-2">
-        <p className="text-fg text-sm font-semibold">{exercise.name}</p>
+        <p className="font-display text-lg font-bold uppercase">{exercise.name}</p>
         {exercise.adapted ? (
           <span className="bg-success/10 text-success shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold">
             Adaptado

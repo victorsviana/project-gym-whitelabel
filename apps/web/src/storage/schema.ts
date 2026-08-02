@@ -8,6 +8,7 @@ import type {
   Meal,
   Notice,
   SetLog,
+  StudentPreferences,
   StudentProfile,
   User,
   WaterLog,
@@ -15,7 +16,7 @@ import type {
 } from '@gym/core';
 
 /** Versão atual do schema salvo em `gymapp:v1`. Suba a cada mudança de formato e escreva a migração em `migrations.ts`. */
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2;
 
 /** Coleções planas — índices por `gymId` são construídos em memória na leitura, não aninhados por academia. */
 export interface StorageData {
@@ -32,6 +33,7 @@ export interface StorageData {
   activity: ActivityDay[];
   notices: Notice[];
   foods: Food[];
+  preferences: StudentPreferences[];
 }
 
 export function createEmptyStorageData(): StorageData {
@@ -49,6 +51,7 @@ export function createEmptyStorageData(): StorageData {
     activity: [],
     notices: [],
     foods: [],
+    preferences: [],
   };
 }
 

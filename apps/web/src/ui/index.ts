@@ -9,4 +9,5 @@ export { ProgressBar } from './ProgressBar.tsx';
 export { Ring } from './Ring.tsx';
 export { SegmentedControl } from './SegmentedControl.tsx';
 export { EmptyState } from './EmptyState.tsx';
+export { LetterBadge } from './LetterBadge.tsx';
 export { Toast } from './Toast.tsx';
