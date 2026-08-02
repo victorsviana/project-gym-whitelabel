@@ -1,12 +1,28 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Button, Card } from '../../ui/index.ts';
 import { useSessionAccount } from '../auth/use-session-account';
 import { useSessionStore } from '../auth/use-session';
-import { Button, Card } from '../../ui/index.ts';
+import type { GymDashboard } from './students/load-students';
+import { loadGymDashboard } from './students/load-students';
+
+const INDICATORS: { key: keyof GymDashboard; label: string }[] = [
+  { key: 'activeStudents', label: 'Alunos ativos' },
+  { key: 'studentsWithoutPlan', label: 'Alunos sem treino' },
+  { key: 'openNotices', label: 'Pendências abertas' },
+  { key: 'publishedPlans', label: 'Treinos publicados' },
+];
 
 export function GymHome() {
   const { user, gym, loading } = useSessionAccount();
   const logout = useSessionStore((state) => state.logout);
   const navigate = useNavigate();
+  const [dashboard, setDashboard] = useState<GymDashboard | null>(null);
+
+  useEffect(() => {
+    if (!gym) return;
+    loadGymDashboard(gym.id).then(setDashboard);
+  }, [gym]);
 
   if (loading) return null;
 
@@ -33,6 +49,29 @@ export function GymHome() {
         </Button>
       </header>
 
+      <div className="grid grid-cols-2 gap-3">
+        {INDICATORS.map(({ key, label }) => (
+          <Card key={key} elevated>
+            <p className="font-display text-3xl font-extrabold">
+              {dashboard ? dashboard[key] : '—'}
+            </p>
+            <p className="text-subtle mt-1 text-sm">{label}</p>
+          </Card>
+        ))}
+      </div>
+
+      <Card elevated className="flex items-center justify-between gap-4">
+        <div>
+          <p className="font-display text-lg font-bold uppercase">Alunos</p>
+          <p className="text-subtle mt-1 text-sm">
+            Ficha, avaliação, situação e cadastro de cada aluno da academia.
+          </p>
+        </div>
+        <Button size="sm" onClick={() => navigate('/gym/alunos')}>
+          Ver alunos
+        </Button>
+      </Card>
+
       <Card elevated className="flex items-center justify-between gap-4">
         <div>
           <p className="font-display text-lg font-bold uppercase">Identidade visual</p>
@@ -44,9 +83,9 @@ export function GymHome() {
       </Card>
 
       <Card elevated>
-        <p className="font-display text-lg font-bold uppercase">Painel da academia</p>
+        <p className="font-display text-lg font-bold uppercase">Treinos</p>
         <p className="text-subtle mt-1 text-sm">
-          Alunos, montagem e atribuição de treino chegam nos próximos épicos (F1-E13 e F1-E14).
+          Montagem e atribuição de treino chegam no próximo épico (F1-E14).
         </p>
       </Card>
     </div>

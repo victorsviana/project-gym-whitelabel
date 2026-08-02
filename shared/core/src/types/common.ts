@@ -17,3 +17,5 @@ export type MealSource = 'search' | 'manual' | 'audio';
 export type GoalSource = 'computed' | 'manual';
 
 export type NoticeKind = 'new_student' | 'plan_change_request' | 'reassessment';
+
+export type StudentStatus = 'active' | 'no_plan' | 'needs_review';
