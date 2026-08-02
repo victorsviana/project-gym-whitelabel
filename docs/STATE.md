@@ -4,13 +4,13 @@
 
 **Última atualização:** 01/08/2026
 **Fase atual:** Fase 1 — PWA multi-tenant (ver [`ROADMAP.md`](ROADMAP.md))
-**Épico atual:** F1-E03 concluído · próximo é F1-E04
+**Épico atual:** F1-E04 concluído · próximo é F1-E05
 
 ---
 
 ## Onde estamos
 
-O ferramental da Fase 1 está pronto, o design system também, e agora `@gym/core` deixou de ser um workspace vazio: tem os tipos de todas as entidades e todas as fórmulas de domínio de `DOMAIN-RULES.md`, puras e testadas. Falta a persistência (repositórios + `localStorage`) para essas regras terem onde buscar dado real, e depois as telas de verdade.
+O ferramental da Fase 1 está pronto, o design system também, `@gym/core` tem os tipos e as fórmulas de domínio, e agora também tem os contratos de repositório — com os adapters de `localStorage` implementados em `apps/web`. Falta popular esses adapters com os dados de demonstração completos (três academias) e então construir as telas de verdade.
 
 O protótipo original (`prototype/Academia Whitelabel - Demo.html`) foi desempacotado, analisado por inteiro e traduzido em especificação: telas, fórmulas, modelo de dados e defeitos estão catalogados. O plano das três fases está fechado e as seis decisões de arquitetura estão registradas.
 
@@ -48,20 +48,30 @@ O protótipo original (`prototype/Academia Whitelabel - Demo.html`) foi desempac
   - `@gym/core` segue sem nenhuma dependência de runtime: só tipos e funções puras, nada de `Date` cruzando fuso horário além do necessário para `getWeekdayIndex`/`addDays` (que usam componentes locais, não UTC)
   - 59 testes novos em `shared/core`, todos ao lado do código testado; `npm run typecheck`, `npm run test` e `npm run lint` (na raiz, cobrindo os dois workspaces) passam limpos
   - Bug pego na primeira escrita do teste de `load.ts`: `increaseLoad(20.3)` não dá `22.5`, dá `23` (22,8 está mais perto de 23 que de 22,5) — o teste é que estava errado, não o código; corrigido antes de seguir
+- **F1-E04 · Repositórios e persistência:**
+  - `shared/core/src/repositories/`: uma interface por agregado, seguindo o agrupamento de [`ARCHITECTURE.md`](ARCHITECTURE.md#repositórios) — `GymRepository`, `UserRepository` (contas + sessão), `StudentRepository` (perfil + metas), `WorkoutRepository` (planos + atribuições), `ExecutionRepository` (séries + cargas), `NutritionRepository` (refeições + água + base de alimentos), `ActivityRepository`, `NoticeRepository`. Só assinatura — nenhuma dessas interfaces importa nada de `apps/web`
+  - `shared/core/src/ids.ts`: `createId()` — gerador simples baseado em `Math.random`, não UUID; escolhido porque `crypto.randomUUID` exige lib `DOM`/`node`, que `@gym/core` não tem (é TypeScript puro, sem dependência de runtime, ver regra em `ARCHITECTURE.md`)
+  - `apps/web/src/storage/schema.ts`: `StorageData` (as 13 coleções planas) e o envelope `{ version, updatedAt, data }`, batendo com o formato de [`DATA-MODEL.md`](DATA-MODEL.md#armazenamento-na-fase-1--localstorage)
+  - `apps/web/src/storage/migrations.ts`: `migrate(data, fromVersion)` pura, com o registro de migrações injetável por parâmetro — hoje vazio (schema ainda na v1), mas testável sem esperar a próxima mudança real
+  - `apps/web/src/storage/store.ts` (chave `gymapp:v1`) e `session-store.ts` (chave `gymapp:session`, separada de propósito — limpar dados de demo não derruba o login); `store.ts` avisa no console e preserva os dados quando a versão salva é mais nova que a do código, em vez de apagar
+  - Um arquivo por repositório em `apps/web/src/storage/`, cada um implementando a interface correspondente de `@gym/core` só com leitura/escrita do envelope inteiro (dataset pequeno, sem necessidade de índice); `index.ts` exporta as factories e uma instância única de cada repositório para as telas consumirem
+  - `apps/web/src/storage/seed.ts`: `seedIfEmpty()` cria só uma academia e um professor mínimos, idempotente — o seed completo com as três academias de [`SEED-DATA.md`](SEED-DATA.md) é o F1-E05, então evitei antecipar contas/ids que aquele épico vai criar de verdade
+  - 33 testes novos em `apps/web/src/storage/` (+ 2 em `@gym/core/ids`): migração pura, versão mais nova que o código, round-trip do envelope, sessão em chave separada, e isolamento por tenant nos casos que `MULTI-TENANCY.md` marca como obrigatórios — e-mail repetido em duas academias (caso Camila Reis), listagem de planos e de usuários nunca vazando entre academias, atribuição/desatribuição de treino sem apagar histórico
+  - `npm run lint`, `typecheck`, `test` e `build` (na raiz, cobrindo os dois workspaces) passam limpos; confirmado por `grep` que `localStorage` só aparece dentro de `apps/web/src/storage/`
 
 ## 🔜 Próxima tarefa
 
-**F1-E04 · Repositórios e persistência.** Ver detalhes em [`ROADMAP.md`](ROADMAP.md#épicos):
+**F1-E05 · Dados de demonstração multi-tenant.** Ver detalhes em [`ROADMAP.md`](ROADMAP.md#épicos) e as contas exatas em [`SEED-DATA.md`](SEED-DATA.md):
 
-1. Contratos de repositório em `@gym/core` (uma interface por entidade ou por agregado, ex. `StudentRepository`, `WorkoutPlanRepository`) — só assinatura, sem implementação, para a Fase 2 trocar por HTTP sem mexer em quem consome
-2. Adapters `localStorage` em `apps/web/src/storage/`, implementando esses contratos
-3. Schema versionado (`gymapp:v1`) conforme o envelope de [`DATA-MODEL.md`](DATA-MODEL.md#armazenamento-na-fase-1--localstorage), com rotina de migração (`(data, fromVersion) => data`, pura e testável)
-4. Sessão separada em `gymapp:session`
-5. Seed idempotente na primeira execução (dados mínimos; o seed completo multi-tenant é o F1-E05)
+1. Substituir `seedIfEmpty()` (hoje em `apps/web/src/storage/seed.ts`, só uma academia e um professor placeholder) pelo seed completo: três academias (Gaviões Fitness, Bluefit, Iron House) com professor, alunos, planos, atribuições e histórico, usando os repositórios já prontos do F1-E04 — não deve ser necessário mexer em nenhuma interface de `@gym/core`
+2. Reproduzir exatamente os perfis e metas da tabela de [`SEED-DATA.md`](SEED-DATA.md#metas-esperadas) (batem com os casos de `DOMAIN-RULES.md`) para servir de conferência visual do cálculo
+3. Gerar histórico com forma (cargas crescentes, dias ativos concentrados em dias úteis, refeições em torno da meta, água entre 60–100 %) com semente determinística — dois devs rodando o seed veem os mesmos números
+4. Caso especial: Camila Reis com o mesmo e-mail em Gaviões e Iron House, como duas contas independentes (já coberto por teste de isolamento no F1-E04, mas o seed real precisa reproduzir)
+5. Ação de "restaurar dados de demonstração" (limpa e recria tudo)
 
-*Aceite:* nenhum componente referencia `localStorage`; trocar o adapter por um fake em memória mantém os testes passando.
+*Aceite:* as contas de `SEED-DATA.md` existem e entram no app; os históricos são plausíveis.
 
-Depois dela, seguir a ordem sugerida em [`ROADMAP.md`](ROADMAP.md#ordem-sugerida): `E05 → E06 → E07`, e só então `E13 → E14` antes das telas do aluno.
+Depois dela, seguir a ordem sugerida em [`ROADMAP.md`](ROADMAP.md#ordem-sugerida): `E06 → E07`, e só então `E13 → E14` antes das telas do aluno.
 
 ## 🚧 Em andamento
 
@@ -125,6 +135,22 @@ Escrevi teste para cada função de domínio, ao lado do código (59 testes novo
 Como no F1-E01/E02, `@gym/core` continua sem nenhuma dependência de runtime — só tipos e funções puras. `getWeekdayIndex` e `addDays` usam componentes locais de `Date` (ano/mês/dia via getters, não `toISOString`/UTC), pela mesma razão do resto do domínio: data de negócio é sempre local.
 
 `npm run typecheck`, `npm run test` e `npm run lint` passam limpos na raiz, cobrindo os dois workspaces. Nada foi commitado.
+
+### 01/08/2026 — F1-E04: repositórios e persistência
+
+Executei o épico F1-E04 por completo. Comecei pelos contratos: `ARCHITECTURE.md` já documentava o agrupamento certo de repositórios (por agregado, não por entidade/coleção de `localStorage`), então segui isso ao pé da letra em `shared/core/src/repositories/` — oito interfaces (`GymRepository`, `UserRepository`, `StudentRepository`, `WorkoutRepository`, `ExecutionRepository`, `NutritionRepository`, `ActivityRepository`, `NoticeRepository`), todas com `gymId` explícito em todo método, nunca implícito.
+
+Precisei de gerador de id em `@gym/core` e esbarrei numa restrição real: `crypto.randomUUID()` não tipa sem lib `DOM` ou `@types/node`, e `@gym/core` não tem nenhuma das duas de propósito (é TS puro, regra de `ARCHITECTURE.md`). Troquei por um gerador simples em cima de `Math.random` — não é criptográfico nem UUID de verdade, mas resolve o único requisito real aqui, que é não colidir dentro do `localStorage` de um navegador.
+
+Do lado de `apps/web/src/storage/`, o desenho que motivei mais foi a migração: `migrate(data, fromVersion, migrations, toVersion)` recebe o registro de migrações e a versão-alvo como parâmetro em vez de constantes fixas, só para o teste poder simular uma migração real sem esperar a próxima mudança de schema acontecer (hoje `MIGRATIONS` está vazio, ainda estamos na v1). O envelope (`gymapp:v1`) e a sessão (`gymapp:session`) ficaram em módulos separados, como o `DATA-MODEL.md` pede — limpar dados de demonstração não pode derrubar login.
+
+Cada repositório é um arquivo que lê o envelope inteiro, filtra/atualiza em memória e regrava — dataset pequeno demais para justificar índice ou storage incremental. `assign`/`unassign` em `WorkoutRepository` merecia cuidado: atribuir de novo ao mesmo aluno reativa a atribuição existente (não duplica), e desatribuir só marca `active: false`, nunca apaga, porque o histórico de series/cargas referencia o `planId` independente da atribuição estar ativa.
+
+O seed ficou deliberadamente mínimo — uma academia e um professor placeholder, só para o app não abrir vazio. O seed completo com as três academias de `SEED-DATA.md` é explicitamente o F1-E05 no roadmap, e antecipar contas/ids aqui só criaria trabalho de desfazer depois.
+
+Os testes cobrem exatamente os dois obrigatórios do épico: migração de schema (pura, incluindo o caso "versão salva mais nova que a do código" avisando e preservando dado em vez de apagar) e isolamento por tenant — reproduzi o caso Camila Reis de `SEED-DATA.md` (mesmo e-mail em duas academias, contas independentes) como teste real em `user-repository.test.ts`, não só como cenário documentado. Conferi com `grep` que `localStorage` só aparece dentro de `apps/web/src/storage/` — nenhum vazamento para fora da camada.
+
+`npm run lint`, `typecheck`, `test` e `build` passam limpos na raiz. Nada foi commitado.
 
 ---
 
