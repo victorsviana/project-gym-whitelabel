@@ -1,0 +1,107 @@
+/*
+ * Tokens visuais — ver docs/DESIGN-TOKENS.md e docs/decisions/ADR-0003-tailwind-tema-runtime.md.
+ * A cor de marca é escrita em runtime (F1-E07); os valores abaixo são o placeholder
+ * de demonstração até uma academia carregar o próprio tema.
+ */
+
+:root {
+  /* Marca — sobrescrita em runtime por Gym.theme */
+  --brand: #e4022e;
+  --brand-rgb: 228 2 46;
+  --brand-fg: #ffffff;
+
+  /* Sistema — tema escuro (padrão) */
+  --bg: #0a0b0a;
+  --input: #0f120e;
+  --sheet: #141610;
+  --surface: rgb(255 255 255 / 3.5%);
+  --surface-2: rgb(255 255 255 / 7%);
+  --border: rgb(255 255 255 / 10%);
+  --fg: #f4f6f1;
+  --fg-muted: #c3c9b9;
+  --fg-subtle: #8b937f;
+  --fg-faint: #6c7566;
+  --nav: rgb(12 13 11 / 94%);
+  --scrim: rgb(5 6 5 / 72%);
+
+  /* Semânticas — iguais em todas as academias */
+  --protein: #ff5c43;
+  --carbs: #f4b740;
+  --fat: #9c8bff;
+  --water: #3fc7f2;
+  --success: #12b76a;
+  --streak: #ff8a3d;
+}
+
+:root[data-theme='light'] {
+  --bg: #eef0ea;
+  --input: #ffffff;
+  --sheet: #ffffff;
+  --surface: rgb(0 0 0 / 4.5%);
+  --surface-2: rgb(0 0 0 / 7%);
+  --border: rgb(0 0 0 / 10%);
+  --fg: #16180f;
+  --fg-muted: #3d4335;
+  --fg-subtle: #727a66;
+  --fg-faint: #9aa08d;
+  --nav: rgb(252 253 250 / 92%);
+  --scrim: rgb(20 22 16 / 40%);
+}
+
+/*
+ * @theme inline: os valores referenciam custom properties definidas acima (não
+ * literais), então o Tailwind precisa emitir `var(--color-*)` nas utilities em
+ * vez de resolver em build time — é isso que faz a troca de tema/marca em
+ * runtime repintar sem rebuild.
+ */
+@theme inline {
+  --color-brand: var(--brand);
+  --color-brand-fg: var(--brand-fg);
+
+  --color-bg: var(--bg);
+  --color-input: var(--input);
+  --color-sheet: var(--sheet);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-fg: var(--fg);
+  --color-muted: var(--fg-muted);
+  --color-subtle: var(--fg-subtle);
+  --color-faint: var(--fg-faint);
+  --color-nav: var(--nav);
+  --color-scrim: var(--scrim);
+
+  --color-protein: var(--protein);
+  --color-carbs: var(--carbs);
+  --color-fat: var(--fat);
+  --color-water: var(--water);
+  --color-success: var(--success);
+  --color-streak: var(--streak);
+
+  --font-display: 'Barlow Condensed', system-ui, sans-serif;
+  --font-sans: 'Barlow', system-ui, sans-serif;
+
+  --radius-field: 13px;
+  --radius-icon: 11px;
+  --radius-card: 17px;
+  --radius-card-lg: 20px;
+  --radius-sheet: 26px;
+
+  --animate-toast: toast 2.2s ease forwards;
+}
+
+@keyframes toast {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  12%,
+  88% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}

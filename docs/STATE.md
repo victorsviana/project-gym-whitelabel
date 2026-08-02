@@ -4,13 +4,13 @@
 
 **Última atualização:** 01/08/2026
 **Fase atual:** Fase 1 — PWA multi-tenant (ver [`ROADMAP.md`](ROADMAP.md))
-**Épico atual:** F1-E01 concluído · próximo é F1-E02
+**Épico atual:** F1-E02 concluído · próximo é F1-E03
 
 ---
 
 ## Onde estamos
 
-O ferramental da Fase 1 está pronto: `apps/web` é um app Vite + React + TypeScript strict de verdade, com lint, testes e Tailwind funcionando, e `shared/core` existe como workspace (ainda sem conteúdo de domínio). Falta tudo o que é tela e regra de negócio.
+O ferramental da Fase 1 está pronto e agora também o design system: `apps/web` renderiza uma página de showcase com os 11 componentes base, tokens de cor ligados a CSS vars e tipografia Barlow/Barlow Condensed local. `shared/core` ainda existe só como workspace vazio — é o próximo passo. Falta tudo o que é regra de negócio e tela de verdade.
 
 O protótipo original (`prototype/Academia Whitelabel - Demo.html`) foi desempacotado, analisado por inteiro e traduzido em especificação: telas, fórmulas, modelo de dados e defeitos estão catalogados. O plano das três fases está fechado e as seis decisões de arquitetura estão registradas.
 
@@ -31,20 +31,28 @@ O protótipo original (`prototype/Academia Whitelabel - Demo.html`) foi desempac
   - Tailwind v4 instalado via `@tailwindcss/vite` (plugin no `vite.config.ts`, `@import 'tailwindcss';` em `index.css`) — só o básico; tokens de marca (cor via CSS vars) ficam para o F1-E02, conforme [ADR-0003](decisions/ADR-0003-tailwind-tema-runtime.md). Como o ADR foi escrito pensando em `tailwind.config` (estilo v3), o E02 precisa adaptar o exemplo para a sintaxe `@theme` da v4
   - `npm install`, `npm run dev`, `npm run typecheck`, `npm run test` e `npm run lint` passando em ambos os workspaces (`@gym/core` usa `--passWithNoTests` até o F1-E03 trazer domínio)
   - CI mínimo em `.github/workflows/ci.yml` (`npm ci && npm run lint && npm run typecheck && npm run test`, Node 22)
+- **F1-E02 · Design system em Tailwind:**
+  - `apps/web/src/styles/tokens.css`: `--brand`/`--brand-rgb`/`--brand-fg` (placeholder de demonstração até o F1-E07 escrever o tema real em runtime), tokens de sistema para tema escuro (padrão, em `:root`) e claro (em `:root[data-theme='light']`), e as seis cores semânticas — valores batendo com [`DESIGN-TOKENS.md`](DESIGN-TOKENS.md)
+  - Tokens ligados ao Tailwind v4 via `@theme inline` (não `@theme` puro — como os valores são `var(--brand)` etc., referenciando custom properties definidas fora do bloco, o Tailwind precisa da variante `inline` para emitir `var(--color-*)` nas utilities em vez de resolver em build time; sem isso a troca de tema/marca em runtime não repinta). Radii customizados (`rounded-field`, `rounded-card`, `rounded-card-lg`, `rounded-sheet`, `rounded-icon`) também entraram no `@theme` para não depender de valor arbitrário espalhado pelos componentes
+  - Fontes Barlow / Barlow Condensed via `@fontsource/barlow` e `@fontsource/barlow-condensed` (pesos 400/600/700 e 700/800) — self-hosted pelo bundler, sem CDN; os `.woff2` do protótipo original não foram recuperáveis pelo `unpack.mjs` (só extrai markup/lógica, não assets binários)
+  - 11 componentes em `apps/web/src/ui/`: `Button`, `Card`, `Chip`, `Stepper`, `Toggle`, `Sheet`, `ProgressBar`, `Ring`, `SegmentedControl`, `EmptyState`, `Toast` — todos só com CSS vars/tokens, nenhuma cor literal
+  - Testes ao lado dos componentes com lógica de interação (`Stepper`, `Toggle`, `SegmentedControl`, `Sheet`); os puramente apresentacionais ficaram sem teste dedicado, por [`CONVENTIONS.md`](CONVENTIONS.md) ("não cobertura por cobertura")
+  - Página de showcase (`apps/web/src/showcase/Showcase.tsx`, montada em `App.tsx`) com seletor de tema claro/escuro e um trocador das três marcas de demonstração ([`WHITELABEL.md`](WHITELABEL.md#marcas-de-demonstração)) escrevendo as CSS vars direto no `documentElement` — prova visual de que o ADR-0003 funciona, mesmo sem a tela real de identidade visual (F1-E07)
+  - Corrigido `apps/web/src/test/setup.ts`: faltava `afterEach(() => cleanup())` — sem `test.globals` no `vite.config.ts`, o Testing Library não faz cleanup automático entre testes e componentes de um teste vazavam pro DOM do próximo
+  - `npm run lint`, `typecheck`, `test` e `build` passam limpos; servidor de dev sobe e responde 200. Não foi possível confirmar visualmente em navegador nesta sessão — sem ferramenta de screenshot/browser disponível no ambiente
 
 ## 🔜 Próxima tarefa
 
-**F1-E02 · Design system em Tailwind.** Ver detalhes em [`ROADMAP.md`](ROADMAP.md#épicos):
+**F1-E03 · Domínio em `@gym/core`.** Ver detalhes em [`ROADMAP.md`](ROADMAP.md#épicos):
 
-1. Ligar os tokens de cor do Tailwind às CSS vars de tema (adaptando o exemplo da [ADR-0003](decisions/ADR-0003-tailwind-tema-runtime.md) para a sintaxe `@theme` do Tailwind v4, já instalado)
-2. Tipografia Barlow / Barlow Condensed; temas claro e escuro
-3. Componentes base em `apps/web/src/ui/`: `Button`, `Card`, `Chip`, `Stepper`, `Toggle`, `Sheet`, `ProgressBar`, `Ring`, `SegmentedControl`, `EmptyState`, `Toast`
-4. Responsivo desde o início, sem moldura de celular
-5. Referência de valores: [`DESIGN-TOKENS.md`](DESIGN-TOKENS.md)
+1. Tipos e enums (uniões literais, não `enum`) de todas as entidades de [`DATA-MODEL.md`](DATA-MODEL.md)
+2. Funções puras de cálculo em `@gym/core/domain`, a partir de [`DOMAIN-RULES.md`](DOMAIN-RULES.md): TMB (Mifflin-St Jeor), TDEE, ajuste por objetivo, kcal-alvo, macros, meta de água, streak, progresso de séries, delta de carga
+3. Utilitários de data em ISO (`YYYY-MM-DD`), já que datas de negócio circulam nesse formato
+4. Zero dependência de runtime em `@gym/core` — é TypeScript puro, sem React/`localStorage`/`window`/`fetch`
 
-*Aceite:* uma página de showcase renderiza todos os componentes nos dois temas e em três larguras (360, 768, 1280).
+*Aceite:* todas as fórmulas de [`DOMAIN-RULES.md`](DOMAIN-RULES.md) implementadas, com os casos de teste daquele documento passando.
 
-Depois dela, seguir a ordem sugerida em [`ROADMAP.md`](ROADMAP.md#ordem-sugerida): `E03 → E04 → E05 → E06 → E07`, e só então `E13 → E14` antes das telas do aluno.
+Depois dela, seguir a ordem sugerida em [`ROADMAP.md`](ROADMAP.md#ordem-sugerida): `E04 → E05 → E06 → E07`, e só então `E13 → E14` antes das telas do aluno.
 
 ## 🚧 Em andamento
 
@@ -84,6 +92,18 @@ Duas decisões que vale registrar: fixei React em `18.x` porque o scaffold atual
 Tailwind entrou (v4, via `@tailwindcss/vite`) só na configuração básica, sem tokens — isso é o F1-E02. Como a ADR-0003 documenta o exemplo de cor com sintaxe de `tailwind.config` (v3), quem for implementar os tokens no E02 vai precisar adaptar para `@theme` (v4).
 
 Todos os critérios de aceite do épico batem: `npm install`, `npm run dev`, `npm run typecheck`, `npm run test` e `npm run lint` passam limpos nos dois workspaces, e o CI mínimo está em `.github/workflows/ci.yml`. Nada foi commitado — os arquivos ficaram como *untracked*/modificados no working tree.
+
+### 01/08/2026 — F1-E02: design system em Tailwind
+
+Executei o épico F1-E02 por completo. O ponto mais delicado foi ligar os tokens ao Tailwind v4: como a cor de marca precisa mudar em runtime (é o requisito central do ADR-0003), os valores no bloco `@theme` não podem ser literais — precisam apontar para as custom properties escritas em `:root`. Isso exige `@theme inline` em vez de `@theme` puro; com o bloco normal o Tailwind resolve o valor em build time e a troca de marca para de funcionar.
+
+Os `.woff2` do protótipo, apesar do que o `DESIGN-TOKENS.md` sugeria, não estavam de fato recuperáveis: o `unpack.mjs` só extrai markup e lógica do bundle, não assets binários. Resolvi com `@fontsource/barlow` e `@fontsource/barlow-condensed` — continuam self-hosted pelo bundler, sem CDN, só que via npm em vez de copiados do protótipo.
+
+Os 11 componentes pedidos pelo épico foram criados em `apps/web/src/ui/`, todos usando só tokens (nenhum `bg-[#...]`, nenhuma cor de paleta Tailwind para marca). Escrevi teste para os que têm lógica de interação de verdade (`Stepper`, `Toggle`, `SegmentedControl`, `Sheet`) e não para os puramente apresentacionais, seguindo a orientação de `CONVENTIONS.md` de não cobrir por cobrir. Nesse processo encontrei um bug real no `test/setup.ts`: sem `test.globals: true` no `vite.config.ts`, o Testing Library não registra cleanup automático entre testes, e componentes de um teste vazavam para o próximo (dois `Toggle` com o mesmo `aria-label` no DOM ao mesmo tempo). Corrigido com `afterEach(() => cleanup())` explícito.
+
+A página de showcase (`apps/web/src/showcase/Showcase.tsx`, montada em `App.tsx` no lugar do placeholder) além de renderizar os componentes nos dois temas, tem um trocador das três marcas de demonstração do `WHITELABEL.md` escrevendo as CSS vars direto no `documentElement` — dá pra ver o app inteiro repintando sem build, que é o ponto inteiro do ADR-0003, mesmo sem a tela real de identidade visual (isso é F1-E07).
+
+`lint`, `typecheck`, `test` e `build` passam limpos; o servidor de dev sobe e responde 200 na raiz. Não confirmei visualmente em navegador — não há ferramenta de screenshot/browser disponível neste ambiente, então a checagem de "renderiza nas três larguras" ficou por revisão de responsividade das classes Tailwind (`grid-cols-1 md:grid-cols-2 lg:grid-cols-3`), não por captura de tela real. Vale abrir `npm run dev -w @gym/web` e olhar manualmente antes de considerar o épico fechado de fato. Nada foi commitado.
 
 ---
 

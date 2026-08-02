@@ -1,1 +1,32 @@
 @import 'tailwindcss';
+
+/* Fontes servidas localmente via @fontsource — sem CDN externa (docs/DESIGN-TOKENS.md) */
+@import '@fontsource/barlow/400.css';
+@import '@fontsource/barlow/600.css';
+@import '@fontsource/barlow/700.css';
+@import '@fontsource/barlow-condensed/700.css';
+@import '@fontsource/barlow-condensed/800.css';
+
+@import './styles/tokens.css';
+
+@layer base {
+  body {
+    @apply bg-bg text-fg font-sans;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  ::selection {
+    @apply bg-brand/25;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
