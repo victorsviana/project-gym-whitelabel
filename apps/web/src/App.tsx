@@ -13,6 +13,8 @@ import { PlanEditorScreen } from './features/gym/workouts/PlanEditorScreen.tsx';
 import { WorkoutsScreen } from './features/gym/workouts/WorkoutsScreen.tsx';
 import { OnboardingFlow } from './features/student/onboarding/OnboardingFlow.tsx';
 import { StudentHome } from './features/student/StudentHome.tsx';
+import { WorkoutDetailScreen } from './features/student/workout/WorkoutDetailScreen.tsx';
+import { WorkoutListScreen } from './features/student/workout/WorkoutListScreen.tsx';
 import { Showcase } from './showcase/Showcase.tsx';
 import { seedIfEmpty } from './storage';
 
@@ -47,6 +49,22 @@ function App() {
           element={
             <RequireRole role="student">
               <OnboardingFlow />
+            </RequireRole>
+          }
+        />
+        <Route
+          path="/aluno/treino"
+          element={
+            <RequireRole role="student">
+              <WorkoutListScreen />
+            </RequireRole>
+          }
+        />
+        <Route
+          path="/aluno/treino/:planId"
+          element={
+            <RequireRole role="student">
+              <WorkoutDetailScreen />
             </RequireRole>
           }
         />

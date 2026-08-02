@@ -133,6 +133,7 @@ function renderHome() {
     <MemoryRouter initialEntries={['/aluno']}>
       <Routes>
         <Route path="/aluno" element={<StudentHome />} />
+        <Route path="/aluno/treino/:planId" element={<p>Execução do treino</p>} />
         <Route path="/" element={<div>Seletor de perfil</div>} />
       </Routes>
     </MemoryRouter>,
@@ -207,6 +208,11 @@ describe('StudentHome', () => {
     expect(within(daySheet).getByText('Total do dia')).toBeInTheDocument();
     expect(within(daySheet).getByText('Frango com arroz')).toBeInTheDocument();
     expect(within(daySheet).getByText('Nenhum treino registrado.')).toBeInTheDocument();
+    fireEvent.click(within(daySheet).getByRole('button', { name: 'Fechar' }));
+
+    // Iniciar treino navega para a execução do plano do dia (F1-E10).
+    fireEvent.click(screen.getByRole('button', { name: 'Iniciar treino' }));
+    expect(await screen.findByText('Execução do treino')).toBeInTheDocument();
   });
 
   it('sem plano atribuído mostra estado vazio; hidratação soma e persiste em copos de 250ml', async () => {

@@ -14,6 +14,7 @@ import { nutritionRepository, studentRepository } from '../../storage';
 import { useSessionAccount } from '../auth/use-session-account';
 import { useSessionStore } from '../auth/use-session';
 import { Button, Card, EmptyState, ProgressBar, Ring } from '../../ui/index.ts';
+import { BottomNav } from './BottomNav';
 import { ConsistencyCalendar } from './home/ConsistencyCalendar';
 import { DayDetailSheet } from './home/DayDetailSheet';
 import { formatCalendarMonth, formatGreetDate } from './home/format';
@@ -92,9 +93,10 @@ export function StudentHome() {
   const goal = goalProgress?.goal ?? null;
   const consumed = goalProgress?.consumed ?? { kcal: 0, protein: 0, carbs: 0, fat: 0 };
   const waterAmount = goalProgress?.water?.amount ?? 0;
+  const plan = workout?.plan ?? null;
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-md flex-col gap-6 px-5 py-10">
+    <div className="mx-auto flex min-h-dvh max-w-md flex-col gap-6 px-5 py-10 pb-28">
       <header className="flex items-start justify-between">
         <div>
           <p className="text-brand font-display text-sm font-bold tracking-widest uppercase">
@@ -126,7 +128,7 @@ export function StudentHome() {
         <p className="font-display mb-3 text-sm font-bold tracking-wide uppercase">Treino de hoje</p>
         {workout === undefined ? (
           <div className="bg-surface-2 h-20 animate-pulse rounded-card" />
-        ) : !workout.plan ? (
+        ) : !plan ? (
           <EmptyState
             title="Sem treino hoje"
             description="Seu professor ainda não montou seu treino."
@@ -135,7 +137,7 @@ export function StudentHome() {
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between gap-2">
               <p className="font-display text-lg font-bold uppercase">
-                {workout.plan.letter} · {workout.plan.name}
+                {plan.letter} · {plan.name}
               </p>
               {workout.isAdapted ? (
                 <span className="bg-success/10 text-success rounded-full px-2 py-0.5 text-xs font-semibold">
@@ -144,13 +146,13 @@ export function StudentHome() {
               ) : null}
             </div>
             <p className="text-subtle text-sm">
-              {workout.plan.focus} · {workout.plan.duration}
+              {plan.focus} · {plan.duration}
             </p>
             {workout.trainerName ? (
               <p className="text-faint text-xs">Professor: {workout.trainerName}</p>
             ) : null}
             <div className="mt-1 flex gap-2">
-              <Button size="sm" fullWidth disabled title="Iniciar treino chega no F1-E10">
+              <Button size="sm" fullWidth onClick={() => navigate(`/aluno/treino/${plan.id}`)}>
                 Iniciar treino
               </Button>
               <Button variant="secondary" size="sm" fullWidth onClick={() => setPlanSheetOpen(true)}>
@@ -318,6 +320,7 @@ export function StudentHome() {
         onClose={() => setPlanSheetOpen(false)}
       />
       <DayDetailSheet date={selectedDay} detail={dayDetail} onClose={() => setSelectedDay(null)} />
+      <BottomNav />
     </div>
   );
 }
