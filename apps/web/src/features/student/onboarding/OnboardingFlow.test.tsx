@@ -128,7 +128,7 @@ describe('OnboardingFlow', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Entrar no app' }));
 
     // Volta para a Home do aluno (agora com perfil — sem cair de novo no onboarding).
-    expect(await screen.findByText('Área do aluno')).toBeInTheDocument();
+    expect(await screen.findByText('Treino de hoje')).toBeInTheDocument();
 
     const savedProfile = await studentRepository.findProfile(gym.id, student.id);
     expect(savedProfile).toMatchObject(expectedAnswers);
