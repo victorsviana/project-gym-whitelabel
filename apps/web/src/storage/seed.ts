@@ -1,41 +1,21 @@
-import { createId, type Gym, type User } from '@gym/core';
-import { createGymRepository } from './gym-repository';
-import { createUserRepository } from './user-repository';
-
-const gymRepository = createGymRepository();
-const userRepository = createUserRepository();
+import { buildSeedData } from './seed/build';
+import { loadData, saveData } from './store';
 
 /**
- * Garante uma academia e um professor mínimos na primeira execução, para o app não abrir
- * vazio antes do F1-E05 trazer o seed completo (três academias, alunos, planos, histórico).
- * Idempotente: só cria algo se ainda não existir nenhuma academia.
+ * Garante as três academias de demonstração de SEED-DATA.md (Gaviões Fitness, Bluefit, Iron
+ * House — professor, alunos, planos, atribuições e histórico) na primeira execução. Idempotente:
+ * só semeia se ainda não houver nenhuma academia salva.
  */
 export async function seedIfEmpty(): Promise<void> {
-  const gyms = await gymRepository.list();
+  const { gyms } = loadData();
   if (gyms.length > 0) return;
+  saveData(buildSeedData());
+}
 
-  const now = new Date().toISOString();
-
-  const gym: Gym = {
-    id: createId(),
-    name: 'Academia Demo',
-    slug: 'demo',
-    initials: 'AD',
-    logo: null,
-    theme: { brand: '#E4022E', brandFg: '#FFFFFF', mode: 'dark' },
-    createdAt: now,
-  };
-  await gymRepository.save(gym);
-
-  const trainer: User = {
-    id: createId(),
-    gymId: gym.id,
-    role: 'trainer',
-    name: 'Professor Demo',
-    email: 'professor@demo.com',
-    password: 'demo1234',
-    active: true,
-    createdAt: now,
-  };
-  await userRepository.save(trainer);
+/**
+ * Ação de "restaurar dados de demonstração": descarta o que estiver salvo e recria as três
+ * academias do zero. `saveData` substitui o envelope inteiro, então basta gravar um dataset novo.
+ */
+export async function restoreDemoData(): Promise<void> {
+  saveData(buildSeedData());
 }

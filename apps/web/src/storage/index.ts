@@ -3,7 +3,7 @@ export { createExecutionRepository } from './execution-repository';
 export { createGymRepository } from './gym-repository';
 export { createNoticeRepository } from './notice-repository';
 export { createNutritionRepository } from './nutrition-repository';
-export { seedIfEmpty } from './seed';
+export { restoreDemoData, seedIfEmpty } from './seed';
 export { createStudentRepository } from './student-repository';
 export { createUserRepository } from './user-repository';
 export { createWorkoutRepository } from './workout-repository';
