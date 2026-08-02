@@ -11,6 +11,7 @@ import { GymHome } from './features/gym/GymHome.tsx';
 import { StudentsScreen } from './features/gym/students/StudentsScreen.tsx';
 import { PlanEditorScreen } from './features/gym/workouts/PlanEditorScreen.tsx';
 import { WorkoutsScreen } from './features/gym/workouts/WorkoutsScreen.tsx';
+import { DietScreen } from './features/student/diet/DietScreen.tsx';
 import { OnboardingFlow } from './features/student/onboarding/OnboardingFlow.tsx';
 import { StudentHome } from './features/student/StudentHome.tsx';
 import { WorkoutDetailScreen } from './features/student/workout/WorkoutDetailScreen.tsx';
@@ -65,6 +66,14 @@ function App() {
           element={
             <RequireRole role="student">
               <WorkoutDetailScreen />
+            </RequireRole>
+          }
+        />
+        <Route
+          path="/aluno/dieta"
+          element={
+            <RequireRole role="student">
+              <DietScreen />
             </RequireRole>
           }
         />

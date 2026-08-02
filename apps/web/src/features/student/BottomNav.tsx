@@ -9,7 +9,7 @@ interface NavTab {
 const TABS: NavTab[] = [
   { label: 'Início', to: '/aluno' },
   { label: 'Treino', to: '/aluno/treino' },
-  { label: 'Dieta', to: '/aluno', disabledReason: 'Dieta chega no F1-E11' },
+  { label: 'Dieta', to: '/aluno/dieta' },
   { label: 'Perfil', to: '/aluno', disabledReason: 'Perfil chega no F1-E12' },
 ];
 

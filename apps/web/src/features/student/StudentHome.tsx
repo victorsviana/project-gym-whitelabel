@@ -195,7 +195,7 @@ export function StudentHome() {
             <Button variant="ghost" size="sm" disabled title="Ajuste manual de metas chega no F1-E12">
               Ajustar
             </Button>
-            <Button variant="ghost" size="sm" disabled title="Registro de alimento chega no F1-E11">
+            <Button variant="ghost" size="sm" onClick={() => navigate('/aluno/dieta')}>
               + Registrar
             </Button>
           </div>
