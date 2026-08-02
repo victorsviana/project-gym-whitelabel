@@ -1,3 +1,4 @@
+import type { IsoDate } from '../dates/iso-date';
 import type { BodyRegion, Goal, Level, Restriction, Sex } from './common';
 
 export interface StudentProfile {
@@ -15,4 +16,6 @@ export interface StudentProfile {
   restrictions: Restriction[];
   /** null = onboarding pendente. */
   onboardedAt: string | null;
+  /** Data da avaliação mais recente (onboarding ou reavaliação pelo professor) — base da pendência de reavaliação (F1-E15). */
+  lastAssessedAt: IsoDate;
 }

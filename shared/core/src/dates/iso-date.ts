@@ -44,3 +44,14 @@ export function compareIsoDate(a: IsoDate, b: IsoDate): number {
 export function isSameMonth(a: IsoDate, b: IsoDate): boolean {
   return a.slice(0, 7) === b.slice(0, 7);
 }
+
+const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
+/** Dias corridos entre duas datas locais — positivo quando `to` é depois de `from`. */
+export function daysBetween(from: IsoDate, to: IsoDate): number {
+  const { year: fromYear, month: fromMonth, day: fromDay } = parseIsoDate(from);
+  const { year: toYear, month: toMonth, day: toDay } = parseIsoDate(to);
+  const fromMs = new Date(fromYear, fromMonth - 1, fromDay).getTime();
+  const toMs = new Date(toYear, toMonth - 1, toDay).getTime();
+  return Math.round((toMs - fromMs) / MS_PER_DAY);
+}

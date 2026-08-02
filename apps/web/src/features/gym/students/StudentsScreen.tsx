@@ -1,6 +1,6 @@
 import type { StudentStatus } from '@gym/core';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Button, Card, EmptyState, SegmentedControl, TextField } from '../../../ui/index.ts';
 import { useSessionAccount } from '../../auth/use-session-account';
 import { AddStudentSheet } from './AddStudentSheet';
@@ -34,6 +34,7 @@ function initialsFrom(name: string): string {
 
 export function StudentsScreen() {
   const { gym, user, loading: loadingAccount } = useSessionAccount();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [rows, setRows] = useState<StudentRow[] | null>(null);
   const [error, setError] = useState(false);
@@ -42,6 +43,7 @@ export function StudentsScreen() {
   const [addOpen, setAddOpen] = useState(false);
   const [selectedStudentId, setSelectedStudentId] = useState<string | null>(null);
   const [reloadToken, setReloadToken] = useState(0);
+  const [appliedStudentParam, setAppliedStudentParam] = useState<string | null>(null);
 
   useEffect(() => {
     if (!gym) return;
@@ -60,7 +62,22 @@ export function StudentsScreen() {
     };
   }, [gym, reloadToken]);
 
+  // Atalho de "Avisos" (F1-E15): /gym/alunos?student=<id> abre a ficha direto.
+  const studentParam = searchParams.get('student');
+  if (studentParam && studentParam !== appliedStudentParam) {
+    setSelectedStudentId(studentParam);
+    setAppliedStudentParam(studentParam);
+  }
+
   const reload = () => setReloadToken((token) => token + 1);
+
+  const closeDetail = () => {
+    setSelectedStudentId(null);
+    if (searchParams.has('student')) {
+      searchParams.delete('student');
+      setSearchParams(searchParams, { replace: true });
+    }
+  };
 
   if (loadingAccount || !gym || !user) return null;
 
@@ -176,7 +193,7 @@ export function StudentsScreen() {
         student={selectedRow}
         gymId={gym.id}
         trainerId={user.id}
-        onClose={() => setSelectedStudentId(null)}
+        onClose={closeDetail}
         onAssessmentSaved={reload}
         onAssignmentSaved={reload}
       />

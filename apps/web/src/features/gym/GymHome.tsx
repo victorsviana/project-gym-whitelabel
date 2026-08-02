@@ -74,6 +74,20 @@ export function GymHome() {
 
       <Card elevated className="flex items-center justify-between gap-4">
         <div>
+          <p className="font-display text-lg font-bold uppercase">Avisos</p>
+          <p className="text-subtle mt-1 text-sm">
+            {dashboard
+              ? `${dashboard.openNotices} pendência${dashboard.openNotices === 1 ? '' : 's'} aberta${dashboard.openNotices === 1 ? '' : 's'}.`
+              : 'Aluno novo, avaliação vencida e pedido de troca de treino.'}
+          </p>
+        </div>
+        <Button size="sm" onClick={() => navigate('/gym/avisos')}>
+          Ver avisos
+        </Button>
+      </Card>
+
+      <Card elevated className="flex items-center justify-between gap-4">
+        <div>
           <p className="font-display text-lg font-bold uppercase">Identidade visual</p>
           <p className="text-subtle mt-1 text-sm">Nome, logo, cor principal e cor de contraste.</p>
         </div>

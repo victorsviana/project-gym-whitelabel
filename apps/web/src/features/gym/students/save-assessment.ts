@@ -1,5 +1,5 @@
 import type { BodyRegion, Goal, Level, Restriction, Sex, StudentProfile } from '@gym/core';
-import { computeDailyGoal } from '@gym/core';
+import { computeDailyGoal, todayIsoDate } from '@gym/core';
 import { studentRepository } from '../../../storage';
 
 export interface AssessmentInput {
@@ -31,6 +31,7 @@ export async function saveStudentAssessment(
     gymId,
     ...input,
     onboardedAt: existing?.onboardedAt ?? now,
+    lastAssessedAt: todayIsoDate(),
   };
   await studentRepository.saveProfile(profile);
 

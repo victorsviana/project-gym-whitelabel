@@ -8,6 +8,7 @@ import { StudentSignupScreen } from './features/auth/StudentSignupScreen.tsx';
 import { TrainerSignupScreen } from './features/auth/TrainerSignupScreen.tsx';
 import { BrandScreen } from './features/gym/BrandScreen.tsx';
 import { GymHome } from './features/gym/GymHome.tsx';
+import { NoticesScreen } from './features/gym/notices/NoticesScreen.tsx';
 import { StudentsScreen } from './features/gym/students/StudentsScreen.tsx';
 import { PlanEditorScreen } from './features/gym/workouts/PlanEditorScreen.tsx';
 import { WorkoutsScreen } from './features/gym/workouts/WorkoutsScreen.tsx';
@@ -132,6 +133,14 @@ function App() {
           element={
             <RequireRole role="trainer">
               <PlanEditorScreen />
+            </RequireRole>
+          }
+        />
+        <Route
+          path="/gym/avisos"
+          element={
+            <RequireRole role="trainer">
+              <NoticesScreen />
             </RequireRole>
           }
         />

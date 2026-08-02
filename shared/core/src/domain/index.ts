@@ -2,6 +2,7 @@ export * from './adapted-exercise';
 export * from './daily-goals';
 export * from './hydration';
 export * from './load';
+export * from './notices';
 export * from './nutrition';
 export * from './schedule';
 export * from './streak';

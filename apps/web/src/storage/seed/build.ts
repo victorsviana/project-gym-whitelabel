@@ -131,6 +131,7 @@ export function buildSeedData(): StorageData {
         injuries: seedStudent.injuries,
         restrictions: seedStudent.restrictions,
         onboardedAt,
+        lastAssessedAt: addDays(todayIsoDate(), -seedStudent.lastAssessedDaysAgo),
       };
       data.profiles.push(profile);
 

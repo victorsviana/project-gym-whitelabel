@@ -1,3 +1,4 @@
+import { deriveAutoNoticeKinds, todayIsoDate } from '@gym/core';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createGymRepository } from './gym-repository';
 import { createNoticeRepository } from './notice-repository';
@@ -149,21 +150,71 @@ describe('seedIfEmpty — pendências', () => {
     expect(await workoutRepository.listPlansForStudent(bluefit!.id, ana!.id)).toHaveLength(0);
   });
 
-  it('gera as pendências de novo aluno, troca de treino e reavaliação de SEED-DATA.md', async () => {
+  it('semeia a pendência de troca de treino de Rafael (SEED-DATA.md) — a única que não se deriva sozinha', async () => {
+    await seedIfEmpty();
+
+    const gavioes = await gymRepository.findBySlug('gavioes');
+    const gavioesNotices = await noticeRepository.listByGym(gavioes!.id);
+
+    expect(gavioesNotices.some((notice) => notice.kind === 'plan_change_request')).toBe(true);
+  });
+
+  it('não semeia new_student/reassessment como registro — F1-E15 deriva os dois em runtime', async () => {
     await seedIfEmpty();
 
     const gavioes = await gymRepository.findBySlug('gavioes');
     const bluefit = await gymRepository.findBySlug('bluefit');
     const ironHouse = await gymRepository.findBySlug('iron-house');
 
-    const gavioesNotices = await noticeRepository.listByGym(gavioes!.id);
-    const bluefitNotices = await noticeRepository.listByGym(bluefit!.id);
-    const ironHouseNotices = await noticeRepository.listByGym(ironHouse!.id);
+    const allNotices = [
+      ...(await noticeRepository.listByGym(gavioes!.id)),
+      ...(await noticeRepository.listByGym(bluefit!.id)),
+      ...(await noticeRepository.listByGym(ironHouse!.id)),
+    ];
 
-    expect(gavioesNotices.some((notice) => notice.kind === 'new_student')).toBe(true);
-    expect(gavioesNotices.some((notice) => notice.kind === 'plan_change_request')).toBe(true);
-    expect(bluefitNotices.some((notice) => notice.kind === 'new_student')).toBe(true);
-    expect(ironHouseNotices.some((notice) => notice.kind === 'reassessment')).toBe(true);
+    expect(allNotices.every((notice) => notice.kind === 'plan_change_request')).toBe(true);
+  });
+
+  it('a derivação (deriveAutoNoticeKinds) reproduz Bruno/Ana como new_student e Diego como reassessment', async () => {
+    await seedIfEmpty();
+
+    const gavioes = await gymRepository.findBySlug('gavioes');
+    const bluefit = await gymRepository.findBySlug('bluefit');
+    const ironHouse = await gymRepository.findBySlug('iron-house');
+    const today = todayIsoDate();
+
+    const bruno = await userRepository.findByEmail(gavioes!.id, 'bruno@aluno.com');
+    const brunoAssignments = await workoutRepository.listAssignmentsForStudent(gavioes!.id, bruno!.id);
+    const brunoProfile = await studentRepository.findProfile(gavioes!.id, bruno!.id);
+    expect(
+      deriveAutoNoticeKinds({
+        hasActiveAssignment: brunoAssignments.some((a) => a.active),
+        lastAssessedAt: brunoProfile!.lastAssessedAt,
+        today,
+      }),
+    ).toContain('new_student');
+
+    const ana = await userRepository.findByEmail(bluefit!.id, 'ana@aluno.com');
+    const anaAssignments = await workoutRepository.listAssignmentsForStudent(bluefit!.id, ana!.id);
+    const anaProfile = await studentRepository.findProfile(bluefit!.id, ana!.id);
+    expect(
+      deriveAutoNoticeKinds({
+        hasActiveAssignment: anaAssignments.some((a) => a.active),
+        lastAssessedAt: anaProfile!.lastAssessedAt,
+        today,
+      }),
+    ).toContain('new_student');
+
+    const diego = await userRepository.findByEmail(ironHouse!.id, 'diego@aluno.com');
+    const diegoAssignments = await workoutRepository.listAssignmentsForStudent(ironHouse!.id, diego!.id);
+    const diegoProfile = await studentRepository.findProfile(ironHouse!.id, diego!.id);
+    expect(
+      deriveAutoNoticeKinds({
+        hasActiveAssignment: diegoAssignments.some((a) => a.active),
+        lastAssessedAt: diegoProfile!.lastAssessedAt,
+        today,
+      }),
+    ).toContain('reassessment');
   });
 });
 

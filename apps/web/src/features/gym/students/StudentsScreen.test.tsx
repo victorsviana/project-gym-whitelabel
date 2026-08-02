@@ -63,7 +63,7 @@ function buildPlan(gymId: string, overrides: Partial<WorkoutPlan> = {}): Workout
   };
 }
 
-async function renderAsTrainerOf(gym: Gym) {
+async function renderAsTrainerOf(gym: Gym, initialEntry = '/gym/alunos') {
   const trainer = buildStudent(gym.id, { role: 'trainer', name: 'Professor', email: 'prof@x.com' });
   await userRepository.save(trainer);
   useSessionStore.setState({
@@ -76,7 +76,7 @@ async function renderAsTrainerOf(gym: Gym) {
   });
 
   render(
-    <MemoryRouter initialEntries={['/gym/alunos']}>
+    <MemoryRouter initialEntries={[initialEntry]}>
       <Routes>
         <Route path="/gym/alunos" element={<StudentsScreen />} />
         <Route path="/gym" element={<p>Home da academia</p>} />
@@ -229,5 +229,16 @@ describe('StudentsScreen', () => {
       expect(brunoRow).not.toBeUndefined();
       expect(within(brunoRow!).getByText('Ativo')).toBeInTheDocument();
     });
+  });
+
+  it('abre a ficha do aluno direto quando chega com ?student=<id> — atalho da tela de Avisos', async () => {
+    const gym = buildGym();
+    await gymRepository.save(gym);
+    const student = buildStudent(gym.id, { name: 'Diego Ramos', email: 'diego@x.com' });
+    await userRepository.save(student);
+
+    await renderAsTrainerOf(gym, `/gym/alunos?student=${student.id}`);
+
+    expect(await screen.findByRole('dialog', { name: 'Diego Ramos' })).toBeInTheDocument();
   });
 });

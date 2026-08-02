@@ -1,5 +1,5 @@
 import type { Gym, StudentProfile, User } from '@gym/core';
-import { createId } from '@gym/core';
+import { createId, todayIsoDate } from '@gym/core';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -54,6 +54,7 @@ function buildProfile(gymId: string, studentId: string, overrides: Partial<Stude
     injuries: [],
     restrictions: [],
     onboardedAt: new Date().toISOString(),
+    lastAssessedAt: todayIsoDate(),
     ...overrides,
   };
 }

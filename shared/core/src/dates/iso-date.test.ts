@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { addDays, compareIsoDate, isSameMonth, isValidIsoDate, toIsoDate } from './iso-date';
+import { addDays, compareIsoDate, daysBetween, isSameMonth, isValidIsoDate, toIsoDate } from './iso-date';
 
 describe('toIsoDate', () => {
   it('formata com zero à esquerda', () => {
@@ -50,5 +50,19 @@ describe('isSameMonth', () => {
   it('compara ano e mês, ignorando o dia', () => {
     expect(isSameMonth('2026-08-01', '2026-08-31')).toBe(true);
     expect(isSameMonth('2026-08-31', '2026-09-01')).toBe(false);
+  });
+});
+
+describe('daysBetween', () => {
+  it('conta dias corridos entre duas datas', () => {
+    expect(daysBetween('2026-07-01', '2026-08-01')).toBe(31);
+  });
+
+  it('é negativo quando `to` é antes de `from`', () => {
+    expect(daysBetween('2026-08-01', '2026-07-01')).toBe(-31);
+  });
+
+  it('é zero para a mesma data', () => {
+    expect(daysBetween('2026-08-01', '2026-08-01')).toBe(0);
   });
 });

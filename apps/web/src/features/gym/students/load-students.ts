@@ -1,6 +1,7 @@
 import type { StudentProfile, StudentStatus, User, WorkoutPlan } from '@gym/core';
 import { computeStudentStatus } from '@gym/core';
-import { noticeRepository, studentRepository, userRepository, workoutRepository } from '../../../storage';
+import { studentRepository, userRepository, workoutRepository } from '../../../storage';
+import { loadOpenNotices, openNoticeStudentIds } from '../notices/load-notices';
 
 export interface StudentRow {
   user: User;
@@ -11,16 +12,15 @@ export interface StudentRow {
 }
 
 export async function loadStudentRows(gymId: string): Promise<StudentRow[]> {
-  const [users, profiles, plans, openNotices] = await Promise.all([
+  const [users, profiles, plans, studentIdsWithOpenNotice] = await Promise.all([
     userRepository.listByGym(gymId, 'student'),
     studentRepository.listProfiles(gymId),
     workoutRepository.listPlans(gymId),
-    noticeRepository.listByGym(gymId, false),
+    openNoticeStudentIds(gymId),
   ]);
 
   const profileByStudent = new Map(profiles.map((profile) => [profile.studentId, profile]));
   const planById = new Map(plans.map((plan) => [plan.id, plan]));
-  const studentIdsWithOpenNotice = new Set(openNotices.map((notice) => notice.studentId));
 
   const rows = await Promise.all(
     users.map(async (user) => {
@@ -58,7 +58,7 @@ export async function loadGymDashboard(gymId: string): Promise<GymDashboard> {
   const [rows, plans, notices] = await Promise.all([
     loadStudentRows(gymId),
     workoutRepository.listPlans(gymId),
-    noticeRepository.listByGym(gymId, false),
+    loadOpenNotices(gymId),
   ]);
 
   return {

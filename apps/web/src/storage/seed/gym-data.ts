@@ -19,7 +19,15 @@ export interface SeedStudent {
   historyDays: number;
   /** Há quantos dias foi a avaliação inicial — sempre >= historyDays, para o onboarding preceder o treino. */
   onboardedDaysAgo: number;
-  notice?: { kind: NoticeKind; text: string };
+  /**
+   * Há quantos dias foi a avaliação mais recente — base da pendência de reavaliação (F1-E15,
+   * derivada em runtime, > 30 dias). Independente de `onboardedDaysAgo` de propósito: a maioria
+   * dos alunos segue "avaliado recentemente" mesmo tendo onboarding antigo (Victor, 47 dias),
+   * só Diego representa o caso de reavaliação vencida de SEED-DATA.md.
+   */
+  lastAssessedDaysAgo: number;
+  /** `new_student`/`reassessment` são derivados em runtime (F1-E15) — só `plan_change_request` continua seedado direto, por não ter sinal no modelo que o derive. */
+  notice?: { kind: Extract<NoticeKind, 'plan_change_request'>; text: string };
 }
 
 export interface SeedGym {
@@ -58,6 +66,7 @@ export const SEED_GYMS: SeedGym[] = [
         assignedPlanLetters: ['A', 'B', 'C', 'D', 'E'],
         historyDays: 42,
         onboardedDaysAgo: 47,
+        lastAssessedDaysAgo: 10,
       },
       {
         name: 'Rafael Dias',
@@ -74,6 +83,7 @@ export const SEED_GYMS: SeedGym[] = [
         assignedPlanLetters: ['A', 'B', 'C', 'D', 'E'],
         historyDays: 21,
         onboardedDaysAgo: 28,
+        lastAssessedDaysAgo: 28,
         notice: { kind: 'plan_change_request', text: 'Pediu troca de treino (dor no joelho)' },
       },
       {
@@ -91,6 +101,7 @@ export const SEED_GYMS: SeedGym[] = [
         assignedPlanLetters: ['A', 'B', 'C'],
         historyDays: 10,
         onboardedDaysAgo: 16,
+        lastAssessedDaysAgo: 16,
       },
       {
         name: 'Bruno Nunes',
@@ -107,7 +118,7 @@ export const SEED_GYMS: SeedGym[] = [
         assignedPlanLetters: [],
         historyDays: 0,
         onboardedDaysAgo: 2,
-        notice: { kind: 'new_student', text: 'Novo aluno — monte o primeiro treino' },
+        lastAssessedDaysAgo: 2,
       },
       {
         name: 'Camila Reis',
@@ -124,6 +135,7 @@ export const SEED_GYMS: SeedGym[] = [
         assignedPlanLetters: ['A', 'B', 'C', 'D'],
         historyDays: 14,
         onboardedDaysAgo: 20,
+        lastAssessedDaysAgo: 20,
       },
     ],
   },
@@ -151,6 +163,7 @@ export const SEED_GYMS: SeedGym[] = [
         assignedPlanLetters: ['A', 'B', 'C'],
         historyDays: 28,
         onboardedDaysAgo: 34,
+        lastAssessedDaysAgo: 10,
       },
       {
         name: 'Thiago Marques',
@@ -167,6 +180,7 @@ export const SEED_GYMS: SeedGym[] = [
         assignedPlanLetters: ['A', 'B', 'C'],
         historyDays: 14,
         onboardedDaysAgo: 20,
+        lastAssessedDaysAgo: 20,
       },
       {
         name: 'Ana Prado',
@@ -183,7 +197,7 @@ export const SEED_GYMS: SeedGym[] = [
         assignedPlanLetters: [],
         historyDays: 0,
         onboardedDaysAgo: 3,
-        notice: { kind: 'new_student', text: 'Novo aluno — monte o primeiro treino' },
+        lastAssessedDaysAgo: 3,
       },
     ],
   },
@@ -211,6 +225,7 @@ export const SEED_GYMS: SeedGym[] = [
         assignedPlanLetters: ['A', 'B', 'C', 'D'],
         historyDays: 14,
         onboardedDaysAgo: 20,
+        lastAssessedDaysAgo: 20,
       },
       {
         name: 'Diego Ramos',
@@ -227,7 +242,7 @@ export const SEED_GYMS: SeedGym[] = [
         assignedPlanLetters: ['A', 'B', 'C', 'D'],
         historyDays: 35,
         onboardedDaysAgo: 45,
-        notice: { kind: 'reassessment', text: 'Avaliação feita há mais de 30 dias — reavaliação recomendada' },
+        lastAssessedDaysAgo: 45,
       },
     ],
   },

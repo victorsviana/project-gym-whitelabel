@@ -73,6 +73,7 @@ function buildProfile(gymId: string, studentId: string, overrides: Partial<Stude
     injuries: [],
     restrictions: [],
     onboardedAt: new Date().toISOString(),
+    lastAssessedAt: todayIsoDate(),
     ...overrides,
   };
 }

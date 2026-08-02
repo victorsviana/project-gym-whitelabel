@@ -1,5 +1,5 @@
 import type { DailyGoal, StudentProfile } from '@gym/core';
-import { computeDailyGoal } from '@gym/core';
+import { computeDailyGoal, todayIsoDate } from '@gym/core';
 import { studentRepository } from '../../../storage';
 import type { OnboardingAnswers } from './types';
 
@@ -16,6 +16,7 @@ export async function completeOnboarding(
     gymId,
     ...answers,
     onboardedAt: now,
+    lastAssessedAt: todayIsoDate(),
   };
   await studentRepository.saveProfile(profile);
 
