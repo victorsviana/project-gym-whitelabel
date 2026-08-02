@@ -1,0 +1,25 @@
+node_modules/
+dist/
+build/
+coverage/
+.vite/
+.turbo/
+
+# ambiente
+.env
+.env.*
+!.env.example
+
+# editores e SO
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# logs
+*.log
+npm-debug.log*
+
+# Expo (fase 3)
+.expo/

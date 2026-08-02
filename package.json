@@ -1,0 +1,20 @@
+{
+  "name": "gym-whitelabel",
+  "version": "0.1.0",
+  "private": true,
+  "description": "App whitelabel para academias — treino e dieta do aluno, painel do professor",
+  "workspaces": [
+    "apps/*",
+    "shared/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "npm run dev --workspace @gym/web",
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  }
+}

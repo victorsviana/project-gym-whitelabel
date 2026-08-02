@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="4a5673fa-dbda-4ec8-b2c2-af1dffa56820"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<style>/* vietnamese */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("d443ff4e-63fe-4b6b-b829-78f532bca9b7") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("97f23c6f-5193-41ae-b382-3d33ac0d553e") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("e5199c3c-960d-4331-a631-9461bf2b8ab7") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("4de15796-6f08-479a-8d33-ca0b1885f32a") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("c428df8b-9858-4683-a8bc-a91a0c5f1fbb") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("71745f8c-05a6-42e2-af6c-3fde94fc2634") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("854a548f-0c5d-4a51-87ef-9549e22c5f23") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("d59b76f7-06e9-4daf-9bd2-a40f4bbc57f2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("7c2d216b-62c9-49f5-a345-62f6b0d0a9c2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("de24e576-4b2f-4dfe-82fa-7e28c843b8bb") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("34d12f14-49e5-429e-951b-748831454319") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("91922d25-99c8-417b-a6e4-49ff329e4c4d") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("842c6ce7-3c02-42e6-9554-d9f3bc357718") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("96285f2e-19d0-4db0-98d1-d14b2e1410ff") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("2c913dbc-e3c2-43a7-a06d-20b491e2519d") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("26f0e441-8e22-483f-8d5e-a3528833b431") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("92bcc930-0848-4761-81d0-d233c66ac9da") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("6d562042-567a-457a-9155-882baad4ffb0") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("642c3e03-b15c-4416-9655-0bd7af07455f") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("e7d9b229-ba39-4eef-893a-9db7c505fb3d") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("c57265d4-a06b-4315-9d5c-beb8f7b000db") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+<style>
+  html,body{margin:0;padding:0;background:#050605;}
+  *{box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  ::-webkit-scrollbar{width:0;height:0;}
+  @keyframes hbSpin{to{transform:rotate(360deg);}}
+  @keyframes hbRise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  @keyframes hbToast{0%{opacity:0;transform:translateY(14px);}12%,88%{opacity:1;transform:none;}100%{opacity:0;transform:translateY(-6px);}}
+  .wl-scroll{scrollbar-width:none;-ms-overflow-style:none;}
+</style>
+</helmet>
+<x-import component-from-global-scope="IOSDevice" from="cb7d30c2-e137-45d6-a4c7-a5fd31db2956#/ios-frame.jsx" dark="{{ true }}" width="{{ dw }}" height="{{ dh }}" hint-size="402px,874px">
+<div style="{{ rootStyle }}">
+
+<!-- ================= LOGIN / WELCOME ================= -->
+<sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+<div style="height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:0 26px 44px;position:relative;background:radial-gradient(120% 80% at 70% 0%, var(--acHaze) 0%, var(--bg) 58%);">
+  <div style="position:absolute;top:0;left:0;right:0;height:60%;background:linear-gradient(180deg,var(--acHaze2) 0%,rgba(10,11,10,0) 100%);"></div>
+  <div style="position:absolute;top:96px;left:26px;right:26px;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="width:52px;height:52px;border-radius:15px;background:var(--ac);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed';font-weight:800;font-size:24px;color:var(--acT);letter-spacing:.02em;overflow:hidden;box-shadow:0 8px 22px rgba(var(--acR),.35);">{{ brandLogoEl }}<sc-if value="{{ brandNoLogo }}" hint-placeholder-val="{{ true }}">{{ brandInitials }}</sc-if></div>
+      <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;text-transform:uppercase;line-height:1;">{{ brandName }}</div>
+    </div>
+    <div style="font-family:'Barlow Condensed';font-weight:800;font-size:58px;line-height:.9;letter-spacing:-.01em;text-transform:uppercase;margin-top:30px;">Seu treino<br><span style="color:var(--ac);">no bolso</span></div>
+    <div style="font-size:16px;line-height:1.45;color:var(--tx3);margin-top:16px;max-width:300px;">Treino e dieta montados pela sua academia, direto no seu celular. Sem planilha solta, sem PDF perdido.</div>
+    <div style="margin-top:18px;display:inline-flex;align-items:center;gap:8px;background:var(--surf2);border:1px solid var(--bd);border-radius:999px;padding:7px 13px;">
+      <svg width="14" height="14" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2.2"><path d="M20 6L9 17l-5-5"></path></svg>
+      <span style="font:600 12px Barlow;color:var(--tx2);">Oferecido pela {{ brandName }}</span>
+    </div>
+  </div>
+  <div style="position:relative;display:flex;flex-direction:column;gap:11px;">
+    <div style="display:flex;flex-direction:column;gap:10px;border:1px solid var(--bd);border-radius:16px;padding:14px;background:var(--surf);">
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:11px;background:var(--inp);border:1px solid var(--bd);">
+        <svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--tx4)" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>
+        <span style="font-size:15px;color:var(--tx2);">seu@email.com</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:11px;background:var(--inp);border:1px solid var(--bd);">
+        <svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--tx4)" stroke-width="1.8"><rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 018 0v3"></path></svg>
+        <span style="font-size:15px;color:var(--tx2);letter-spacing:.2em;">••••••••</span>
+      </div>
+    </div>
+    <button sc-camel-on-click="{{ startOnboarding }}" style="border:none;cursor:pointer;padding:17px;border-radius:14px;background:var(--ac);color:var(--acT);font-family:'Barlow Condensed';font-weight:700;font-size:20px;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 8px 24px rgba(var(--acR),.3);">Criar minha conta</button>
+    <button sc-camel-on-click="{{ enterApp }}" style="border:none;cursor:pointer;padding:13px;border-radius:14px;background:transparent;color:var(--tx3);font-family:Barlow;font-weight:600;font-size:15px;">Já sou aluno · Entrar</button>
+  </div>
+  <button sc-camel-on-click="{{ openBrand }}" style="position:absolute;top:52px;right:22px;border:1px solid var(--bd);background:var(--surf2);border-radius:999px;padding:6px 12px;cursor:pointer;display:flex;align-items:center;gap:6px;color:var(--tx2);font:600 11px Barlow;letter-spacing:.04em;">
+    <svg width="12" height="12" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2"><circle cx="13.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="10.5" r="2.5"></circle><circle cx="8.5" cy="7.5" r="2.5"></circle><circle cx="6.5" cy="12.5" r="2.5"></circle><path d="M12 2a10 10 0 100 20 2 2 0 002-2 2 2 0 00-2-2h-1a2 2 0 010-4z"></path></svg>
+    Marca: demo
+  </button>
+</div>
+</sc-if>
+
+<!-- ================= ONBOARDING ================= -->
+<sc-if value="{{ isOnboarding }}" hint-placeholder-val="{{ false }}">
+<div style="height:100%;display:flex;flex-direction:column;background:var(--bg);">
+  <div style="padding:58px 22px 8px;">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <button sc-camel-on-click="{{ obPrev }}" style="border:none;background:var(--bd);width:36px;height:36px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="9" height="16" sc-camel-view-box="0 0 9 16" fill="none" stroke="var(--tx2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1L1 8l7 7"></path></svg></button>
+      <div style="flex:1;height:5px;border-radius:3px;background:var(--surf2);overflow:hidden;"><div style="{{ obBarStyle }}"></div></div>
+      <span style="font:700 13px Barlow;color:var(--tx3);font-variant-numeric:tabular-nums;">{{ obLabel }}</span>
+    </div>
+  </div>
+  <div class="wl-scroll" style="flex:1;overflow-y:auto;padding:22px 22px 26px;">
+    <div key="{{ obStep }}" style="animation:hbRise .32s ease both;">
+      <sc-if value="{{ isOb0 }}" hint-placeholder-val="{{ true }}">
+        <div style="font-family:'Barlow Condensed';font-weight:800;font-size:38px;line-height:.95;text-transform:uppercase;">Bem-vindo à<br><span style="color:var(--ac);">{{ brandName }}</span></div>
+        <div style="font-size:16px;color:var(--tx3);margin-top:16px;line-height:1.5;">Responda a avaliação inicial. Com base nas suas respostas calculamos suas metas de dieta e seu professor monta seu treino personalizado.</div>
+        <div style="margin-top:26px;display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;gap:13px;align-items:center;"><div style="width:38px;height:38px;border-radius:11px;background:rgba(var(--acR),.14);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.9"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-6 8-6s8 2 8 6"></path></svg></div><span style="font-size:15px;color:var(--tx2);">Seu corpo e objetivo</span></div>
+          <div style="display:flex;gap:13px;align-items:center;"><div style="width:38px;height:38px;border-radius:11px;background:rgba(var(--acR),.14);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.9"><path d="M6 7v10M18 7v10M3 10v4M21 10v4M6 12h12"></path></svg></div><span style="font-size:15px;color:var(--tx2);">Nível e frequência</span></div>
+          <div style="display:flex;gap:13px;align-items:center;"><div style="width:38px;height:38px;border-radius:11px;background:rgba(var(--acR),.14);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.9"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 11c0 5.5-7 10-7 10z"></path></svg></div><span style="font-size:15px;color:var(--tx2);">Triagem de saúde e restrições</span></div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isOb1 }}" hint-placeholder-val="{{ false }}">
+        <div style="font-family:'Barlow Condensed';font-weight:800;font-size:30px;text-transform:uppercase;line-height:1;">Sobre você</div>
+        <div style="font-size:15px;color:var(--tx3);margin-top:8px;">Sexo biológico e idade — base pro cálculo do seu gasto calórico.</div>
+        <div style="margin-top:22px;display:flex;flex-direction:column;gap:10px;"><sc-for list="{{ sexoOpts }}" as="o" hint-placeholder-count="2"><button sc-camel-on-click="{{ o.onClick }}" style="{{ o.style }}">{{ o.label }}<sc-if value="{{ o.sel }}" hint-placeholder-val="{{ false }}"><span style="color:var(--ac);font-size:18px;">✓</span></sc-if></button></sc-for></div>
+        <div style="margin-top:20px;background:var(--surf);border:1px solid var(--bd);border-radius:16px;padding:18px;display:flex;align-items:center;justify-content:space-between;">
+          <div><div style="font:600 12px Barlow;letter-spacing:.12em;text-transform:uppercase;color:var(--tx3);">Idade</div><div style="font-family:'Barlow Condensed';font-weight:800;font-size:44px;line-height:1;">{{ idade }}<span style="font-size:16px;color:var(--tx3);font-family:Barlow;"> anos</span></div></div>
+          <div style="display:flex;gap:10px;"><button sc-camel-on-click="{{ idadeDec }}" style="{{ stepDecStyle }}">–</button><button sc-camel-on-click="{{ idadeInc }}" style="{{ stepIncStyle }}">+</button></div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isOb2 }}" hint-placeholder-val="{{ false }}">
+        <div style="font-family:'Barlow Condensed';font-weight:800;font-size:30px;text-transform:uppercase;line-height:1;">Peso e altura</div>
+        <div style="font-size:15px;color:var(--tx3);margin-top:8px;">Base pro cálculo das suas calorias e macros.</div>
+        <div style="margin-top:22px;background:var(--surf);border:1px solid var(--bd);border-radius:16px;padding:18px;display:flex;align-items:center;justify-content:space-between;">
+          <div><div style="font:600 12px Barlow;letter-spacing:.12em;text-transform:uppercase;color:var(--tx3);">Peso</div><div style="font-family:'Barlow Condensed';font-weight:800;font-size:44px;line-height:1;">{{ peso }}<span style="font-size:16px;color:var(--tx3);font-family:Barlow;"> kg</span></div></div>
+          <div style="display:flex;gap:10px;"><button sc-camel-on-click="{{ pesoDec }}" style="{{ stepDecStyle }}">–</button><button sc-camel-on-click="{{ pesoInc }}" style="{{ stepIncStyle }}">+</button></div>
+        </div>
+        <div style="margin-top:12px;background:var(--surf);border:1px solid var(--bd);border-radius:16px;padding:18px;display:flex;align-items:center;justify-content:space-between;">
+          <div><div style="font:600 12px Barlow;letter-spacing:.12em;text-transform:uppercase;color:var(--tx3);">Altura</div><div style="font-family:'Barlow Condensed';font-weight:800;font-size:44px;line-height:1;">{{ altura }}<span style="font-size:16px;color:var(--tx3);font-family:Barlow;"> cm</span></div></div>
+          <div style="display:flex;gap:10px;"><button sc-camel-on-click="{{ alturaDec }}" style="{{ stepDecStyle }}">–</button><button sc-camel-on-click="{{ alturaInc }}" style="{{ stepIncStyle }}">+</button></div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isOb3 }}" hint-placeholder-val="{{ false }}">
+        <div style="font-family:'Barlow Condensed';font-weight:800;font-size:30px;text-transform:uppercase;line-height:1;">Qual seu objetivo?</div>
+        <div style="font-size:15px;color:var(--tx3);margin-top:8px;">Isso define seus macros e o foco do treino.</div>
+        <div style="margin-top:22px;display:flex;flex-direction:column;gap:10px;"><sc-for list="{{ objOpts }}" as="o" hint-placeholder-count="3"><button sc-camel-on-click="{{ o.onClick }}" style="{{ o.style }}"><span style="display:flex;flex-direction:column;gap:3px;text-align:left;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:18px;text-transform:uppercase;">{{ o.label }}</span><span style="font-size:13px;color:var(--tx3);font-weight:400;">{{ o.sub }}</span></span><sc-if value="{{ o.sel }}" hint-placeholder-val="{{ false }}"><span style="color:var(--ac);font-size:18px;">✓</span></sc-if></button></sc-for></div>
+      </sc-if>
+      <sc-if value="{{ isOb4 }}" hint-placeholder-val="{{ false }}">
+        <div style="font-family:'Barlow Condensed';font-weight:800;font-size:30px;text-transform:uppercase;line-height:1;">Nível e frequência</div>
+        <div style="font-size:15px;color:var(--tx3);margin-top:8px;">Sua experiência e quantos dias por semana você treina.</div>
+        <div style="margin-top:22px;display:flex;flex-direction:column;gap:10px;"><sc-for list="{{ nivelOpts }}" as="o" hint-placeholder-count="3"><button sc-camel-on-click="{{ o.onClick }}" style="{{ o.style }}">{{ o.label }}<sc-if value="{{ o.sel }}" hint-placeholder-val="{{ false }}"><span style="color:var(--ac);font-size:18px;">✓</span></sc-if></button></sc-for></div>
+        <div style="margin-top:16px;background:var(--surf);border:1px solid var(--bd);border-radius:16px;padding:18px;display:flex;align-items:center;justify-content:space-between;">
+          <div><div style="font:600 12px Barlow;letter-spacing:.12em;text-transform:uppercase;color:var(--tx3);">Dias por semana</div><div style="font-family:'Barlow Condensed';font-weight:800;font-size:44px;line-height:1;">{{ dias }}<span style="font-size:16px;color:var(--tx3);font-family:Barlow;"> dias</span></div></div>
+          <div style="display:flex;gap:10px;"><button sc-camel-on-click="{{ diasDec }}" style="{{ stepDecStyle }}">–</button><button sc-camel-on-click="{{ diasInc }}" style="{{ stepIncStyle }}">+</button></div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isOb5 }}" hint-placeholder-val="{{ false }}">
+        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,92,67,.12);border:1px solid rgba(255,92,67,.35);border-radius:999px;padding:6px 12px;"><svg width="15" height="15" sc-camel-view-box="0 0 24 24" fill="none" stroke="#FF5C43" stroke-width="2"><path d="M12 2L2 20h20L12 2z"></path><path d="M12 9v5M12 17v.01"></path></svg><span style="font:600 11px Barlow;letter-spacing:.14em;text-transform:uppercase;color:#FF5C43;">Triagem de segurança</span></div>
+        <div style="font-family:'Barlow Condensed';font-weight:800;font-size:30px;text-transform:uppercase;line-height:1;margin-top:14px;">Alguma lesão ou<br>limitação?</div>
+        <div style="font-size:15px;color:var(--tx3);margin-top:8px;">Seu professor evita e substitui os exercícios que forçam essa região.</div>
+        <div style="margin-top:20px;display:flex;flex-direction:column;gap:10px;"><sc-for list="{{ lesaoOpts }}" as="o" hint-placeholder-count="5"><button sc-camel-on-click="{{ o.onClick }}" style="{{ o.style }}">{{ o.label }}<sc-if value="{{ o.sel }}" hint-placeholder-val="{{ false }}"><span style="color:var(--ac);font-size:18px;">✓</span></sc-if></button></sc-for></div>
+      </sc-if>
+      <sc-if value="{{ isOb6 }}" hint-placeholder-val="{{ false }}">
+        <div style="font-family:'Barlow Condensed';font-weight:800;font-size:30px;text-transform:uppercase;line-height:1;">Restrições alimentares</div>
+        <div style="font-size:15px;color:var(--tx3);margin-top:8px;">Pra filtrar as sugestões da sua dieta.</div>
+        <div style="margin-top:20px;display:flex;flex-direction:column;gap:10px;"><sc-for list="{{ restricaoOpts }}" as="o" hint-placeholder-count="5"><button sc-camel-on-click="{{ o.onClick }}" style="{{ o.style }}">{{ o.label }}<sc-if value="{{ o.sel }}" hint-placeholder-val="{{ false }}"><span style="color:var(--ac);font-size:18px;">✓</span></sc-if></button></sc-for></div>
+      </sc-if>
+    </div>
+  </div>
+  <div style="padding:14px 22px 34px;background:linear-gradient(0deg,var(--bg) 60%,rgba(10,11,10,0));"><button sc-camel-on-click="{{ obNext }}" style="width:100%;border:none;cursor:pointer;padding:17px;border-radius:14px;background:var(--ac);color:var(--acT);font-family:'Barlow Condensed';font-weight:700;font-size:19px;letter-spacing:.04em;text-transform:uppercase;">{{ obCta }}</button></div>
+</div>
+</sc-if>
+
+<!-- ================= ANALYZING ================= -->
+<sc-if value="{{ isAnalyzing }}" hint-placeholder-val="{{ false }}">
+<div style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 34px;background:radial-gradient(90% 60% at 50% 40%, var(--acHaze) 0%, var(--bg) 60%);text-align:center;">
+  <div style="position:relative;width:150px;height:150px;">
+    <div style="position:absolute;inset:0;border-radius:50%;border:3px solid rgba(var(--acR),.16);"></div>
+    <div style="position:absolute;inset:0;border-radius:50%;border:3px solid transparent;border-top-color:var(--ac);animation:hbSpin 1s linear infinite;"></div>
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed';font-weight:800;font-size:42px;color:var(--ac);font-variant-numeric:tabular-nums;">{{ analyzePct }}</div>
+  </div>
+  <div style="font-family:'Barlow Condensed';font-weight:800;font-size:30px;text-transform:uppercase;margin-top:34px;letter-spacing:.02em;">Montando seu perfil</div>
+  <div style="font-size:15px;color:var(--tx3);margin-top:10px;min-height:22px;">{{ analyzeMsg }}</div>
+</div>
+</sc-if>
+
+<!-- ================= PLANO GERADO ================= -->
+<sc-if value="{{ isPlan }}" hint-placeholder-val="{{ false }}">
+<div style="height:100%;display:flex;flex-direction:column;background:var(--bg);">
+  <div class="wl-scroll" style="flex:1;overflow-y:auto;padding:60px 20px 20px;">
+    <div style="animation:hbRise .4s ease both;">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(var(--acR),.12);border:1px solid rgba(var(--acR),.35);border-radius:999px;padding:6px 12px;"><span style="width:6px;height:6px;border-radius:50%;background:var(--ac);"></span><span style="font:600 11px Barlow;letter-spacing:.16em;text-transform:uppercase;color:var(--ac);">Perfil pronto</span></div>
+      <div style="font-family:'Barlow Condensed';font-weight:800;font-size:36px;line-height:.94;text-transform:uppercase;margin-top:14px;">Suas metas<br><span style="color:var(--ac);">estão prontas</span></div>
+      <div style="font-size:15px;color:var(--tx3);margin-top:12px;line-height:1.5;">Calculamos sua dieta com foco em <b style="color:var(--tx);">{{ planObj }}</b>. Seu treino personalizado será montado pelo <b style="color:var(--tx);">{{ trainerName }}</b> e aparece aqui no app.</div>
+
+      <sc-if value="{{ hasLesao }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:18px;border-radius:16px;padding:16px;background:rgba(255,92,67,.08);border:1px solid rgba(255,92,67,.28);display:flex;gap:12px;"><svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="none" stroke="#FF8A6b" stroke-width="1.8" style="flex-shrink:0;margin-top:1px;"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 11c0 5.5-7 10-7 10z"></path></svg><div><div style="font-family:'Barlow Condensed';font-weight:700;font-size:17px;text-transform:uppercase;color:#FFB4A0;">Treino adaptado pro seu {{ lesaoTxt }}</div><div style="font-size:13.5px;color:#c9a89f;margin-top:3px;line-height:1.45;">Os exercícios que sobrecarregam essa região aparecem com a etiqueta “Adaptado”.</div></div></div>
+      </sc-if>
+
+      <div style="margin-top:18px;background:var(--surf);border:1px solid var(--bd);border-radius:16px;padding:16px;">
+        <div style="font:600 11px Barlow;letter-spacing:.12em;text-transform:uppercase;color:var(--tx3);">Sua meta diária</div>
+        <div style="display:flex;align-items:baseline;gap:6px;margin-top:2px;"><span style="font-family:'Barlow Condensed';font-weight:800;font-size:36px;line-height:1;">{{ planKcal }}</span><span style="font-size:14px;color:var(--tx3);">kcal</span></div>
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <div style="flex:1;text-align:center;border-radius:11px;padding:9px 4px;background:rgba(255,92,67,.1);"><div style="font-family:'Barlow Condensed';font-weight:800;font-size:20px;color:#FF5C43;">{{ planP }}g</div><div style="font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;">Proteína</div></div>
+          <div style="flex:1;text-align:center;border-radius:11px;padding:9px 4px;background:rgba(244,183,64,.1);"><div style="font-family:'Barlow Condensed';font-weight:800;font-size:20px;color:#F4B740;">{{ planC }}g</div><div style="font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;">Carbo</div></div>
+          <div style="flex:1;text-align:center;border-radius:11px;padding:9px 4px;background:rgba(124,107,255,.1);"><div style="font-family:'Barlow Condensed';font-weight:800;font-size:20px;color:#9C8BFF;">{{ planG }}g</div><div style="font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;">Gordura</div></div>
+        </div>
+        <div style="margin-top:14px;padding-top:13px;border-top:1px solid var(--bd);display:flex;flex-direction:column;gap:7px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:12.5px;color:var(--tx3);">Metabolismo basal (TMB)</span><span style="font:700 13px 'Barlow Condensed';color:var(--tx2);">{{ planBmr }} kcal</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:12.5px;color:var(--tx3);">Gasto com treino (TDEE)</span><span style="font:700 13px 'Barlow Condensed';color:var(--tx2);">{{ planTdee }} kcal</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:12.5px;color:var(--tx3);">Ajuste do objetivo</span><span style="font:700 13px 'Barlow Condensed';color:var(--ac);">{{ planAdjTxt }}</span></div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;border-radius:16px;padding:16px;background:{{ acPanel }};border:1px solid rgba(var(--acR),.22);display:flex;gap:12px;align-items:center;">
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--ac);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;font-family:'Barlow Condensed';font-weight:800;font-size:18px;color:var(--acT);">{{ brandLogoEl }}<sc-if value="{{ brandNoLogo }}" hint-placeholder-val="{{ true }}">{{ brandInitials }}</sc-if></div>
+        <div><div style="font-family:'Barlow Condensed';font-weight:700;font-size:17px;text-transform:uppercase;">Treino da {{ brandName }}</div><div style="font-size:13px;color:var(--tx2);">{{ planDias }} treinos/semana montados pelo {{ trainerName }}.</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:14px 20px 34px;background:linear-gradient(0deg,var(--bg) 60%,rgba(10,11,10,0));"><button sc-camel-on-click="{{ enterApp }}" style="width:100%;border:none;cursor:pointer;padding:17px;border-radius:14px;background:var(--ac);color:var(--acT);font-family:'Barlow Condensed';font-weight:700;font-size:19px;letter-spacing:.04em;text-transform:uppercase;">Entrar no app</button></div>
+</div>
+</sc-if>
+
+<!-- ================= APP ================= -->
+<sc-if value="{{ isApp }}" hint-placeholder-val="{{ false }}">
+<div style="height:100%;display:flex;flex-direction:column;background:var(--bg);">
+  <div class="wl-scroll" style="flex:1;overflow-y:auto;">
+
+    <!-- ===== HOME ===== -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <div style="padding:56px 20px 100px;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:11px;">
+          <div style="width:42px;height:42px;border-radius:12px;background:var(--ac);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed';font-weight:800;font-size:19px;color:var(--acT);flex-shrink:0;overflow:hidden;">{{ brandLogoEl }}<sc-if value="{{ brandNoLogo }}" hint-placeholder-val="{{ true }}">{{ brandInitials }}</sc-if></div>
+          <div><div style="font-size:13px;color:var(--tx3);">{{ greetDate }}</div><div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;text-transform:uppercase;line-height:1;margin-top:1px;">Bora, {{ firstName }}</div></div>
+        </div>
+        <button sc-camel-on-click="{{ openSettings }}" style="border:1px solid var(--bd);background:var(--surf2);width:38px;height:38px;border-radius:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--tx2)" stroke-width="1.8"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"></path></svg></button>
+      </div>
+
+      <div style="margin-top:20px;border-radius:20px;overflow:hidden;background:{{ acPanel }};border:1px solid rgba(var(--acR),.2);position:relative;">
+        <div style="position:absolute;right:-30px;top:-30px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(var(--acR),.22),transparent 70%);"></div>
+        <div style="padding:18px 18px 4px;position:relative;">
+          <div style="font:600 12px Barlow;letter-spacing:.16em;text-transform:uppercase;color:var(--ac);">Treino de hoje</div>
+          <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;text-transform:uppercase;margin-top:2px;">{{ todayTitle }}</div>
+          <div style="font-size:14px;color:var(--tx2);margin-top:2px;">{{ todaySub }} · por {{ trainerName }}</div>
+        </div>
+        <div style="padding:14px 18px 18px;display:flex;gap:10px;position:relative;">
+          <button sc-camel-on-click="{{ openTodayWorkout }}" style="flex:1;border:none;cursor:pointer;padding:13px;border-radius:12px;background:var(--ac);color:var(--acT);font-family:'Barlow Condensed';font-weight:700;font-size:17px;text-transform:uppercase;letter-spacing:.03em;">Iniciar treino</button>
+          <button sc-camel-on-click="{{ goTreino }}" style="border:none;cursor:pointer;padding:13px 16px;border-radius:12px;background:var(--surf2);color:var(--tx);font-family:'Barlow Condensed';font-weight:700;font-size:17px;text-transform:uppercase;">Ver plano</button>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;background:var(--surf);border:1px solid var(--bd);border-radius:18px;padding:16px;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+          <div><div style="font:600 11px Barlow;letter-spacing:.16em;text-transform:uppercase;color:var(--tx3);">Sua constância</div><div style="font-family:'Barlow Condensed';font-weight:700;font-size:18px;text-transform:uppercase;color:var(--tx);margin-top:1px;">{{ calMonth }}</div></div>
+          <div style="display:flex;align-items:center;gap:7px;background:rgba(255,138,61,.12);border:1px solid rgba(255,138,61,.3);border-radius:999px;padding:6px 11px;"><svg width="15" height="15" sc-camel-view-box="0 0 24 24" fill="#FF8A3D"><path d="M12 2c1 3-1 4-1 6 0 1 1 2 2 2 2 0 3-2 3-2 2 3 3 5 3 8a7 7 0 11-14 0c0-3 2-5 3-6 1 2 2 2 3 2 0-4-2-6-2-10z"></path></svg><span style="font:700 14px Barlow;color:#FF8A3D;">{{ streakCount }} dias</span></div>
+        </div>
+        <div style="margin-top:14px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px;"><sc-for list="{{ calWeekdays }}" as="w" hint-placeholder-count="7"><div style="text-align:center;font:700 10px Barlow;color:var(--tx4);">{{ w.l }}</div></sc-for></div>
+        <div style="margin-top:6px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px;"><sc-for list="{{ calCells }}" as="c" hint-placeholder-count="31"><div sc-camel-on-click="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</div></sc-for></div>
+        <div style="margin-top:12px;font-size:12px;color:var(--tx3);">{{ activeThisMonth }} dias ativos este mês · toque num dia pra ver o extrato</div>
+      </div>
+
+      <div style="margin-top:16px;display:flex;align-items:center;justify-content:space-between;">
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:19px;text-transform:uppercase;color:var(--tx);">Metas de hoje</div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span sc-camel-on-click="{{ openMetasCfg }}" style="display:flex;align-items:center;gap:5px;font:600 12px Barlow;color:var(--tx3);cursor:pointer;"><svg width="14" height="14" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19 12a7 7 0 00-.1-1l2-1.5-2-3.5-2.4 1a7 7 0 00-1.7-1L14.5 2h-5l-.3 2.5a7 7 0 00-1.7 1l-2.4-1-2 3.5L3.1 11a7 7 0 000 2l-2 1.5 2 3.5 2.4-1a7 7 0 001.7 1L9.5 22h5l.3-2.5a7 7 0 001.7-1l2.4 1 2-3.5-2-1.5a7 7 0 00.1-1z"></path></svg>Ajustar</span>
+          <span sc-camel-on-click="{{ openFood }}" style="font:600 13px Barlow;color:var(--ac);cursor:pointer;">+ Registrar</span>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;background:var(--surf);border:1px solid var(--bd);border-radius:18px;padding:20px 16px 16px;">
+        <div style="display:flex;justify-content:center;">
+          <div style="position:relative;width:158px;height:158px;flex-shrink:0;border-radius:50%;{{ ringKcalStyle }}">
+            <div style="position:absolute;inset:11px;border-radius:50%;background:var(--inp);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+              <span style="font:600 10px Barlow;letter-spacing:.14em;text-transform:uppercase;color:var(--tx3);">Consumido</span>
+              <span style="font-family:'Barlow Condensed';font-weight:800;font-size:46px;line-height:.92;color:var(--ac);">{{ kcalCur }}</span>
+              <span style="font-size:12px;color:var(--tx3);">de {{ kcalTgt }} kcal</span>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:6px;font-family:'Barlow Condensed';font-weight:700;font-size:17px;text-transform:uppercase;color:var(--tx);">{{ kcalLeft }} kcal restantes</div>
+        <div style="margin-top:16px;display:flex;flex-direction:column;gap:12px;">
+          <div><div style="display:flex;align-items:center;justify-content:space-between;"><span style="font:600 11px Barlow;letter-spacing:.1em;text-transform:uppercase;color:#FF5C43;">Proteína</span><span style="font:700 13px Barlow;color:var(--tx3);">{{ pCur }} / {{ pTgt }}g</span></div><div style="margin-top:7px;height:7px;border-radius:5px;background:var(--surf2);overflow:hidden;"><div style="{{ pBarStyle }}"></div></div></div>
+          <div><div style="display:flex;align-items:center;justify-content:space-between;"><span style="font:600 11px Barlow;letter-spacing:.1em;text-transform:uppercase;color:#F4B740;">Carboidrato</span><span style="font:700 13px Barlow;color:var(--tx3);">{{ cCur }} / {{ cTgt }}g</span></div><div style="margin-top:7px;height:7px;border-radius:5px;background:var(--surf2);overflow:hidden;"><div style="{{ cBarStyle }}"></div></div></div>
+          <div><div style="display:flex;align-items:center;justify-content:space-between;"><span style="font:600 11px Barlow;letter-spacing:.1em;text-transform:uppercase;color:#9C8BFF;">Gordura</span><span style="font:700 13px Barlow;color:var(--tx3);">{{ gCur }} / {{ gTgt }}g</span></div><div style="margin-top:7px;height:7px;border-radius:5px;background:var(--surf2);overflow:hidden;"><div style="{{ gBarStyle }}"></div></div></div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;background:rgba(63,199,242,.06);border:1px solid rgba(63,199,242,.22);border-radius:18px;padding:16px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:9px;"><svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="#3FC7F2"><path d="M12 2s7 8 7 13a7 7 0 11-14 0c0-5 7-13 7-13z"></path></svg><span style="font:600 12px Barlow;letter-spacing:.1em;text-transform:uppercase;color:#3FC7F2;">Hidratação</span></div>
+          <span style="font-family:'Barlow Condensed';font-weight:800;font-size:20px;color:var(--tx);">{{ waterCur }} <span style="font-size:13px;color:var(--tx3);font-family:Barlow;">/ {{ waterTgt }}</span></span>
+        </div>
+        <div style="margin-top:13px;display:flex;flex-wrap:wrap;gap:6px;"><sc-for list="{{ waterCups }}" as="cup" hint-placeholder-count="12"><sc-if value="{{ cup.filled }}" hint-placeholder-val="{{ true }}"><svg width="15" height="19" sc-camel-view-box="0 0 24 24" fill="#3FC7F2"><path d="M12 2s7 8 7 13a7 7 0 11-14 0c0-5 7-13 7-13z"></path></svg></sc-if><sc-if value="{{ cup.empty }}" hint-placeholder-val="{{ false }}"><svg width="15" height="19" sc-camel-view-box="0 0 24 24" fill="none" stroke="rgba(63,199,242,.35)" stroke-width="1.6"><path d="M12 2s7 8 7 13a7 7 0 11-14 0c0-5 7-13 7-13z"></path></svg></sc-if></sc-for></div>
+        <div style="margin-top:14px;display:flex;gap:9px;"><button sc-camel-on-click="{{ removeWater }}" style="width:48px;height:44px;border-radius:12px;border:1px solid rgba(63,199,242,.3);background:rgba(63,199,242,.06);color:#3FC7F2;font-size:24px;cursor:pointer;flex-shrink:0;">–</button><button sc-camel-on-click="{{ addWater }}" style="flex:1;height:44px;border-radius:12px;border:none;background:#3FC7F2;color:#062430;font-family:'Barlow Condensed';font-weight:700;font-size:17px;text-transform:uppercase;letter-spacing:.03em;cursor:pointer;">+ Copo · 250 ml</button></div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== TREINO ===== -->
+    <sc-if value="{{ isTreino }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:56px 20px 100px;">
+      <div style="font-family:'Barlow Condensed';font-weight:800;font-size:32px;text-transform:uppercase;line-height:1;">Seu treino</div>
+      <div style="margin-top:12px;border-radius:14px;padding:13px 15px;background:{{ acPanel }};border:1px solid rgba(var(--acR),.2);display:flex;align-items:center;gap:11px;">
+        <div style="width:36px;height:36px;border-radius:10px;background:rgba(var(--acR),.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="19" height="19" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.9"><path d="M20 6L9 17l-5-5"></path></svg></div>
+        <div style="font-size:13px;color:var(--tx2);line-height:1.4;">Montado por <b style="color:var(--tx);">{{ trainerName }}</b> · {{ brandName }}. Atualizado em {{ planUpdated }}.</div>
+      </div>
+      <div style="margin-top:16px;display:flex;flex-direction:column;gap:12px;"><sc-for list="{{ workoutList }}" as="w" hint-placeholder-count="5">
+        <div sc-camel-on-click="{{ w.onClick }}" style="cursor:pointer;background:var(--surf);border:1px solid var(--bd);border-radius:16px;padding:16px;">
+          <div style="display:flex;align-items:center;gap:13px;">
+            <div style="width:48px;height:48px;border-radius:13px;background:rgba(var(--acR),.14);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed';font-weight:800;font-size:24px;color:var(--ac);flex-shrink:0;">{{ w.id }}</div>
+            <div style="flex:1;min-width:0;"><div style="font-family:'Barlow Condensed';font-weight:700;font-size:19px;text-transform:uppercase;line-height:1;">{{ w.nome }}</div><div style="font-size:13px;color:var(--tx3);margin-top:3px;">{{ w.dia }} · {{ w.foco }} · {{ w.dur }}</div></div>
+            <sc-if value="{{ w.complete }}" hint-placeholder-val="{{ false }}"><div style="width:26px;height:26px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="14" height="14" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--acT)" stroke-width="3"><path d="M20 6L9 17l-5-5"></path></svg></div></sc-if>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:13px;"><div style="flex:1;height:6px;border-radius:4px;background:var(--surf2);overflow:hidden;"><div style="{{ w.pctStyle }}"></div></div><span style="font:700 12px Barlow;color:var(--tx3);font-variant-numeric:tabular-nums;">{{ w.doneTxt }}</span></div>
+          <sc-if value="{{ w.hasAdapted }}" hint-placeholder-val="{{ false }}"><div style="margin-top:11px;display:inline-flex;align-items:center;gap:6px;background:rgba(255,138,107,.1);border:1px solid rgba(255,138,107,.3);border-radius:999px;padding:4px 10px;"><svg width="12" height="12" sc-camel-view-box="0 0 24 24" fill="none" stroke="#FF8A6b" stroke-width="2"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 11c0 5.5-7 10-7 10z"></path></svg><span style="font:600 11px Barlow;color:#FFB4A0;letter-spacing:.04em;">Adaptado pro {{ lesaoTxt }}</span></div></sc-if>
+        </div>
+      </sc-for></div>
+    </div>
+    </sc-if>
+
+    <!-- ===== DIETA ===== -->
+    <sc-if value="{{ isDieta }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:56px 20px 100px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div><div style="font-family:'Barlow Condensed';font-weight:800;font-size:32px;text-transform:uppercase;line-height:1;">Dieta</div><div style="font-size:14px;color:var(--tx3);margin-top:2px;">{{ consumedKcal }} de {{ kcalTgt }} kcal hoje</div></div>
+        <button sc-camel-on-click="{{ openFood }}" style="border:none;cursor:pointer;width:46px;height:46px;border-radius:13px;background:var(--ac);color:var(--acT);font-size:28px;display:flex;align-items:center;justify-content:center;">+</button>
+      </div>
+      <div style="margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+        <div style="background:rgba(255,92,67,.1);border-radius:14px;padding:13px 10px;text-align:center;"><div style="font-family:'Barlow Condensed';font-weight:800;font-size:22px;color:#FF5C43;line-height:1;">{{ pCur }}<span style="font-size:12px;">/{{ pTgt }}g</span></div><div style="font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-top:4px;">Proteína</div></div>
+        <div style="background:rgba(244,183,64,.1);border-radius:14px;padding:13px 10px;text-align:center;"><div style="font-family:'Barlow Condensed';font-weight:800;font-size:22px;color:#F4B740;line-height:1;">{{ cCur }}<span style="font-size:12px;">/{{ cTgt }}g</span></div><div style="font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-top:4px;">Carbo</div></div>
+        <div style="background:rgba(124,107,255,.1);border-radius:14px;padding:13px 10px;text-align:center;"><div style="font-family:'Barlow Condensed';font-weight:800;font-size:22px;color:#9C8BFF;line-height:1;">{{ gCur }}<span style="font-size:12px;">/{{ gTgt }}g</span></div><div style="font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-top:4px;">Gordura</div></div>
+      </div>
+      <button sc-camel-on-click="{{ openFood }}" style="margin-top:16px;width:100%;border:none;cursor:pointer;padding:15px;border-radius:14px;background:var(--ac);color:var(--acT);font-family:'Barlow Condensed';font-weight:700;font-size:17px;text-transform:uppercase;letter-spacing:.03em;display:flex;align-items:center;justify-content:center;gap:9px;"><svg width="19" height="19" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--acT)" stroke-width="2.4"><path d="M12 5v14M5 12h14"></path></svg>Adicionar refeição</button>
+
+      <div style="margin-top:20px;font-family:'Barlow Condensed';font-weight:700;font-size:18px;text-transform:uppercase;color:var(--tx);">Consumo de hoje</div>
+      <sc-if value="{{ hasMeals }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:14px;"><sc-for list="{{ mealGroups }}" as="g" hint-placeholder-count="2">
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><span style="font:700 12px Barlow;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3);">{{ g.label }}</span><span style="font:700 12px 'Barlow Condensed';color:var(--tx3);">{{ g.kcal }} kcal</span></div>
+          <div style="display:flex;flex-direction:column;gap:8px;"><sc-for list="{{ g.items }}" as="m" hint-placeholder-count="2">
+            <div style="background:var(--surf);border:1px solid var(--bd);border-radius:13px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+              <div style="flex:1;min-width:0;"><div style="font:600 14px Barlow;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ m.n }}</div><div style="font-size:12px;color:var(--tx3);">P{{ m.p }} · C{{ m.c }} · G{{ m.g }}</div></div>
+              <div style="font-family:'Barlow Condensed';font-weight:800;font-size:18px;color:var(--tx2);">{{ m.kcal }}</div>
+              <button sc-camel-on-click="{{ m.onRemove }}" style="border:none;background:none;cursor:pointer;color:var(--tx4);padding:4px;"><svg width="16" height="16" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg></button>
+            </div>
+          </sc-for></div>
+        </div>
+      </sc-for></div>
+      </sc-if>
+      <sc-if value="{{ noMeals }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:12px;border:1px dashed var(--bd);border-radius:16px;padding:26px 18px;text-align:center;"><div style="font-size:14px;color:var(--tx3);line-height:1.5;">Nada registrado ainda hoje.<br>Toque em <b style="color:var(--ac);">Adicionar refeição</b> para começar.</div></div>
+      </sc-if>
+
+      <div style="margin-top:22px;font-family:'Barlow Condensed';font-weight:700;font-size:18px;text-transform:uppercase;color:var(--tx);">Sugestões da {{ brandName }}</div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;"><sc-for list="{{ suggestions }}" as="r" hint-placeholder-count="3">
+        <div sc-camel-on-click="{{ r.onAdd }}" style="cursor:pointer;background:var(--surf);border:1px solid var(--bd);border-radius:13px;padding:13px 14px;display:flex;align-items:center;gap:12px;">
+          <div style="flex:1;"><div style="font:600 14px Barlow;color:var(--tx);">{{ r.nome }}</div><div style="font-size:12px;color:var(--tx3);">{{ r.kcal }} kcal · P{{ r.p }} C{{ r.c }} G{{ r.g }}</div></div>
+          <div style="width:30px;height:30px;border-radius:9px;border:1px solid rgba(var(--acR),.4);color:var(--ac);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">+</div>
+        </div>
+      </sc-for></div>
+
+      <sc-if value="{{ hasHistory }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:22px;font-family:'Barlow Condensed';font-weight:700;font-size:18px;text-transform:uppercase;color:var(--tx);">Histórico</div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;"><sc-for list="{{ histDays }}" as="h" hint-placeholder-count="3">
+        <div style="background:var(--surf);border:1px solid var(--bd);border-radius:13px;padding:13px 14px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font:600 13px Barlow;color:var(--tx2);text-transform:capitalize;">{{ h.dateLabel }}</span><span style="font-family:'Barlow Condensed';font-weight:800;font-size:17px;color:var(--tx);">{{ h.kcal }} <span style="font-size:11px;color:var(--tx3);font-family:Barlow;">kcal</span></span></div>
+          <div style="margin-top:9px;height:6px;border-radius:4px;background:var(--surf2);overflow:hidden;"><div style="{{ h.barStyle }}"></div></div>
+          <div style="margin-top:7px;display:flex;align-items:center;justify-content:space-between;"><span style="font-size:11.5px;color:var(--tx3);">{{ h.macro }}</span><span style="font-size:11.5px;color:var(--tx4);">{{ h.meals }} refeições</span></div>
+        </div>
+      </sc-for></div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <!-- ===== PERFIL ===== -->
+    <sc-if value="{{ isPerfil }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:56px 20px 100px;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="width:64px;height:64px;border-radius:18px;background:var(--ac);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed';font-weight:800;font-size:28px;color:var(--acT);">{{ userInitials }}</div>
+        <div><div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;text-transform:uppercase;line-height:1;">{{ firstName }}</div><div style="font-size:13px;color:var(--tx3);margin-top:3px;">Aluno · {{ brandName }}</div></div>
+      </div>
+      <div style="margin-top:18px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+        <div style="background:var(--surf);border:1px solid var(--bd);border-radius:14px;padding:14px 8px;text-align:center;"><div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;line-height:1;">{{ streakCount }}</div><div style="font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-top:3px;">Sequência</div></div>
+        <div style="background:var(--surf);border:1px solid var(--bd);border-radius:14px;padding:14px 8px;text-align:center;"><div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;line-height:1;">{{ activeThisMonth }}</div><div style="font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-top:3px;">Dias/mês</div></div>
+        <div style="background:var(--surf);border:1px solid var(--bd);border-radius:14px;padding:14px 8px;text-align:center;"><div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;line-height:1;">{{ setsDone }}</div><div style="font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-top:3px;">Séries</div></div>
+      </div>
+      <div style="margin-top:18px;display:flex;flex-direction:column;gap:8px;">
+        <div sc-camel-on-click="{{ openAdmin }}" style="cursor:pointer;border-radius:14px;padding:15px 16px;background:{{ acPanel }};border:1px solid rgba(var(--acR),.2);display:flex;align-items:center;gap:12px;">
+          <div style="width:38px;height:38px;border-radius:11px;background:rgba(var(--acR),.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="19" height="19" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.9"><rect x="3" y="4" width="18" height="14" rx="2"></rect><path d="M8 21h8M12 18v3"></path></svg></div>
+          <div style="flex:1;"><div style="font:700 14px Barlow;color:var(--tx);">Plataforma da academia</div><div style="font-size:12px;color:var(--tx3);">Visão do professor (admin web)</div></div>
+          <svg width="8" height="14" sc-camel-view-box="0 0 8 14" fill="none" stroke="var(--tx4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l6 6-6 6"></path></svg>
+        </div>
+        <sc-for list="{{ profileRows }}" as="row" hint-placeholder-count="4">
+        <div sc-camel-on-click="{{ row.onClick }}" style="cursor:pointer;background:var(--surf);border:1px solid var(--bd);border-radius:14px;padding:15px 16px;display:flex;align-items:center;gap:12px;">
+          <div style="width:34px;height:34px;border-radius:10px;background:var(--surf2);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--tx2);"><svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{ row.icon }}"></path></svg></div>
+          <span style="flex:1;font:600 14px Barlow;color:var(--tx2);">{{ row.label }}</span>
+          <svg width="8" height="14" sc-camel-view-box="0 0 8 14" fill="none" stroke="var(--tx4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l6 6-6 6"></path></svg>
+        </div>
+        </sc-for>
+        <button sc-camel-on-click="{{ openBrand }}" style="text-align:left;cursor:pointer;background:var(--surf);border:1px solid var(--bd);border-radius:14px;padding:15px 16px;display:flex;align-items:center;gap:12px;">
+          <div style="width:34px;height:34px;border-radius:10px;background:var(--surf2);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.8"><circle cx="13.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="10.5" r="2.5"></circle><circle cx="8.5" cy="7.5" r="2.5"></circle><circle cx="6.5" cy="12.5" r="2.5"></circle><path d="M12 2a10 10 0 100 20 2 2 0 002-2 2 2 0 00-2-2h-1a2 2 0 010-4z"></path></svg></div>
+          <span style="flex:1;font:600 14px Barlow;color:var(--tx2);">Trocar marca (demo whitelabel)</span>
+          <svg width="8" height="14" sc-camel-view-box="0 0 8 14" fill="none" stroke="var(--tx4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l6 6-6 6"></path></svg>
+        </button>
+        <button sc-camel-on-click="{{ logout }}" style="text-align:left;background:var(--surf);border:1px solid rgba(255,92,67,.2);border-radius:14px;padding:15px 16px;color:#FF8A6b;font:600 14px Barlow;cursor:pointer;display:flex;align-items:center;gap:12px;"><div style="width:34px;height:34px;border-radius:10px;background:rgba(255,92,67,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" stroke="#FF8A6b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"></path></svg></div>Sair da conta</button>
+      </div>
+    </div>
+    </sc-if>
+
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div style="flex-shrink:0;display:flex;background:var(--nav);border-top:1px solid var(--bd);padding:9px 8px 24px;backdrop-filter:blur(12px);">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+    <button sc-camel-on-click="{{ t.onClick }}" style="flex:1;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;"><svg width="23" height="23" sc-camel-view-box="0 0 24 24" fill="none" stroke="{{ t.color }}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.icon }}"></path></svg><span style="font:700 10px Barlow;letter-spacing:.04em;text-transform:uppercase;color:{{ t.color }};">{{ t.label }}</span></button>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= WORKOUT DETAIL ================= -->
+<sc-if value="{{ isWorkoutOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;">
+  <div style="padding:52px 18px 12px;flex-shrink:0;border-bottom:1px solid var(--bd);">
+    <div style="display:flex;align-items:center;gap:11px;">
+      <button sc-camel-on-click="{{ closeDetail }}" style="border:none;background:var(--bd);width:36px;height:36px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="9" height="16" sc-camel-view-box="0 0 9 16" fill="none" stroke="var(--tx2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1L1 8l7 7"></path></svg></button>
+      <div style="flex:1;min-width:0;"><div style="font-family:'Barlow Condensed';font-weight:800;font-size:22px;text-transform:uppercase;line-height:1;">{{ detW.nome }}</div><div style="font-size:12px;color:var(--tx3);">{{ detW.dia }} · {{ detW.foco }} · {{ detW.dur }}</div></div>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:9px;">
+      <div style="flex:1;background:var(--surf);border:1px solid var(--bd);border-radius:14px;padding:10px 12px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font:600 10px Barlow;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);">Sessão</span><span style="font-family:'Barlow Condensed';font-weight:800;font-size:24px;line-height:.9;color:var(--tx);font-variant-numeric:tabular-nums;">{{ timerTxt }}</span></div>
+        <div style="margin-top:9px;display:flex;gap:6px;"><button sc-camel-on-click="{{ toggleTimer }}" style="flex:1;border:none;cursor:pointer;padding:8px;border-radius:9px;background:var(--ac);color:var(--acT);font-family:'Barlow Condensed';font-weight:700;font-size:13px;text-transform:uppercase;">{{ timerBtn }}</button><button sc-camel-on-click="{{ resetTimer }}" style="border:1px solid var(--bd);cursor:pointer;padding:8px 11px;border-radius:9px;background:transparent;color:var(--tx3);font-family:'Barlow Condensed';font-weight:700;font-size:13px;text-transform:uppercase;">↺</button></div>
+      </div>
+      <div style="flex:1;background:var(--surf);border:1px solid var(--bd);border-radius:14px;padding:10px 12px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font:600 10px Barlow;letter-spacing:.1em;text-transform:uppercase;color:#3FC7F2;">Descanso</span><span style="font-family:'Barlow Condensed';font-weight:800;font-size:24px;line-height:.9;color:{{ restColor }};font-variant-numeric:tabular-nums;">{{ restTxt }}</span></div>
+        <div style="margin-top:9px;display:flex;gap:5px;"><sc-for list="{{ restOpts }}" as="ro" hint-placeholder-count="3"><button sc-camel-on-click="{{ ro.onClick }}" style="{{ ro.style }}">{{ ro.label }}</button></sc-for></div>
+      </div>
+    </div>
+  </div>
+  <div class="wl-scroll" style="flex:1;overflow-y:auto;padding:16px 18px 30px;">
+    <sc-for list="{{ detExercises }}" as="ex" hint-placeholder-count="5">
+    <div style="background:var(--surf);border:1px solid var(--bd);border-radius:16px;padding:15px;margin-bottom:10px;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+        <div style="flex:1;"><div style="font-family:'Barlow Condensed';font-weight:700;font-size:18px;text-transform:uppercase;line-height:1.05;">{{ ex.n }}</div><div style="font-size:13px;color:var(--tx3);margin-top:2px;">{{ ex.s }} séries · {{ ex.r }} reps</div></div>
+        <sc-if value="{{ ex.adapted }}" hint-placeholder-val="{{ false }}"><span style="font:600 10px Barlow;letter-spacing:.04em;text-transform:uppercase;color:#FFB4A0;background:rgba(255,138,107,.12);border:1px solid rgba(255,138,107,.3);border-radius:7px;padding:3px 8px;flex-shrink:0;">Adaptado</span></sc-if>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:7px;flex-wrap:wrap;"><sc-for list="{{ ex.setCells }}" as="st" hint-placeholder-count="4"><button sc-camel-on-click="{{ st.onClick }}" style="{{ st.style }}">{{ st.n }}</button></sc-for></div>
+      <div style="margin-top:13px;padding-top:13px;border-top:1px solid var(--bd);display:flex;align-items:center;gap:10px;">
+        <span style="font:600 11px Barlow;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3);">Carga</span>
+        <div style="display:flex;align-items:center;gap:7px;">
+          <button sc-camel-on-click="{{ ex.loadDec }}" style="width:32px;height:32px;border-radius:9px;border:1px solid var(--bd);background:var(--surf2);color:var(--tx);font-size:19px;cursor:pointer;">–</button>
+          <span style="min-width:56px;text-align:center;font-family:'Barlow Condensed';font-weight:800;font-size:20px;color:var(--tx);">{{ ex.loadCur }}<span style="font-size:12px;color:var(--tx3);font-family:Barlow;"> kg</span></span>
+          <button sc-camel-on-click="{{ ex.loadInc }}" style="width:32px;height:32px;border-radius:9px;border:none;background:var(--ac);color:var(--acT);font-size:19px;cursor:pointer;">+</button>
+        </div>
+        <button sc-camel-on-click="{{ ex.onSaveLoad }}" style="margin-left:auto;border:1px solid rgba(var(--acR),.4);background:rgba(var(--acR),.12);color:var(--ac);border-radius:10px;padding:8px 12px;font:700 12px Barlow;cursor:pointer;">Registrar</button>
+      </div>
+      <sc-if value="{{ ex.hasLoadHist }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:11px;display:flex;align-items:flex-end;gap:12px;">
+        <div style="display:flex;align-items:flex-end;gap:4px;height:38px;">
+          <sc-for list="{{ ex.loadBars }}" as="lb" hint-placeholder-count="5"><div style="{{ lb.style }}"></div></sc-for>
+        </div>
+        <div style="font-size:11.5px;color:var(--tx3);line-height:1.35;">Última: <b style="color:var(--tx);">{{ ex.loadLast }} kg</b><br><span style="color:{{ ex.deltaColor }};font-weight:700;">{{ ex.loadDelta }}</span> desde o início</div>
+      </div>
+      </sc-if>
+    </div>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= FOOD MODAL ================= -->
+<sc-if value="{{ isFoodOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:62;background:var(--scrim);display:flex;flex-direction:column;justify-content:flex-end;" sc-camel-on-click="{{ closeFood }}">
+  <div sc-camel-on-click="{{ stop }}" style="background:var(--sheet);border-top-left-radius:26px;border-top-right-radius:26px;border-top:1px solid var(--bd);padding:12px 20px 30px;max-height:86%;display:flex;flex-direction:column;">
+    <div style="width:40px;height:4px;border-radius:3px;background:var(--bd);margin:2px auto 14px;"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;"><div style="font-family:'Barlow Condensed';font-weight:800;font-size:24px;text-transform:uppercase;">Adicionar alimento</div><button sc-camel-on-click="{{ closeFood }}" style="border:none;background:var(--bd);width:34px;height:34px;border-radius:10px;cursor:pointer;color:var(--tx2);"><svg width="15" height="15" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-top:2px;"><path d="M18 6L6 18M6 6l12 12"></path></svg></button></div>
+    <div style="margin-top:14px;font:600 11px Barlow;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);">Refeição</div>
+    <div class="wl-scroll" style="margin-top:9px;display:flex;gap:7px;overflow-x:auto;padding-bottom:2px;"><sc-for list="{{ foodMealChips }}" as="mc" hint-placeholder-count="5"><button sc-camel-on-click="{{ mc.onClick }}" style="{{ mc.style }}">{{ mc.label }}</button></sc-for></div>
+    <div style="margin-top:12px;display:flex;gap:4px;background:var(--surf2);border-radius:11px;padding:4px;"><sc-for list="{{ foodMethodChips }}" as="fm" hint-placeholder-count="3"><button sc-camel-on-click="{{ fm.onClick }}" style="{{ fm.style }}">{{ fm.label }}</button></sc-for></div>
+    <div class="wl-scroll" style="margin-top:16px;overflow-y:auto;">
+      <sc-if value="{{ foodBuscar }}" hint-placeholder-val="{{ true }}">
+      <sc-if value="{{ foodNoBase }}" hint-placeholder-val="{{ true }}">
+      <div style="font:600 11px Barlow;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);">Escolha o alimento</div>
+      <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px;"><sc-for list="{{ foodSearch }}" as="f" hint-placeholder-count="6">
+        <div sc-camel-on-click="{{ f.onClick }}" style="cursor:pointer;background:var(--surf);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;"><div style="flex:1;"><div style="font:600 14px Barlow;color:var(--tx);">{{ f.n }}</div><div style="font-size:12px;color:var(--tx3);">{{ f.per }}</div></div><div style="width:30px;height:30px;border-radius:9px;border:1px solid rgba(var(--acR),.4);color:var(--ac);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">+</div></div>
+      </sc-for></div>
+      </sc-if>
+      <sc-if value="{{ foodHasBase }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;justify-content:space-between;"><div style="font-family:'Barlow Condensed';font-weight:800;font-size:20px;text-transform:uppercase;line-height:1;">{{ foodBaseName }}</div><button sc-camel-on-click="{{ foodClear }}" style="border:none;background:var(--surf2);color:var(--tx2);border-radius:9px;padding:7px 11px;font:600 12px Barlow;cursor:pointer;">Trocar</button></div>
+      <div style="margin-top:14px;background:var(--surf);border:1px solid var(--bd);border-radius:14px;padding:15px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div><div style="font:600 11px Barlow;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);">Quantidade</div><div style="font-family:'Barlow Condensed';font-weight:800;font-size:34px;line-height:1;">{{ foodQty }}<span style="font-size:15px;color:var(--tx3);font-family:Barlow;"> g</span></div></div>
+          <div style="display:flex;gap:9px;"><button sc-camel-on-click="{{ foodQtyDec }}" style="{{ stepDecStyle }}">–</button><button sc-camel-on-click="{{ foodQtyInc }}" style="{{ stepIncStyle }}">+</button></div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:7px;"><sc-for list="{{ foodQtyChips }}" as="q" hint-placeholder-count="4"><button sc-camel-on-click="{{ q.onClick }}" style="{{ q.style }}">{{ q.label }}</button></sc-for></div>
+      </div>
+      <div style="margin-top:11px;font:600 11px Barlow;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);">Calculado — toque pra ajustar</div>
+      <div style="margin-top:9px;display:grid;grid-template-columns:1fr 1fr;gap:8px;"><sc-for list="{{ foodMacroEdit }}" as="me" hint-placeholder-count="4">
+        <div style="background:var(--surf);border:1px solid var(--bd);border-radius:12px;padding:11px 13px;display:flex;align-items:center;justify-content:space-between;">
+          <div><div style="font:600 10px Barlow;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3);">{{ me.label }}</div><div style="font-family:'Barlow Condensed';font-weight:800;font-size:20px;line-height:1;">{{ me.value }}</div></div>
+          <div style="display:flex;flex-direction:column;gap:3px;"><button sc-camel-on-click="{{ me.inc }}" style="width:26px;height:22px;border-radius:7px;border:1px solid var(--bd);background:var(--surf2);color:var(--tx);font-size:13px;cursor:pointer;line-height:1;">+</button><button sc-camel-on-click="{{ me.dec }}" style="width:26px;height:22px;border-radius:7px;border:1px solid var(--bd);background:var(--surf2);color:var(--tx);font-size:13px;cursor:pointer;line-height:1;">–</button></div>
+        </div>
+      </sc-for></div>
+      <button sc-camel-on-click="{{ foodAdd }}" style="margin-top:14px;width:100%;border:none;cursor:pointer;padding:15px;border-radius:13px;background:var(--ac);color:var(--acT);font-family:'Barlow Condensed';font-weight:700;font-size:17px;text-transform:uppercase;letter-spacing:.03em;">{{ foodAddLabel }}</button>
+      </sc-if>
+      </sc-if>
+
+      <sc-if value="{{ foodEscrever }}" hint-placeholder-val="{{ false }}">
+      <div style="font-size:13px;color:var(--tx3);line-height:1.45;">Escreva o alimento e informe os valores. Os campos já vêm com uma base — ajuste como quiser.</div>
+      <input type="text" placeholder="Ex: Marmita de frango com arroz" sc-camel-default-value="{{ mNameVal }}" sc-camel-on-input="{{ onMName }}" style="margin-top:12px;width:100%;box-sizing:border-box;background:var(--inp);border:1px solid var(--bd);border-radius:12px;padding:13px 14px;font:600 15px Barlow;color:var(--tx);outline:none;">
+      <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;"><sc-for list="{{ foodMacroEdit }}" as="me" hint-placeholder-count="4">
+        <div style="background:var(--surf);border:1px solid var(--bd);border-radius:12px;padding:11px 13px;display:flex;align-items:center;justify-content:space-between;">
+          <div><div style="font:600 10px Barlow;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3);">{{ me.label }}</div><div style="font-family:'Barlow Condensed';font-weight:800;font-size:20px;line-height:1;">{{ me.value }}</div></div>
+          <div style="display:flex;flex-direction:column;gap:3px;"><button sc-camel-on-click="{{ me.inc }}" style="width:26px;height:22px;border-radius:7px;border:1px solid var(--bd);background:var(--surf2);color:var(--tx);font-size:13px;cursor:pointer;line-height:1;">+</button><button sc-camel-on-click="{{ me.dec }}" style="width:26px;height:22px;border-radius:7px;border:1px solid var(--bd);background:var(--surf2);color:var(--tx);font-size:13px;cursor:pointer;line-height:1;">–</button></div>
+        </div>
+      </sc-for></div>
+      <button sc-camel-on-click="{{ foodManualAdd }}" style="margin-top:14px;width:100%;border:none;cursor:pointer;padding:15px;border-radius:13px;background:var(--ac);color:var(--acT);font-family:'Barlow Condensed';font-weight:700;font-size:17px;text-transform:uppercase;letter-spacing:.03em;">{{ foodManualLabel }}</button>
+      </sc-if>
+
+      <sc-if value="{{ foodAudio }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center;padding:16px 0 6px;">
+        <button sc-camel-on-click="{{ audioSim }}" style="width:104px;height:104px;border-radius:50%;background:rgba(var(--acR),.14);border:2px solid rgba(var(--acR),.45);display:flex;align-items:center;justify-content:center;margin:0 auto;cursor:pointer;"><svg width="40" height="40" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.8"><rect x="9" y="2" width="6" height="12" rx="3"></rect><path d="M5 10a7 7 0 0014 0M12 17v4"></path></svg></button>
+        <div style="font-size:14px;color:var(--tx3);margin-top:16px;line-height:1.5;max-width:260px;margin-left:auto;margin-right:auto;">Toque e fale o que comeu — ex: “2 ovos e 1 banana”. Reconhecemos os itens e preenchemos os macros pra você conferir e ajustar.</div>
+      </div>
+      </sc-if>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= DAY EXTRACT ================= -->
+<sc-if value="{{ isDayOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:63;background:var(--bg);display:flex;flex-direction:column;">
+  <div style="padding:54px 20px 14px;flex-shrink:0;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:12px;">
+    <button sc-camel-on-click="{{ closeDay }}" style="border:none;background:var(--surf2);width:38px;height:38px;border-radius:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="9" height="16" sc-camel-view-box="0 0 9 16" fill="none" stroke="var(--tx2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1L1 8l7 7"></path></svg></button>
+    <div><div style="font:600 11px Barlow;letter-spacing:.14em;text-transform:uppercase;color:var(--tx3);">Extrato do dia</div><div style="font-family:'Barlow Condensed';font-weight:800;font-size:23px;text-transform:uppercase;line-height:1;text-transform:capitalize;">{{ dayLabel }}</div></div>
+  </div>
+  <div class="wl-scroll" style="flex:1;overflow-y:auto;padding:18px 20px 34px;">
+    <div style="display:flex;align-items:center;gap:8px;"><svg width="17" height="17" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.9"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 11c0 5.5-7 10-7 10z"></path></svg><span style="font-family:'Barlow Condensed';font-weight:700;font-size:18px;text-transform:uppercase;">Alimentação</span><span style="margin-left:auto;font:700 13px 'Barlow Condensed';color:var(--tx3);">{{ dayKcal }} kcal</span></div>
+    <sc-if value="{{ dayHasMeals }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top:11px;display:flex;flex-direction:column;gap:13px;"><sc-for list="{{ dayMeals }}" as="g" hint-placeholder-count="2">
+      <div><div style="font:700 11px Barlow;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3);margin-bottom:7px;">{{ g.label }}</div>
+        <div style="display:flex;flex-direction:column;gap:7px;"><sc-for list="{{ g.items }}" as="m" hint-placeholder-count="2">
+          <div style="background:var(--surf);border:1px solid var(--bd);border-radius:12px;padding:11px 13px;display:flex;align-items:center;gap:10px;"><div style="flex:1;min-width:0;"><div style="font:600 14px Barlow;color:var(--tx);">{{ m.n }}</div><div style="font-size:11.5px;color:var(--tx3);">{{ m.macro }}</div></div><div style="font-family:'Barlow Condensed';font-weight:800;font-size:17px;color:var(--tx2);">{{ m.kcal }}</div></div>
+        </sc-for></div>
+      </div>
+    </sc-for></div>
+    </sc-if>
+    <sc-if value="{{ dayNoMeals }}" hint-placeholder-val="{{ false }}"><div style="margin-top:11px;border:1px dashed var(--bd);border-radius:14px;padding:20px;text-align:center;font-size:13px;color:var(--tx3);">Nenhuma refeição registrada neste dia.</div></sc-if>
+
+    <div style="margin-top:22px;display:flex;align-items:center;gap:8px;"><svg width="17" height="17" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.9"><path d="M6 7v10M18 7v10M3 10v4M21 10v4M6 12h12"></path></svg><span style="font-family:'Barlow Condensed';font-weight:700;font-size:18px;text-transform:uppercase;">Treino</span></div>
+    <sc-if value="{{ dayHasWk }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top:11px;display:flex;flex-direction:column;gap:8px;"><sc-for list="{{ dayWorkouts }}" as="w" hint-placeholder-count="1">
+      <div style="background:var(--surf);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:11px;"><div style="width:34px;height:34px;border-radius:10px;background:rgba(var(--acR),.14);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed';font-weight:800;font-size:15px;color:var(--ac);flex-shrink:0;">{{ w.id }}</div><div style="flex:1;"><div style="font:600 14px Barlow;color:var(--tx);">Treino {{ w.id }} · {{ w.nome }}</div><div style="font-size:11.5px;color:var(--tx3);">Realizado</div></div><svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2.4"><path d="M20 6L9 17l-5-5"></path></svg></div>
+    </sc-for></div>
+    </sc-if>
+    <sc-if value="{{ dayNoWk }}" hint-placeholder-val="{{ false }}"><div style="margin-top:11px;border:1px dashed var(--bd);border-radius:14px;padding:20px;text-align:center;font-size:13px;color:var(--tx3);">Nenhum treino registrado neste dia.</div></sc-if>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= METAS CONFIG ================= -->
+<sc-if value="{{ isMetasOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:62;background:var(--scrim);display:flex;flex-direction:column;justify-content:flex-end;" sc-camel-on-click="{{ closeMetas }}">
+  <div sc-camel-on-click="{{ stop }}" style="background:var(--sheet);border-top-left-radius:26px;border-top-right-radius:26px;border-top:1px solid var(--bd);padding:12px 20px 30px;">
+    <div style="width:40px;height:4px;border-radius:3px;background:var(--bd);margin:2px auto 14px;"></div>
+    <div style="font-family:'Barlow Condensed';font-weight:800;font-size:24px;text-transform:uppercase;">Ajustar metas</div>
+    <div style="font-size:13px;color:var(--tx3);margin-top:4px;">Calculado da sua avaliação — ajuste se quiser.</div>
+    <div style="margin-top:16px;display:flex;flex-direction:column;gap:10px;"><sc-for list="{{ metaRows }}" as="mr" hint-placeholder-count="4">
+      <div style="background:var(--surf);border:1px solid var(--bd);border-radius:14px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;">
+        <div><div style="font:600 12px Barlow;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3);">{{ mr.label }}</div><div style="font-family:'Barlow Condensed';font-weight:800;font-size:28px;line-height:1;">{{ mr.value }}<span style="font-size:13px;color:var(--tx3);font-family:Barlow;"> {{ mr.unit }}</span></div></div>
+        <div style="display:flex;gap:9px;"><button sc-camel-on-click="{{ mr.dec }}" style="{{ stepDecStyle }}">–</button><button sc-camel-on-click="{{ mr.inc }}" style="{{ stepIncStyle }}">+</button></div>
+      </div>
+    </sc-for></div>
+    <button sc-camel-on-click="{{ closeMetas }}" style="margin-top:16px;width:100%;border:none;cursor:pointer;padding:15px;border-radius:14px;background:var(--ac);color:var(--acT);font-family:'Barlow Condensed';font-weight:700;font-size:17px;text-transform:uppercase;">Salvar metas</button>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= SETTINGS ================= -->
+<sc-if value="{{ isSettingsOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;">
+  <div style="padding:54px 20px 12px;display:flex;align-items:center;gap:12px;flex-shrink:0;border-bottom:1px solid var(--bd);"><button sc-camel-on-click="{{ closeSettings }}" style="border:none;background:var(--bd);width:38px;height:38px;border-radius:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="9" height="16" sc-camel-view-box="0 0 9 16" fill="none" stroke="var(--tx2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1L1 8l7 7"></path></svg></button><div style="font-family:'Barlow Condensed';font-weight:800;font-size:24px;text-transform:uppercase;">Ajustes</div></div>
+  <div class="wl-scroll" style="flex:1;overflow-y:auto;padding:18px 20px 34px;">
+    <div style="font:600 12px Barlow;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);">Aparência</div>
+    <div style="margin-top:10px;background:var(--surf);border:1px solid var(--bd);border-radius:13px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:11px;"><div style="width:34px;height:34px;border-radius:10px;background:var(--surf2);display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="1.8"><path d="{{ themeIcon }}"></path></svg></div><div><div style="font-size:14px;color:var(--tx2);font-weight:600;">Modo escuro</div><div style="font-size:12px;color:var(--tx3);">{{ themeLabel }}</div></div></div>
+      <button sc-camel-on-click="{{ toggleTheme }}" style="{{ themeTrackStyle }}"><span style="{{ themeKnobStyle }}"></span></button>
+    </div>
+    <div style="margin-top:22px;font:600 12px Barlow;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);">Meus dados</div>
+    <div style="margin-top:10px;background:var(--surf);border:1px solid var(--bd);border-radius:14px;padding:4px 16px;"><sc-for list="{{ dataRows }}" as="d" hint-placeholder-count="4"><div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--surf2);"><span style="font-size:14px;color:var(--tx3);">{{ d.label }}</span><span style="font:700 15px 'Barlow Condensed';color:var(--tx);">{{ d.value }}</span></div></sc-for></div>
+    <div style="margin-top:22px;font:600 12px Barlow;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);">Notificações</div>
+    <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px;"><sc-for list="{{ notifRows }}" as="n" hint-placeholder-count="3"><div style="background:var(--surf);border:1px solid var(--bd);border-radius:13px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;"><span style="font-size:14px;color:var(--tx2);">{{ n.label }}</span><button sc-camel-on-click="{{ n.onToggle }}" style="{{ n.trackStyle }}"><span style="{{ n.knobStyle }}"></span></button></div></sc-for></div>
+    <div style="margin-top:22px;border-radius:14px;padding:16px;background:{{ acPanel }};border:1px solid rgba(var(--acR),.2);"><div style="font-family:'Barlow Condensed';font-weight:700;font-size:16px;text-transform:uppercase;">Plano da {{ brandName }}</div><div style="font-size:13px;color:var(--tx2);margin-top:3px;line-height:1.45;">Seu acesso ao app é um benefício da sua matrícula. Sem cobrança extra pra você.</div></div>
+    <div style="margin-top:14px;font-size:12px;color:var(--tx4);text-align:center;">{{ brandName }} · Whitelabel v1.0</div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= ADMIN PLATFORM (CONCEITO) ================= -->
+<sc-if value="{{ isAdminOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:64;background:#0d0f12;display:flex;flex-direction:column;--surf:rgba(255,255,255,0.03);--surf2:rgba(255,255,255,0.06);--bd:rgba(255,255,255,0.08);--tx:#F4F6F1;--tx2:#c3c9b9;--tx3:#8b937f;--tx4:#7f8794;--sheet:#151922;--inp:#10131a;--scrim:rgba(5,6,5,0.72);color:var(--tx);">
+  <div style="padding:54px 18px 12px;flex-shrink:0;border-bottom:1px solid var(--bd);background:#10131a;">
+    <div style="display:flex;align-items:center;gap:11px;">
+      <button sc-camel-on-click="{{ closeAdmin }}" style="border:none;background:var(--bd);width:36px;height:36px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="9" height="16" sc-camel-view-box="0 0 9 16" fill="none" stroke="var(--tx2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1L1 8l7 7"></path></svg></button>
+      <div style="width:32px;height:32px;border-radius:9px;background:var(--ac);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed';font-weight:800;font-size:15px;color:var(--acT);overflow:hidden;">{{ brandLogoEl }}<sc-if value="{{ brandNoLogo }}" hint-placeholder-val="{{ true }}">{{ brandInitials }}</sc-if></div>
+      <div style="flex:1;"><div style="font-family:'Barlow Condensed';font-weight:800;font-size:18px;text-transform:uppercase;line-height:1;">{{ brandName }} · Admin</div><div style="font-size:11px;color:#7f8794;">Plataforma web · prévia conceito</div></div>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:4px;background:var(--surf2);border-radius:11px;padding:4px;"><button sc-camel-on-click="{{ adminAlunos }}" style="{{ admSegAlunos }}">Alunos</button><button sc-camel-on-click="{{ adminTreinos }}" style="{{ admSegTreinos }}">Treinos</button><button sc-camel-on-click="{{ adminAvisos }}" style="{{ admSegAvisos }}">Avisos<sc-if value="{{ hasNotifBadge }}" hint-placeholder-val="{{ true }}"><span style="{{ notifBadgeStyle }}">{{ notifCount }}</span></sc-if></button></div>
+  </div>
+  <div class="wl-scroll" style="flex:1;overflow-y:auto;padding:16px 18px 30px;">
+    <sc-if value="{{ adminOnAlunos }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;gap:8px;"><div style="flex:1;background:#151922;border:1px solid var(--bd);border-radius:13px;padding:13px;"><div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:var(--ac);line-height:1;">248</div><div style="font-size:11px;color:#7f8794;margin-top:3px;">Alunos ativos</div></div><div style="flex:1;background:#151922;border:1px solid var(--bd);border-radius:13px;padding:13px;"><div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:var(--tx);line-height:1;">31</div><div style="font-size:11px;color:#7f8794;margin-top:3px;">Treinos a revisar</div></div></div>
+    <div style="margin-top:14px;font:600 12px Barlow;letter-spacing:.1em;text-transform:uppercase;color:#7f8794;">Alunos</div>
+    <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px;"><sc-for list="{{ adminStudents }}" as="a" hint-placeholder-count="5">
+      <div sc-camel-on-click="{{ a.onClick }}" style="cursor:pointer;background:#151922;border:1px solid var(--bd);border-radius:13px;padding:12px 14px;display:flex;align-items:center;gap:12px;"><div style="width:38px;height:38px;border-radius:11px;background:rgba(var(--acR),.16);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed';font-weight:800;font-size:14px;color:var(--ac);flex-shrink:0;">{{ a.ini }}</div><div style="flex:1;min-width:0;"><div style="font:600 14px Barlow;color:var(--tx);">{{ a.name }}</div><div style="font-size:12px;color:#7f8794;">{{ a.plan }} · {{ a.freq }}</div></div><span style="{{ a.tagStyle }}">{{ a.tag }}</span><svg width="7" height="12" sc-camel-view-box="0 0 8 14" fill="none" stroke="#5b6470" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l6 6-6 6"></path></svg></div>
+    </sc-for></div>
+    </sc-if>
+    <sc-if value="{{ adminOnTreinos }}" hint-placeholder-val="{{ false }}">
+    <div style="font:600 12px Barlow;letter-spacing:.1em;text-transform:uppercase;color:#7f8794;">Planos da academia</div>
+    <div class="wl-scroll" style="margin-top:10px;display:flex;gap:7px;overflow-x:auto;padding-bottom:2px;"><sc-for list="{{ adminPlanChips }}" as="p" hint-placeholder-count="5"><button sc-camel-on-click="{{ p.onClick }}" style="{{ p.style }}">{{ p.label }}</button></sc-for><button sc-camel-on-click="{{ adminCreatePlan }}" style="flex-shrink:0;cursor:pointer;padding:8px 13px;border-radius:10px;border:1px dashed var(--bd);background:transparent;color:#9aa2ad;font:700 14px 'Barlow Condensed';white-space:nowrap;">+ Novo</button></div>
+    <div style="margin-top:14px;background:#151922;border:1px solid var(--bd);border-radius:13px;padding:13px 14px;display:flex;align-items:center;gap:12px;"><div style="width:38px;height:38px;border-radius:11px;background:rgba(var(--acR),.16);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed';font-weight:800;font-size:16px;color:var(--ac);flex-shrink:0;">{{ adminPlanId }}</div><div style="flex:1;"><div style="font-size:11px;color:#7f8794;">Editando · aplica a todos os alunos</div><div style="font:700 15px Barlow;color:var(--tx);">Treino {{ adminPlanId }} · {{ adminPlanName }}</div></div></div>
+    <div style="margin-top:12px;font:600 12px Barlow;letter-spacing:.1em;text-transform:uppercase;color:#7f8794;">Exercícios</div>
+    <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px;"><sc-for list="{{ adminExercises }}" as="e" hint-placeholder-count="4">
+      <div style="background:#151922;border:1px solid var(--bd);border-radius:12px;padding:11px 12px;display:flex;align-items:center;gap:9px;">
+        <svg width="14" height="14" sc-camel-view-box="0 0 24 24" fill="none" stroke="#5b6470" stroke-width="2" style="flex-shrink:0;"><circle cx="9" cy="6" r="1"></circle><circle cx="9" cy="12" r="1"></circle><circle cx="9" cy="18" r="1"></circle><circle cx="15" cy="6" r="1"></circle><circle cx="15" cy="12" r="1"></circle><circle cx="15" cy="18" r="1"></circle></svg>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;">
+          <input type="text" placeholder="Nome do exercício" sc-camel-default-value="{{ e.nVal }}" sc-camel-on-blur="{{ e.onName }}" style="width:100%;box-sizing:border-box;background:var(--inp);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;font:600 14px Barlow;color:var(--tx);outline:none;">
+          <div style="display:flex;gap:6px;">
+            <div style="flex:1;display:flex;align-items:center;gap:6px;background:var(--inp);border:1px solid var(--bd);border-radius:8px;padding:6px 9px;"><span style="font:600 10px Barlow;text-transform:uppercase;letter-spacing:.05em;color:#7f8794;flex-shrink:0;">Séries</span><input type="text" sc-camel-default-value="{{ e.sVal }}" sc-camel-on-blur="{{ e.onSeries }}" style="width:100%;min-width:0;box-sizing:border-box;background:none;border:none;font:700 14px 'Barlow Condensed';color:var(--tx);outline:none;"></div>
+            <div style="flex:1;display:flex;align-items:center;gap:6px;background:var(--inp);border:1px solid var(--bd);border-radius:8px;padding:6px 9px;"><span style="font:600 10px Barlow;text-transform:uppercase;letter-spacing:.05em;color:#7f8794;flex-shrink:0;">Reps</span><input type="text" sc-camel-default-value="{{ e.rVal }}" sc-camel-on-blur="{{ e.onReps }}" style="width:100%;min-width:0;box-sizing:border-box;background:none;border:none;font:700 14px 'Barlow Condensed';color:var(--tx);outline:none;"></div>
+          </div>
+        </div>
+        <button sc-camel-on-click="{{ e.remove }}" style="border:none;background:none;cursor:pointer;color:#5b6470;padding:4px;flex-shrink:0;align-self:flex-start;"><svg width="15" height="15" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg></button>
+      </div>
+    </sc-for></div>
+    <sc-if value="{{ adminNoEx }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;border:1px dashed var(--bd);border-radius:12px;padding:22px;text-align:center;font-size:13px;color:#7f8794;line-height:1.5;">Treino vazio.<br>Toque em <b style="color:var(--ac);">+ Adicionar exercício</b> para montar.</div></sc-if>
+    <button sc-camel-on-click="{{ adminAddEx }}" style="margin-top:10px;width:100%;border:1px dashed var(--bd);cursor:pointer;padding:12px;border-radius:12px;background:transparent;color:#9aa2ad;font:600 13px Barlow;">+ Adicionar exercício</button>
+    <button sc-camel-on-click="{{ adminPublish }}" style="margin-top:14px;width:100%;border:none;cursor:pointer;padding:15px;border-radius:13px;background:var(--ac);color:var(--acT);font-family:'Barlow Condensed';font-weight:700;font-size:17px;text-transform:uppercase;letter-spacing:.03em;">Publicar no app do aluno</button>
+    <div style="margin-top:10px;font-size:12px;color:#7f8794;text-align:center;line-height:1.5;">O aluno recebe a atualização na aba Treino instantaneamente.</div>
+    </sc-if>
+
+    <sc-if value="{{ adminOnAvisos }}" hint-placeholder-val="{{ false }}">
+    <div style="font:600 12px Barlow;letter-spacing:.1em;text-transform:uppercase;color:#7f8794;">Pendências · {{ pendCount }}</div>
+    <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px;"><sc-for list="{{ adminNotifs }}" as="n" hint-placeholder-count="4">
+      <div style="background:#151922;border:1px solid var(--bd);border-radius:14px;padding:13px 14px;opacity:{{ n.cardOpacity }};">
+        <div style="display:flex;align-items:center;gap:11px;">
+          <div style="{{ n.iconWrap }}"><svg width="19" height="19" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="{{ n.kindIcon }}"></path></svg></div>
+          <div style="flex:1;min-width:0;"><div style="font:700 14px Barlow;color:var(--tx);">{{ n.name }}</div><div style="font-size:12.5px;color:#9aa2ad;line-height:1.35;">{{ n.txt }}</div></div>
+          <span style="font-size:11px;color:#5b6470;flex-shrink:0;">{{ n.time }}</span>
+        </div>
+        <sc-if value="{{ n.done }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:7px;color:#12B76A;font:700 12px Barlow;"><svg width="15" height="15" sc-camel-view-box="0 0 24 24" fill="none" stroke="#12B76A" stroke-width="2.4"><path d="M20 6L9 17l-5-5"></path></svg>Resolvido</div></sc-if>
+        <sc-if value="{{ n.pending }}" hint-placeholder-val="{{ true }}"><button sc-camel-on-click="{{ n.onResolve }}" style="margin-top:11px;width:100%;border:none;cursor:pointer;padding:11px;border-radius:11px;background:var(--ac);color:var(--acT);font-family:'Barlow Condensed';font-weight:700;font-size:15px;text-transform:uppercase;">{{ n.cta }}</button></sc-if>
+      </div>
+    </sc-for></div>
+    </sc-if>
+  </div>
+  <sc-if value="{{ adminToast }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;bottom:26px;left:20px;right:20px;background:var(--ac);color:var(--acT);border-radius:13px;padding:14px 16px;display:flex;align-items:center;gap:10px;animation:hbToast 2.2s ease forwards;"><svg width="19" height="19" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--acT)" stroke-width="2.4"><path d="M20 6L9 17l-5-5"></path></svg><span style="font-family:'Barlow Condensed';font-weight:700;font-size:16px;text-transform:uppercase;">Feito · sincronizado</span></div>
+  </sc-if>
+
+  <sc-if value="{{ adminStudentOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;z-index:66;background:#0d0f12;display:flex;flex-direction:column;">
+    <div style="padding:54px 18px 14px;flex-shrink:0;border-bottom:1px solid var(--bd);background:#10131a;display:flex;align-items:center;gap:12px;">
+      <button sc-camel-on-click="{{ closeStudent }}" style="border:none;background:var(--bd);width:36px;height:36px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="9" height="16" sc-camel-view-box="0 0 9 16" fill="none" stroke="var(--tx2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1L1 8l7 7"></path></svg></button>
+      <div style="width:46px;height:46px;border-radius:13px;background:rgba(var(--acR),.16);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed';font-weight:800;font-size:18px;color:var(--ac);flex-shrink:0;">{{ stuIni }}</div>
+      <div style="flex:1;min-width:0;"><div style="font-family:'Barlow Condensed';font-weight:800;font-size:22px;text-transform:uppercase;line-height:1;">{{ stuName }}</div><div style="font-size:12px;color:#7f8794;">{{ stuObj }} · {{ stuFreq }}</div></div>
+    </div>
+    <div class="wl-scroll" style="flex:1;overflow-y:auto;padding:16px 18px 30px;">
+      <sc-if value="{{ stuLesaoWarn }}" hint-placeholder-val="{{ false }}">
+      <div style="border-radius:14px;padding:13px 15px;background:rgba(255,92,67,.1);border:1px solid rgba(255,92,67,.3);display:flex;gap:11px;align-items:center;margin-bottom:14px;"><svg width="19" height="19" sc-camel-view-box="0 0 24 24" fill="none" stroke="#FF8A6b" stroke-width="1.9" style="flex-shrink:0;"><path d="M12 2L2 20h20L12 2zM12 9v5M12 17v.01"></path></svg><div style="font-size:13px;color:#FFB4A0;line-height:1.4;">Atenção à lesão: <b>{{ stuLesaoTxt }}</b>. Evite exercícios que sobrecarreguem a região.</div></div>
+      </sc-if>
+      <div style="font:600 12px Barlow;letter-spacing:.1em;text-transform:uppercase;color:#7f8794;">Contexto do aluno</div>
+      <div style="margin-top:10px;background:#151922;border:1px solid var(--bd);border-radius:14px;padding:4px 15px;"><sc-for list="{{ stuRows }}" as="r" hint-placeholder-count="9"><div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--bd);"><span style="font-size:13px;color:#9aa2ad;">{{ r.label }}</span><span style="font:700 14px 'Barlow Condensed';color:var(--tx);text-align:right;">{{ r.value }}</span></div></sc-for></div>
+      <button sc-camel-on-click="{{ openStudentTreino }}" style="margin-top:16px;width:100%;border:none;cursor:pointer;padding:15px;border-radius:13px;background:var(--ac);color:var(--acT);font-family:'Barlow Condensed';font-weight:700;font-size:16px;text-transform:uppercase;letter-spacing:.03em;">Montar / editar treino</button>
+    </div>
+  </div>
+  </sc-if>
+</div>
+</sc-if>
+
+<!-- ================= BRAND SWITCHER (DEMO) ================= -->
+<sc-if value="{{ isBrandOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:70;background:var(--scrim);display:flex;flex-direction:column;justify-content:flex-end;" sc-camel-on-click="{{ closeBrand }}">
+  <div sc-camel-on-click="{{ stop }}" style="background:var(--sheet);border-top-left-radius:26px;border-top-right-radius:26px;border-top:1px solid var(--bd);padding:12px 20px 30px;">
+    <div style="width:40px;height:4px;border-radius:3px;background:var(--bd);margin:2px auto 14px;"></div>
+    <div style="font-family:'Barlow Condensed';font-weight:800;font-size:24px;text-transform:uppercase;">Whitelabel · trocar marca</div>
+    <div style="font-size:13px;color:var(--tx3);margin-top:4px;line-height:1.5;">Uma base, a identidade de cada academia. Toque para ver o app assumir as cores e o logo.</div>
+
+    <div style="margin-top:16px;border-radius:16px;padding:16px;border:1px solid var(--bd);background:var(--surf);">
+      <div style="display:flex;align-items:center;gap:8px;"><svg width="15" height="15" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"></path></svg><span style="font-family:'Barlow Condensed';font-weight:800;font-size:18px;text-transform:uppercase;">Personalizar academia</span></div>
+      <div style="margin-top:12px;display:flex;gap:11px;align-items:center;">
+        <label style="width:56px;height:56px;border-radius:14px;flex-shrink:0;cursor:pointer;overflow:hidden;border:1px dashed var(--bd);background:var(--surf2);display:flex;align-items:center;justify-content:center;position:relative;">
+          {{ customLogoEl }}
+          <sc-if value="{{ noCustomLogo }}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--tx3)" stroke-width="1.8"><path d="M12 5v14M5 12h14"></path></svg></sc-if>
+          <input type="file" accept="image/*" sc-camel-on-change="{{ applyLogo }}" style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+        </label>
+        <div style="flex:1;">
+          <input type="text" placeholder="Nome da academia" sc-camel-default-value="{{ customNameVal }}" sc-camel-on-input="{{ onNameInput }}" sc-camel-on-blur="{{ applyName }}" style="width:100%;box-sizing:border-box;background:var(--inp);border:1px solid var(--bd);border-radius:11px;padding:11px 13px;font:600 15px Barlow;color:var(--tx);outline:none;">
+          <div style="font-size:11px;color:var(--tx4);margin-top:5px;">Envie o logo (PNG/JPG) e defina o nome.</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;font:600 11px Barlow;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);">Cor da marca</div>
+      <div style="margin-top:9px;display:flex;gap:9px;"><sc-for list="{{ customColorOpts }}" as="c" hint-placeholder-count="6"><button sc-camel-on-click="{{ c.onClick }}" style="{{ c.style }}"></button></sc-for></div>
+      <button sc-camel-on-click="{{ useCustom }}" style="{{ useCustomBtnStyle }}">Usar esta marca</button>
+    </div>
+
+    <div style="margin-top:16px;font:600 11px Barlow;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);">Marcas de demonstração</div>
+    <div style="margin-top:10px;display:flex;flex-direction:column;gap:10px;"><sc-for list="{{ brandOpts }}" as="b" hint-placeholder-count="3">
+      <button sc-camel-on-click="{{ b.onClick }}" style="{{ b.rowStyle }}">
+        <div style="width:44px;height:44px;border-radius:12px;background:{{ b.ac }};display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed';font-weight:800;font-size:18px;color:{{ b.acT }};flex-shrink:0;">{{ b.ini }}</div>
+        <div style="flex:1;text-align:left;"><div style="font-family:'Barlow Condensed';font-weight:700;font-size:18px;text-transform:uppercase;color:var(--tx);">{{ b.name }}</div><div style="font-size:12px;color:var(--tx3);">{{ b.desc }}</div></div>
+        <sc-if value="{{ b.sel }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="{{ b.ac }}" stroke-width="2.6"><path d="M20 6L9 17l-5-5"></path></svg></sc-if>
+      </button>
+    </sc-for></div>
+  </div>
+</div>
+</sc-if>
+
+</div>
+</x-import>
+</x-dc>
