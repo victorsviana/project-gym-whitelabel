@@ -1,10 +1,18 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import App from './App.tsx';
 
+beforeEach(() => {
+  localStorage.clear();
+});
+
 describe('App', () => {
-  it('renderiza a página de showcase do design system', () => {
+  it('semeia os dados de demonstração e abre no seletor de perfil', async () => {
     render(<App />);
-    expect(screen.getByRole('heading', { name: 'Componentes base', level: 1 })).toBeInTheDocument();
+
+    expect(
+      await screen.findByRole('heading', { name: 'Quem é você?', level: 1 }),
+    ).toBeInTheDocument();
+    expect(localStorage.getItem('gymapp:v1')).not.toBeNull();
   });
 });

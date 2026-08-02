@@ -4,6 +4,7 @@ export { Chip } from './Chip.tsx';
 export { Stepper } from './Stepper.tsx';
 export { Toggle } from './Toggle.tsx';
 export { Sheet } from './Sheet.tsx';
+export { TextField } from './TextField.tsx';
 export { ProgressBar } from './ProgressBar.tsx';
 export { Ring } from './Ring.tsx';
 export { SegmentedControl } from './SegmentedControl.tsx';
