@@ -199,4 +199,35 @@ describe('StudentsScreen', () => {
     const goal = await studentRepository.findGoal(gym.id, student.id);
     expect(goal).toMatchObject({ kcal: 2000, protein: 118, carbs: 276, fat: 47, water: 2250 });
   });
+
+  it('atribuir treino a partir da ficha do aluno atualiza a situação dele na lista', async () => {
+    const gym = buildGym();
+    await gymRepository.save(gym);
+    const plan = buildPlan(gym.id, { published: true });
+    await workoutRepository.savePlan(plan);
+    const student = buildStudent(gym.id, { name: 'Bruno Nunes', email: 'bruno@x.com' });
+    await userRepository.save(student);
+
+    await renderAsTrainerOf(gym);
+    fireEvent.click(await screen.findByText('Bruno Nunes'));
+
+    fireEvent.click(await screen.findByRole('button', { name: 'Atribuir treino' }));
+    const dialog = await screen.findByRole('dialog', { name: 'Atribuir treino' });
+    fireEvent.click(within(dialog).getByRole('switch', { name: `Atribuir ${plan.name}` }));
+    fireEvent.click(within(dialog).getByRole('button', { name: 'Salvar atribuição' }));
+
+    await waitFor(async () => {
+      const assignments = await workoutRepository.listAssignmentsForStudent(gym.id, student.id);
+      expect(assignments.filter((a) => a.active)).toHaveLength(1);
+    });
+
+    await waitFor(() => {
+      const brunoRow = screen
+        .getAllByText('Bruno Nunes')
+        .map((el) => el.closest('li'))
+        .find((el): el is HTMLLIElement => el !== null);
+      expect(brunoRow).not.toBeUndefined();
+      expect(within(brunoRow!).getByText('Ativo')).toBeInTheDocument();
+    });
+  });
 });

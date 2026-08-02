@@ -1,6 +1,7 @@
 import type { StudentStatus } from '@gym/core';
 import { useEffect, useState } from 'react';
 import { Button, Card, Sheet } from '../../../ui/index.ts';
+import { AssignPlansSheet } from '../workouts/AssignPlansSheet';
 import { AssessmentForm } from './AssessmentForm';
 import { formatShortDate } from './format-date';
 import {
@@ -25,21 +26,26 @@ interface StudentDetailSheetProps {
   open: boolean;
   student: StudentRow | null;
   gymId: string;
+  trainerId: string;
   onClose: () => void;
   onAssessmentSaved: () => void;
+  onAssignmentSaved: () => void;
 }
 
 export function StudentDetailSheet({
   open,
   student,
   gymId,
+  trainerId,
   onClose,
   onAssessmentSaved,
+  onAssignmentSaved,
 }: StudentDetailSheetProps) {
   const [viewedId, setViewedId] = useState<string | null>(null);
   const [mode, setMode] = useState<'view' | 'edit'>('view');
   const [submitting, setSubmitting] = useState(false);
   const [lastActivity, setLastActivity] = useState<string | null>(null);
+  const [assignOpen, setAssignOpen] = useState(false);
 
   const studentId = student?.user.id ?? null;
   if (studentId && studentId !== viewedId) {
@@ -172,9 +178,18 @@ export function StudentDetailSheet({
           )}
 
           <div>
-            <p className="text-subtle mb-2 text-xs font-semibold tracking-widest uppercase">
-              Planos atribuídos
-            </p>
+            <div className="mb-2 flex items-center justify-between">
+              <p className="text-subtle text-xs font-semibold tracking-widest uppercase">
+                Planos atribuídos
+              </p>
+              <button
+                type="button"
+                onClick={() => setAssignOpen(true)}
+                className="text-brand text-xs font-semibold"
+              >
+                Atribuir treino
+              </button>
+            </div>
             {planNames.length > 0 ? (
               <ul className="flex flex-col gap-1 text-sm">
                 {planNames.map((name) => (
@@ -182,9 +197,7 @@ export function StudentDetailSheet({
                 ))}
               </ul>
             ) : (
-              <p className="text-subtle text-sm">
-                Nenhum plano atribuído ainda — a atribuição de treino chega no F1-E14.
-              </p>
+              <p className="text-subtle text-sm">Nenhum plano atribuído ainda.</p>
             )}
           </div>
 
@@ -198,6 +211,15 @@ export function StudentDetailSheet({
           </div>
         </div>
       )}
+
+      <AssignPlansSheet
+        open={assignOpen}
+        gymId={gymId}
+        studentId={user.id}
+        assignedBy={trainerId}
+        onClose={() => setAssignOpen(false)}
+        onSaved={onAssignmentSaved}
+      />
     </Sheet>
   );
 }

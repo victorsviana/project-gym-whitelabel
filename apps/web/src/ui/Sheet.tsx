@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useId } from 'react';
 import type { ReactNode } from 'react';
 
 interface SheetProps {
@@ -9,6 +9,8 @@ interface SheetProps {
 }
 
 export function Sheet({ open, onClose, title, children }: SheetProps) {
+  const titleId = useId();
+
   useEffect(() => {
     if (!open) return;
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -31,14 +33,11 @@ export function Sheet({ open, onClose, title, children }: SheetProps) {
       <div
         role="dialog"
         aria-modal="true"
-        aria-labelledby="sheet-title"
+        aria-labelledby={titleId}
         className="bg-sheet border-border rounded-sheet relative w-full max-w-md rounded-b-none border p-5 shadow-2xl"
       >
         <div className="mb-4 flex items-center justify-between">
-          <h2
-            id="sheet-title"
-            className="font-display text-xl font-extrabold tracking-wide uppercase"
-          >
+          <h2 id={titleId} className="font-display text-xl font-extrabold tracking-wide uppercase">
             {title}
           </h2>
           <button

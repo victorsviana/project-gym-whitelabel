@@ -82,11 +82,16 @@ export function GymHome() {
         </Button>
       </Card>
 
-      <Card elevated>
-        <p className="font-display text-lg font-bold uppercase">Treinos</p>
-        <p className="text-subtle mt-1 text-sm">
-          Montagem e atribuição de treino chegam no próximo épico (F1-E14).
-        </p>
+      <Card elevated className="flex items-center justify-between gap-4">
+        <div>
+          <p className="font-display text-lg font-bold uppercase">Treinos</p>
+          <p className="text-subtle mt-1 text-sm">
+            Montar planos, exercícios, atribuição a alunos e publicação.
+          </p>
+        </div>
+        <Button size="sm" onClick={() => navigate('/gym/treinos')}>
+          Ver treinos
+        </Button>
       </Card>
     </div>
   );

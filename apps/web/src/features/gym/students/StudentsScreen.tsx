@@ -33,7 +33,7 @@ function initialsFrom(name: string): string {
 }
 
 export function StudentsScreen() {
-  const { gym, loading: loadingAccount } = useSessionAccount();
+  const { gym, user, loading: loadingAccount } = useSessionAccount();
 
   const [rows, setRows] = useState<StudentRow[] | null>(null);
   const [error, setError] = useState(false);
@@ -62,7 +62,7 @@ export function StudentsScreen() {
 
   const reload = () => setReloadToken((token) => token + 1);
 
-  if (loadingAccount || !gym) return null;
+  if (loadingAccount || !gym || !user) return null;
 
   const filtered = (rows ?? []).filter((row) => {
     const matchesSearch = row.user.name.toLowerCase().includes(search.trim().toLowerCase());
@@ -175,8 +175,10 @@ export function StudentsScreen() {
         open={selectedStudentId !== null}
         student={selectedRow}
         gymId={gym.id}
+        trainerId={user.id}
         onClose={() => setSelectedStudentId(null)}
         onAssessmentSaved={reload}
+        onAssignmentSaved={reload}
       />
     </div>
   );
