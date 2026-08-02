@@ -4,13 +4,13 @@
 
 **Última atualização:** 01/08/2026
 **Fase atual:** Fase 1 — PWA multi-tenant (ver [`ROADMAP.md`](ROADMAP.md))
-**Épico atual:** F1-E06 concluído · próximo é F1-E07
+**Épico atual:** F1-E07 concluído · próximo é F1-E13
 
 ---
 
 ## Onde estamos
 
-O ferramental da Fase 1 está pronto, o design system também, `@gym/core` tem os tipos, as fórmulas de domínio e os contratos de repositório, com os adapters de `localStorage` implementados em `apps/web` e populados com os dados de demonstração completos das três academias de [`SEED-DATA.md`](SEED-DATA.md). A primeira tela de verdade já existe: seletor de perfil, login, cadastro de aluno e de professor, modo demo e guard de rota, tudo funcional. Falta a identidade visual configurável (F1-E07) e depois as telas de conteúdo do aluno e do painel.
+O ferramental da Fase 1 está pronto, o design system também, `@gym/core` tem os tipos, as fórmulas de domínio (incluindo contraste de tema) e os contratos de repositório, com os adapters de `localStorage` implementados em `apps/web` e populados com os dados de demonstração completos das três academias de [`SEED-DATA.md`](SEED-DATA.md). A primeira tela de verdade já existe: seletor de perfil, login, cadastro de aluno e de professor, modo demo e guard de rota, tudo funcional. O painel do professor agora também tem a tela de identidade visual (F1-E07), com preview ao vivo e persistência. Falta o resto do painel (alunos, treino) e as telas de conteúdo do aluno.
 
 O protótipo original (`prototype/Academia Whitelabel - Demo.html`) foi desempacotado, analisado por inteiro e traduzido em especificação: telas, fórmulas, modelo de dados e defeitos estão catalogados. O plano das três fases está fechado e as seis decisões de arquitetura estão registradas.
 
@@ -78,19 +78,30 @@ O protótipo original (`prototype/Academia Whitelabel - Demo.html`) foi desempac
   - `App.tsx` chama `seedIfEmpty()` uma vez na montagem (só então libera o router) e define as rotas; `/aluno` e `/gym` são as homes placeholder (`StudentHome`, `GymHome`) que só mostram a academia, o nome do usuário, o tema já aplicado e um botão Sair — o conteúdo de verdade é F1-E08 em diante. `Showcase` (F1-E02) continua acessível em `/showcase`, não some do app
   - Testes novos: `features/auth/actions.test.ts` (login ambíguo do caso Camila Reis, senha errada, papel errado, e-mail duplicado só dentro da mesma academia, slug único quando duas academias novas têm o mesmo nome), `features/auth/use-session.test.ts` (sessão grava/limpa em `localStorage`; um teste usa `vi.resetModules()` para simular reload de verdade — importar o módulo de novo e conferir que ele lê a sessão que já estava salva), `app/RequireRole.test.tsx` (as quatro combinações do guard), `App.test.tsx` reescrito (semeia e abre no seletor de perfil)
   - `npm run lint`, `typecheck`, `test` e `build` passam limpos. Sem `chromium-cli` disponível no ambiente, mas havia um Chromium do Playwright já instalado (`ms-playwright`) e o pacote em cache do `npx`; montei um driver descartável a partir dele e testei de verdade no navegador: seletor → modo demo → aluno (tema vermelho da Gaviões) → sair → modo demo → professor → reload mantém sessão → guard redireciona `/aluno`↔`/gym` → login manual → Bluefit em tema claro → e-mail ambíguo da Camila mostrando as duas academias → cadastro de aluno → cadastro de professor criando academia. Tudo funcionou, sem erro de console, com capturas de tela conferidas visualmente
+- **F1-E07 · Identidade visual da academia:**
+  - `shared/core/src/domain/theme.ts`: `relativeLuminance`, `contrastRatio`, `suggestContrastColor` (preto ou branco, o de maior razão) e `meetsContrastAA` (mínimo 4,5:1) — lógica pura de `WHITELABEL.md#contraste-é-validado-não-confiado`, sem nenhuma dependência de DOM
+  - Achado ao escrever o teste de referência: a fórmula de WCAG sugere **preto** para o azul da Bluefit (`#2E7BFF`, 3,89:1 com branco contra 5,39:1 com preto), mas o seed do F1-E05 usa branco — não é bug em nenhum dos dois lados, é o caso deliberado que `WHITELABEL.md` descreve ("expor problemas de contraste... logo cedo"); os testes fixam esse comportamento nos dois lados (a sugestão da função E o aviso de contraste insuficiente para esse par específico)
+  - `apps/web/src/features/auth/apply-gym-theme.ts` ganhou `applyThemeVars(theme: GymTheme)`, extraído de `applyGymTheme(gym: Gym)` — o preview ao vivo da tela nova precisa repintar a partir de um rascunho em memória, não de um `Gym` persistido
+  - `apps/web/src/features/gym/resize-logo.ts`: `resizeLogo(file)` via `<canvas>`, reduzindo a dimensão em passos de 75 % até o data URL PNG ficar sob ~200 KB (`WHITELABEL.md#logo`) — sem lib, só a Canvas API
+  - `apps/web/src/features/gym/BrandScreen.tsx` (rota `/gym/marca`, link "Editar" a partir de `GymHome`): nome, logo, presets prontos (reaproveita `features/auth/brand-presets.ts`), cor principal por preset ou seletor de cor nativo (`<input type="color">`, que já dispara `suggestContrastColor`), cor de contraste com override manual (`SegmentedControl` Preto/Branco) e aviso não bloqueante quando o par escolhido fica abaixo de 4,5:1. Preview ao vivo escreve as CSS vars a cada mudança de estado — o próprio botão "Salvar" da tela já é prova visual, porque usa os tokens de marca
+  - Decisão de UI: presets aplicam o par (`brand` + `brandFg`) exatamente como cadastrado — não recalculam a sugestão — porque já foram escolhidos a dedo; só o seletor de cor livre aciona `suggestContrastColor`. Achei mais simples que tentar unificar os dois caminhos
+  - Sincronizar o rascunho local com a academia carregada de forma assíncrona bateu num erro de lint (`react-hooks/set-state-in-effect`, `setState` direto dentro de `useEffect`): troquei por atualização durante a própria renderização (`if (gym && gym.id !== loadedGymId) { setDraft(gym); setLoadedGymId(gym.id); }`), o padrão que o React recomenda para "ajustar estado quando uma prop muda" em vez de um efeito
+  - Não toquei em `TrainerSignupScreen` (ainda usa os 5 presets fixos do F1-E06) — `ROADMAP.md` só sugere "avaliar" reuso depois deste épico, não exige, e trocar o cadastro por essa tela nova era escopo a mais sem pedido explícito
+  - Testes novos: `shared/core/src/domain/theme.test.ts` (luminância, razão de contraste simétrica, sugestão e aviso AA nas três marcas de demonstração) e `apps/web/src/features/gym/BrandScreen.test.tsx` (carrega os dados atuais da academia; preset repinta as CSS vars; aviso de contraste aparece sem bloquear; salvar persiste no repositório e volta para `/gym`)
+  - `npm run lint`, `typecheck`, `test` e `build` passam limpos. Testado de verdade no navegador com o mesmo driver descartável de Playwright do F1-E06: modo demo → professor da Gaviões → `/gym` → "Editar" → preset Azul repinta tudo instantaneamente e mostra o aviso de contraste (3,9:1) → tema claro repinta sem reload → renomear e salvar volta ao painel já com o nome novo. Sem erro de console
 
 ## 🔜 Próxima tarefa
 
-**F1-E07 · Identidade visual da academia.** Ver detalhes em [`ROADMAP.md`](ROADMAP.md#épicos):
+**F1-E13 · Alunos.** Ver detalhes em [`ROADMAP.md`](ROADMAP.md#épicos):
 
-1. Tela de marca no painel do professor (hoje `/gym` só tem o placeholder do F1-E06): nome, logo (upload convertido para data URL, redimensionado e limitado a ~200 KB), cor principal, cor de contraste, presets prontos, preview ao vivo
-2. Função de cálculo de luminância/contraste em `@gym/core/theme` (`WHITELABEL.md#contraste-é-validado-não-confiado`) — sugere preto ou branco automaticamente ao escolher a cor principal, avisa (não bloqueia) se o par ficar abaixo de 4,5:1
-3. Ao salvar, repintar o app inteiro sem recarregar (mesma técnica de `features/auth/apply-gym-theme.ts` e do `Showcase`) e persistir em `Gym.theme` via `gymRepository.save`
-4. `TrainerSignupScreen` hoje usa 5 presets fixos (`features/auth/brand-presets.ts`) para a academia nascer com uma marca legível sem essa função — depois do F1-E07 vale avaliar se o cadastro deveria reusar a tela de identidade visual em vez dos presets
+1. Dashboard no painel do professor com indicadores reais (alunos ativos, sem treino, pendências) — vindos dos repositórios (`studentRepository`, `workoutRepository`, `noticeRepository`), nunca mock
+2. Lista de alunos com busca e filtro
+3. Ficha do aluno: avaliação, lesões, restrições, plano atual, última atividade
+4. Cadastro e edição de aluno pelo professor — hoje só existe autocadastro do aluno (F1-E06); o professor cadastrando também precisa criar o `User` e permitir montar o `StudentProfile` (ou deixar `onboardedAt: null` do mesmo jeito que o autocadastro, a decidir na implementação)
 
-*Aceite:* mudar a cor repinta o app inteiro sem recarregar; a escolha persiste e vale para todos os usuários daquela academia.
+*Aceite:* os números vêm dos dados reais do tenant, não de mock; cadastrar um aluno permite entrar com ele em seguida.
 
-Depois dela, seguir a ordem sugerida em [`ROADMAP.md`](ROADMAP.md#ordem-sugerida): `E13 → E14` (para haver treino a exibir) antes das telas de conteúdo do aluno (`E08 → E09 → E10 → E11 → E12`).
+Depois dela, `E14` (montagem e atribuição de treino, para haver o que exibir) e só então as telas de conteúdo do aluno (`E08 → E09 → E10 → E11 → E12`), conforme a ordem sugerida em [`ROADMAP.md`](ROADMAP.md#ordem-sugerida).
 
 ## 🚧 Em andamento
 
@@ -202,6 +213,22 @@ Faltava um componente de campo de texto no design system — o F1-E02 não previ
 Depois de `lint`/`typecheck`/`test`/`build` limpos, fiz a verificação visual que as regras deste projeto pedem antes de dar uma mudança de UI por pronta. Não havia `chromium-cli` nem Playwright como dependência do projeto, mas encontrei um Chromium do Playwright já baixado (`ms-playwright`) e o pacote `playwright` em cache do `npx` (de uma execução anterior) — montei um script descartável em cima disso (não ficou no repo) e rodei o fluxo inteiro num navegador de verdade: seletor de perfil → modo demo → Victor (aluno, tema vermelho da Gaviões aplicado) → sair → modo demo → Douglas (professor) → reload mantendo a sessão → tentar abrir `/aluno` logado como professor e ser redirecionado pra `/gym` → login manual da Marina (Bluefit, conferi que o tema vira claro e azul) → senha errada → e-mail ambíguo da Camila mostrando as duas academias pra escolher → cadastro de aluno → cadastro de professor criando academia nova. Tudo funcionou sem erro de console; um susto falso no meio (a cor do `SegmentedControl` pareceu não ter trocado numa captura de tela) se resolveu conferindo `aria-checked` direto no DOM — era o componente certo, só uma leitura errada minha da imagem comprimida.
 
 `npm run lint`, `typecheck`, `test` e `build` passam limpos na raiz — 57 testes em `@gym/web` (15 novos: `actions.test.ts`, `use-session.test.ts`, `RequireRole.test.tsx`, `App.test.tsx` reescrito). Nada foi commitado.
+
+### 01/08/2026 — F1-E07: identidade visual da academia
+
+Executei o épico F1-E07 por completo. Comecei pela função pura, como sempre: `relativeLuminance`/`contrastRatio`/`suggestContrastColor`/`meetsContrastAA` em `shared/core/src/domain/theme.ts`, seguindo a fórmula de luminância relativa do WCAG 2.x que `WHITELABEL.md` já descrevia em pseudocódigo. O achado interessante foi ao escrever o teste com as três marcas de demonstração: a fórmula sugere **preto** como contraste pro azul da Bluefit (`#2E7BFF`), não branco — mas o seed do F1-E05 usa branco de propósito, exatamente o caso que `WHITELABEL.md` descreve como "expor problemas de contraste... logo cedo". Não é bug em nenhum dos dois lados; escrevi o teste para fixar os dois fatos (a função sugere preto, e o par branco-sobre-azul do seed fica abaixo do mínimo AA), em vez de "corrigir" um dos dois pra combinar.
+
+A tela em si (`apps/web/src/features/gym/BrandScreen.tsx`, rota `/gym/marca`) juntou peças que já existiam: os 5 presets de `features/auth/brand-presets.ts` (F1-E06) e a técnica de escrever CSS vars direto no `documentElement` de `apply-gym-theme.ts`/`Showcase.tsx` (F1-E02/F1-E06). Precisei extrair `applyThemeVars(theme)` de `applyGymTheme(gym)` porque o preview ao vivo repinta a partir de um rascunho em memória (`useState<Gym>`) que só vira `Gym` de verdade se o professor salvar — não dava pra reusar a função que exige um `Gym` persistido. Decidi que presets aplicam o par de cor exatamente como cadastrado (sem recalcular a sugestão), e só o seletor de cor livre (`<input type="color">`) aciona `suggestContrastColor` — os dois caminhos fazem sentidos diferentes: preset é um par já vetado, cor livre é o caso que a função existe para resolver.
+
+Logo entrou via `apps/web/src/features/gym/resize-logo.ts`, com `<canvas>` puro (sem lib): desenha em dimensões decrescentes (passos de 75 %) até o data URL PNG ficar sob ~200 KB, como `WHITELABEL.md#logo` pede. Não testei essa função — `Image`/`canvas` não funcionam de verdade em `jsdom` sem mais uma dependência, e o upload de arquivo já não tinha teste nem no cadastro de professor (F1-E06); segui o mesmo precedente.
+
+Um erro de lint pego na hora, não depois: sincronizar o rascunho local com a academia carregada assincronamente numa `useEffect` disparou `react-hooks/set-state-in-effect` (`setState` direto dentro de um efeito, sem vir de um evento externo real). Troquei pelo padrão que o próprio React recomenda para "ajustar estado quando uma prop muda" — comparar durante a renderização e chamar `setState` ali, não dentro de um `useEffect` — em vez de suprimir o lint.
+
+Conscientemente não toquei em `TrainerSignupScreen`: o `STATE.md` anterior registrava que "vale avaliar" reusar essa tela nova no cadastro de academia, não que era obrigatório, e trocar teria sido escopo a mais sem necessidade — o cadastro continua com os 5 presets fixos, que já bastam pra academia nascer legível.
+
+Testes novos: `theme.test.ts` (luminância, simetria da razão de contraste, sugestão e aviso AA nas três marcas do seed) e `BrandScreen.test.tsx` (carrega os dados atuais; preset repinta as CSS vars; aviso de contraste aparece sem bloquear o salvamento; salvar persiste no repositório e volta pro painel). Depois de `lint`/`typecheck`/`test`/`build` limpos, repeti a verificação visual real que o F1-E06 já tinha montado (Chromium do Playwright em cache, sem precisar reinstalar nada): modo demo → professor da Gaviões → `/gym` → "Editar" → clicar no preset Azul repinta a tela inteira na hora e mostra o aviso "Contraste de 3,9:1 — abaixo do mínimo recomendado de 4,5:1" → trocar pra tema claro repinta sem reload → renomear a academia e salvar volta ao painel já com o nome novo aplicado. Sem erro de console em nenhum passo.
+
+`npm run lint`, `typecheck`, `test` e `build` passam limpos na raiz — 71 testes em `@gym/core` (7 novos, `theme.test.ts`) e 61 em `@gym/web` (4 novos, `BrandScreen.test.tsx`). Nada foi commitado.
 
 ---
 
