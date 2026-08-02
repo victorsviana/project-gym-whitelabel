@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { computeDailyGoal, type DailyGoalInput } from './daily-goals';
+import { computeDailyGoal, kcalAdjustmentPct, type DailyGoalInput } from './daily-goals';
 
 // Casos de referência de DOMAIN-RULES.md §1.8 — reproduzir exatamente.
 describe('computeDailyGoal', () => {
@@ -85,5 +85,13 @@ describe('computeDailyGoal', () => {
       fat: 47,
       water: 2250,
     });
+  });
+});
+
+describe('kcalAdjustmentPct', () => {
+  it('reflete o mesmo ajuste usado em computeTargetKcal, para exibição no onboarding', () => {
+    expect(kcalAdjustmentPct('muscle')).toBe(10);
+    expect(kcalAdjustmentPct('cut')).toBe(-18);
+    expect(kcalAdjustmentPct('performance')).toBe(0);
   });
 });

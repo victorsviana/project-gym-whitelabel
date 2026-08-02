@@ -11,6 +11,7 @@ import { GymHome } from './features/gym/GymHome.tsx';
 import { StudentsScreen } from './features/gym/students/StudentsScreen.tsx';
 import { PlanEditorScreen } from './features/gym/workouts/PlanEditorScreen.tsx';
 import { WorkoutsScreen } from './features/gym/workouts/WorkoutsScreen.tsx';
+import { OnboardingFlow } from './features/student/onboarding/OnboardingFlow.tsx';
 import { StudentHome } from './features/student/StudentHome.tsx';
 import { Showcase } from './showcase/Showcase.tsx';
 import { seedIfEmpty } from './storage';
@@ -38,6 +39,14 @@ function App() {
           element={
             <RequireRole role="student">
               <StudentHome />
+            </RequireRole>
+          }
+        />
+        <Route
+          path="/aluno/onboarding"
+          element={
+            <RequireRole role="student">
+              <OnboardingFlow />
             </RequireRole>
           }
         />

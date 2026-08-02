@@ -59,6 +59,11 @@ export function computeTargetKcal(tdee: number, goal: Goal): number {
   return Math.round(adjusted) * KCAL_ROUNDING;
 }
 
+/** Percentual do ajuste de TDEE aplicado ao objetivo (10, -18 ou 0) — para exibição. */
+export function kcalAdjustmentPct(goal: Goal): number {
+  return Math.round(KCAL_ADJUSTMENT_BY_GOAL[goal] * 100);
+}
+
 export interface Macros {
   protein: number;
   carbs: number;
