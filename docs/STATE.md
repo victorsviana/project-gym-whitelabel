@@ -4,13 +4,13 @@
 
 **Última atualização:** 01/08/2026
 **Fase atual:** Fase 1 — PWA multi-tenant (ver [`ROADMAP.md`](ROADMAP.md))
-**Épico atual:** F1-E02 concluído · próximo é F1-E03
+**Épico atual:** F1-E03 concluído · próximo é F1-E04
 
 ---
 
 ## Onde estamos
 
-O ferramental da Fase 1 está pronto e agora também o design system: `apps/web` renderiza uma página de showcase com os 11 componentes base, tokens de cor ligados a CSS vars e tipografia Barlow/Barlow Condensed local. `shared/core` ainda existe só como workspace vazio — é o próximo passo. Falta tudo o que é regra de negócio e tela de verdade.
+O ferramental da Fase 1 está pronto, o design system também, e agora `@gym/core` deixou de ser um workspace vazio: tem os tipos de todas as entidades e todas as fórmulas de domínio de `DOMAIN-RULES.md`, puras e testadas. Falta a persistência (repositórios + `localStorage`) para essas regras terem onde buscar dado real, e depois as telas de verdade.
 
 O protótipo original (`prototype/Academia Whitelabel - Demo.html`) foi desempacotado, analisado por inteiro e traduzido em especificação: telas, fórmulas, modelo de dados e defeitos estão catalogados. O plano das três fases está fechado e as seis decisões de arquitetura estão registradas.
 
@@ -40,19 +40,28 @@ O protótipo original (`prototype/Academia Whitelabel - Demo.html`) foi desempac
   - Página de showcase (`apps/web/src/showcase/Showcase.tsx`, montada em `App.tsx`) com seletor de tema claro/escuro e um trocador das três marcas de demonstração ([`WHITELABEL.md`](WHITELABEL.md#marcas-de-demonstração)) escrevendo as CSS vars direto no `documentElement` — prova visual de que o ADR-0003 funciona, mesmo sem a tela real de identidade visual (F1-E07)
   - Corrigido `apps/web/src/test/setup.ts`: faltava `afterEach(() => cleanup())` — sem `test.globals` no `vite.config.ts`, o Testing Library não faz cleanup automático entre testes e componentes de um teste vazavam pro DOM do próximo
   - `npm run lint`, `typecheck`, `test` e `build` passam limpos; servidor de dev sobe e responde 200. Não foi possível confirmar visualmente em navegador nesta sessão — sem ferramenta de screenshot/browser disponível no ambiente
+- **F1-E03 · Domínio em `@gym/core`:**
+  - `shared/core/src/types/`: um arquivo por entidade de [`DATA-MODEL.md`](DATA-MODEL.md) (`Gym`/`GymTheme`, `User`, `StudentProfile`, `DailyGoal`, `WorkoutPlan`/`PlanExercise`, `Assignment`, `SetLog`, `LoadLog`, `Meal`, `Food`, `WaterLog`, `ActivityDay`, `Notice`, `Session`) mais `common.ts` com as uniões literais (`Sex`, `Goal`, `Level`, `BodyRegion`, `Restriction`, `Role`, `MealType`, `MealSource`, `GoalSource`, `NoticeKind`) — nenhum `enum`, conforme [`CONVENTIONS.md`](CONVENTIONS.md)
+  - `shared/core/src/dates/iso-date.ts`: `IsoDate` (`YYYY-MM-DD`), `todayIsoDate`, `toIsoDate`, `isValidIsoDate`, `addDays`, `compareIsoDate`, `isSameMonth` — tudo comparação de string, sem `Date` cruzando fuso
+  - `shared/core/src/domain/`: uma função (ou pequeno grupo) por seção de [`DOMAIN-RULES.md`](DOMAIN-RULES.md) — `daily-goals.ts` (TMB Mifflin-St Jeor, TDEE, kcal-alvo, macros, meta de água — `computeDailyGoal`), `nutrition.ts` (consumo do dia, macros de alimento por 100g), `hydration.ts` (copos de 250 ml), `streak.ts` (dia ativo, sequência, dias ativos no mês), `workout-progress.ts` (progresso de séries), `load.ts` (ajuste ±2,5 kg, delta de carga), `schedule.ts` (treino do dia por peso da semana, sugestão de refeição por horário), `adapted-exercise.ts` (selo Adaptado)
+  - Os quatro casos de teste de referência de `DOMAIN-RULES.md §1.8` (`computeDailyGoal`) passam exatamente como especificado — foi o ponto mais delicado, por causa da ordem de arredondamento (carboidrato precisa da proteína e gordura já arredondadas, não dos valores brutos)
+  - `@gym/core` segue sem nenhuma dependência de runtime: só tipos e funções puras, nada de `Date` cruzando fuso horário além do necessário para `getWeekdayIndex`/`addDays` (que usam componentes locais, não UTC)
+  - 59 testes novos em `shared/core`, todos ao lado do código testado; `npm run typecheck`, `npm run test` e `npm run lint` (na raiz, cobrindo os dois workspaces) passam limpos
+  - Bug pego na primeira escrita do teste de `load.ts`: `increaseLoad(20.3)` não dá `22.5`, dá `23` (22,8 está mais perto de 23 que de 22,5) — o teste é que estava errado, não o código; corrigido antes de seguir
 
 ## 🔜 Próxima tarefa
 
-**F1-E03 · Domínio em `@gym/core`.** Ver detalhes em [`ROADMAP.md`](ROADMAP.md#épicos):
+**F1-E04 · Repositórios e persistência.** Ver detalhes em [`ROADMAP.md`](ROADMAP.md#épicos):
 
-1. Tipos e enums (uniões literais, não `enum`) de todas as entidades de [`DATA-MODEL.md`](DATA-MODEL.md)
-2. Funções puras de cálculo em `@gym/core/domain`, a partir de [`DOMAIN-RULES.md`](DOMAIN-RULES.md): TMB (Mifflin-St Jeor), TDEE, ajuste por objetivo, kcal-alvo, macros, meta de água, streak, progresso de séries, delta de carga
-3. Utilitários de data em ISO (`YYYY-MM-DD`), já que datas de negócio circulam nesse formato
-4. Zero dependência de runtime em `@gym/core` — é TypeScript puro, sem React/`localStorage`/`window`/`fetch`
+1. Contratos de repositório em `@gym/core` (uma interface por entidade ou por agregado, ex. `StudentRepository`, `WorkoutPlanRepository`) — só assinatura, sem implementação, para a Fase 2 trocar por HTTP sem mexer em quem consome
+2. Adapters `localStorage` em `apps/web/src/storage/`, implementando esses contratos
+3. Schema versionado (`gymapp:v1`) conforme o envelope de [`DATA-MODEL.md`](DATA-MODEL.md#armazenamento-na-fase-1--localstorage), com rotina de migração (`(data, fromVersion) => data`, pura e testável)
+4. Sessão separada em `gymapp:session`
+5. Seed idempotente na primeira execução (dados mínimos; o seed completo multi-tenant é o F1-E05)
 
-*Aceite:* todas as fórmulas de [`DOMAIN-RULES.md`](DOMAIN-RULES.md) implementadas, com os casos de teste daquele documento passando.
+*Aceite:* nenhum componente referencia `localStorage`; trocar o adapter por um fake em memória mantém os testes passando.
 
-Depois dela, seguir a ordem sugerida em [`ROADMAP.md`](ROADMAP.md#ordem-sugerida): `E04 → E05 → E06 → E07`, e só então `E13 → E14` antes das telas do aluno.
+Depois dela, seguir a ordem sugerida em [`ROADMAP.md`](ROADMAP.md#ordem-sugerida): `E05 → E06 → E07`, e só então `E13 → E14` antes das telas do aluno.
 
 ## 🚧 Em andamento
 
@@ -104,6 +113,18 @@ Os 11 componentes pedidos pelo épico foram criados em `apps/web/src/ui/`, todos
 A página de showcase (`apps/web/src/showcase/Showcase.tsx`, montada em `App.tsx` no lugar do placeholder) além de renderizar os componentes nos dois temas, tem um trocador das três marcas de demonstração do `WHITELABEL.md` escrevendo as CSS vars direto no `documentElement` — dá pra ver o app inteiro repintando sem build, que é o ponto inteiro do ADR-0003, mesmo sem a tela real de identidade visual (isso é F1-E07).
 
 `lint`, `typecheck`, `test` e `build` passam limpos; o servidor de dev sobe e responde 200 na raiz. Não confirmei visualmente em navegador — não há ferramenta de screenshot/browser disponível neste ambiente, então a checagem de "renderiza nas três larguras" ficou por revisão de responsividade das classes Tailwind (`grid-cols-1 md:grid-cols-2 lg:grid-cols-3`), não por captura de tela real. Vale abrir `npm run dev -w @gym/web` e olhar manualmente antes de considerar o épico fechado de fato. Nada foi commitado.
+
+### 01/08/2026 — F1-E03: domínio em `@gym/core`
+
+Executei o épico F1-E03 por completo. `@gym/core` deixou de ser um workspace vazio: primeiro entraram os tipos de todas as entidades de `DATA-MODEL.md` em `shared/core/src/types/` (um arquivo por entidade, uniões literais em `common.ts` em vez de `enum`), depois `shared/core/src/dates/iso-date.ts` com os utilitários de data ISO, e por fim `shared/core/src/domain/` com uma função (ou pequeno grupo) por seção de `DOMAIN-RULES.md`.
+
+O ponto mais delicado foi `computeDailyGoal` (TMB/TDEE/kcal-alvo/macros/água): a ordem de arredondamento importa — o carboidrato precisa usar a proteína e a gordura já arredondadas, não os valores brutos, senão o resultado diverge do documento. Reproduzi os quatro casos de referência de `DOMAIN-RULES.md §1.8` exatamente como especificado, e todos batem.
+
+Escrevi teste para cada função de domínio, ao lado do código (59 testes novos). Um deles pegou um erro meu, não do código: escrevi `expect(increaseLoad(20.3)).toBe(22.5)`, mas 20,3 + 2,5 = 22,8, que arredonda para 23 (mais perto de 23 que de 22,5) — corrigi o teste, não a implementação, depois de conferir a conta.
+
+Como no F1-E01/E02, `@gym/core` continua sem nenhuma dependência de runtime — só tipos e funções puras. `getWeekdayIndex` e `addDays` usam componentes locais de `Date` (ano/mês/dia via getters, não `toISOString`/UTC), pela mesma razão do resto do domínio: data de negócio é sempre local.
+
+`npm run typecheck`, `npm run test` e `npm run lint` passam limpos na raiz, cobrindo os dois workspaces. Nada foi commitado.
 
 ---
 
