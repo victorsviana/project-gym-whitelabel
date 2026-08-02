@@ -6,6 +6,7 @@ import { LoginScreen } from './features/auth/LoginScreen.tsx';
 import { ProfileSelectScreen } from './features/auth/ProfileSelectScreen.tsx';
 import { StudentSignupScreen } from './features/auth/StudentSignupScreen.tsx';
 import { TrainerSignupScreen } from './features/auth/TrainerSignupScreen.tsx';
+import { BrandScreen } from './features/gym/BrandScreen.tsx';
 import { GymHome } from './features/gym/GymHome.tsx';
 import { StudentHome } from './features/student/StudentHome.tsx';
 import { Showcase } from './showcase/Showcase.tsx';
@@ -42,6 +43,14 @@ function App() {
           element={
             <RequireRole role="trainer">
               <GymHome />
+            </RequireRole>
+          }
+        />
+        <Route
+          path="/gym/marca"
+          element={
+            <RequireRole role="trainer">
+              <BrandScreen />
             </RequireRole>
           }
         />

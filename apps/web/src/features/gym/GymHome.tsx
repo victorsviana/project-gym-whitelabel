@@ -33,11 +33,20 @@ export function GymHome() {
         </Button>
       </header>
 
+      <Card elevated className="flex items-center justify-between gap-4">
+        <div>
+          <p className="font-display text-lg font-bold uppercase">Identidade visual</p>
+          <p className="text-subtle mt-1 text-sm">Nome, logo, cor principal e cor de contraste.</p>
+        </div>
+        <Button size="sm" onClick={() => navigate('/gym/marca')}>
+          Editar
+        </Button>
+      </Card>
+
       <Card elevated>
         <p className="font-display text-lg font-bold uppercase">Painel da academia</p>
         <p className="text-subtle mt-1 text-sm">
-          Identidade visual, alunos, montagem e atribuição de treino chegam nos próximos épicos
-          (F1-E07, F1-E13 e F1-E14).
+          Alunos, montagem e atribuição de treino chegam nos próximos épicos (F1-E13 e F1-E14).
         </p>
       </Card>
     </div>

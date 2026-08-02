@@ -5,4 +5,5 @@ export * from './load';
 export * from './nutrition';
 export * from './schedule';
 export * from './streak';
+export * from './theme';
 export * from './workout-progress';

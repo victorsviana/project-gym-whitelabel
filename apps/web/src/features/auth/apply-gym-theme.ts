@@ -1,4 +1,4 @@
-import type { Gym } from '@gym/core';
+import type { Gym, GymTheme } from '@gym/core';
 
 function hexToRgbTriplet(hex: string): string {
   const value = hex.replace('#', '');
@@ -8,11 +8,15 @@ function hexToRgbTriplet(hex: string): string {
   return `${r} ${g} ${b}`;
 }
 
-/** Escreve o tema da academia nas CSS vars do documento — mesma técnica do Showcase (ADR-0003). */
-export function applyGymTheme(gym: Gym): void {
-  document.documentElement.dataset.theme = gym.theme.mode;
+/** Escreve um tema nas CSS vars do documento — mesma técnica do Showcase (ADR-0003). */
+export function applyThemeVars(theme: GymTheme): void {
+  document.documentElement.dataset.theme = theme.mode;
   const root = document.documentElement.style;
-  root.setProperty('--brand', gym.theme.brand);
-  root.setProperty('--brand-rgb', hexToRgbTriplet(gym.theme.brand));
-  root.setProperty('--brand-fg', gym.theme.brandFg);
+  root.setProperty('--brand', theme.brand);
+  root.setProperty('--brand-rgb', hexToRgbTriplet(theme.brand));
+  root.setProperty('--brand-fg', theme.brandFg);
+}
+
+export function applyGymTheme(gym: Gym): void {
+  applyThemeVars(gym.theme);
 }
