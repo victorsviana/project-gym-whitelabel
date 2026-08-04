@@ -19,6 +19,8 @@ import { SettingsScreen } from './features/student/profile/SettingsScreen.tsx';
 import { StudentHome } from './features/student/StudentHome.tsx';
 import { WorkoutDetailScreen } from './features/student/workout/WorkoutDetailScreen.tsx';
 import { WorkoutListScreen } from './features/student/workout/WorkoutListScreen.tsx';
+import { InstallPrompt } from './pwa/InstallPrompt.tsx';
+import { UpdateNotifier } from './pwa/UpdateNotifier.tsx';
 import { Showcase } from './showcase/Showcase.tsx';
 import { seedIfEmpty } from './storage';
 
@@ -33,6 +35,8 @@ function App() {
 
   return (
     <BrowserRouter>
+      <InstallPrompt />
+      <UpdateNotifier />
       <Routes>
         <Route path="/" element={<ProfileSelectScreen />} />
         <Route path="/entrar/:audience" element={<LoginScreen />} />

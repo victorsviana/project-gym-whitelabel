@@ -2,8 +2,22 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="Treino e dieta da sua academia, em um só app."
+    />
     <title>Academia Whitelabel</title>
+
+    <!-- PWA: valores genéricos até uma academia carregar (docs/WHITELABEL.md#pwa-por-academia) —
+         atualizados em runtime por src/pwa/apply-pwa-manifest.ts junto com o tema (F1-E07). -->
+    <link rel="icon" type="image/png" href="/icons/favicon-32.png" id="pwa-favicon" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" id="pwa-apple-touch-icon" />
+    <meta name="theme-color" content="#e4022e" id="pwa-theme-color" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Academia" id="pwa-apple-title" />
   </head>
   <body>
     <div id="root"></div>

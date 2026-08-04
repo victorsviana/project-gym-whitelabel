@@ -1,5 +1,6 @@
 import type { Gym, User } from '@gym/core';
 import { useEffect, useState } from 'react';
+import { applyGymManifest } from '../../pwa/apply-pwa-manifest';
 import { gymRepository, studentRepository, userRepository } from '../../storage';
 import { applyThemeVars } from './apply-gym-theme';
 import { useSessionStore } from './use-session';
@@ -40,6 +41,9 @@ export function useSessionAccount(): SessionAccount {
           : null;
       if (cancelled) return;
       applyThemeVars(themeOverride ? { ...gym.theme, mode: themeOverride } : gym.theme);
+      // PWA: manifest/ícones/theme-color da academia ativa (WHITELABEL.md#pwa-por-academia) — depois do
+      // tema, porque lê `--bg` computado em vez de duplicar os hex de tokens.css.
+      void applyGymManifest(gym);
 
       setAccount({ userId: activeSession.userId, user, gym });
     }
